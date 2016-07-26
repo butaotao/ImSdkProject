@@ -72,6 +72,7 @@ public class ImSdk {
         this.accessToken=null;
 //        mQavsdkControl.stopContext();
     }
+
     public void setImSdkListener(OnImSdkListener l){
         ImObserverManager.setImSdkListener(l);
     }
