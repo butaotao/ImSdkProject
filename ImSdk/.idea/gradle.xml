@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="GradleSettings">
+    <option name="linkedExternalProjectsSettings">
+      <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/.." />
+            <option value="$PROJECT_DIR$/../CommonLibraryProject/actionSheetLibrary" />
+            <option value="$PROJECT_DIR$/../CommonLibraryProject/barcodeScannerCore" />
+            <option value="$PROJECT_DIR$/../CommonLibraryProject/cmsLiveLibrary" />
+            <option value="$PROJECT_DIR$/../CommonLibraryProject/dCommonLibrary" />
+            <option value="$PROJECT_DIR$/../CommonLibraryProject/greendaogenerator" />
+            <option value="$PROJECT_DIR$/../CommonLibraryProject/incomeLibrary" />
+            <option value="$PROJECT_DIR$/../CommonLibraryProject/numberPickerLibrary" />
+            <option value="$PROJECT_DIR$/../CommonLibraryProject/pickerView_Library" />
+            <option value="$PROJECT_DIR$/../CommonLibraryProject/pullToRefreshViewsLibrary" />
+            <option value="$PROJECT_DIR$/../CommonLibraryProject/rTRoutineLib" />
+            <option value="$PROJECT_DIR$/../CommonLibraryProject/rtmpResourceLib" />
+            <option value="$PROJECT_DIR$/../CommonLibraryProject/vitamioLibrary" />
+            <option value="$PROJECT_DIR$/../DGroupDoctorAssistant" />
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/../ImVideo" />
+            <option value="$PROJECT_DIR$/../MedicineProject/meidecineLibrary" />
+            <option value="$PROJECT_DIR$/../dGroupDoctor" />
+            <option value="$PROJECT_DIR$/../dGroupPatient" />
+            <option value="$PROJECT_DIR$/../dgroupDoctorCompany" />
+            <option value="$PROJECT_DIR$/../medicineDaChen" />
+            <option value="$PROJECT_DIR$/../mediecineLibraryRealize" />
+            <option value="$PROJECT_DIR$/../mediecineLibraryRealizeDoctor" />
+            <option value="$PROJECT_DIR$/../myapplication" />
+            <option value="$PROJECT_DIR$/../videoConferencingLibrary" />
+          </set>
+        </option>
+        <option name="myModules">
+          <set>
+            <option value="$PROJECT_DIR$/.." />
+            <option value="$PROJECT_DIR$/../CommonLibraryProject/actionSheetLibrary" />
+            <option value="$PROJECT_DIR$/../CommonLibraryProject/barcodeScannerCore" />
+            <option value="$PROJECT_DIR$/../CommonLibraryProject/cmsLiveLibrary" />
+            <option value="$PROJECT_DIR$/../CommonLibraryProject/dCommonLibrary" />
+            <option value="$PROJECT_DIR$/../CommonLibraryProject/greendaogenerator" />
+            <option value="$PROJECT_DIR$/../CommonLibraryProject/incomeLibrary" />
+            <option value="$PROJECT_DIR$/../CommonLibraryProject/numberPickerLibrary" />
+            <option value="$PROJECT_DIR$/../CommonLibraryProject/pickerView_Library" />
+            <option value="$PROJECT_DIR$/../CommonLibraryProject/pullToRefreshViewsLibrary" />
+            <option value="$PROJECT_DIR$/../CommonLibraryProject/rTRoutineLib" />
+            <option value="$PROJECT_DIR$/../CommonLibraryProject/rtmpResourceLib" />
+            <option value="$PROJECT_DIR$/../CommonLibraryProject/vitamioLibrary" />
+            <option value="$PROJECT_DIR$/../DGroupDoctorAssistant" />
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/../ImVideo" />
+            <option value="$PROJECT_DIR$/../MedicineProject/meidecineLibrary" />
+            <option value="$PROJECT_DIR$/../dGroupDoctor" />
+            <option value="$PROJECT_DIR$/../dGroupPatient" />
+            <option value="$PROJECT_DIR$/../dgroupDoctorCompany" />
+            <option value="$PROJECT_DIR$/../medicineDaChen" />
+            <option value="$PROJECT_DIR$/../mediecineLibraryRealize" />
+            <option value="$PROJECT_DIR$/../mediecineLibraryRealizeDoctor" />
+            <option value="$PROJECT_DIR$/../myapplication" />
+            <option value="$PROJECT_DIR$/../videoConferencingLibrary" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+    </option>
+  </component>
+</project>

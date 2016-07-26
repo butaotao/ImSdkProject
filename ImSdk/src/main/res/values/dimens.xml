@@ -1,0 +1,23 @@
+<resources>
+
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <dimen name="emotion_height">190dp</dimen>
+    <dimen name="padding">8dp</dimen>
+    <dimen name="dp_3">3dp</dimen>
+
+    <dimen name="BigTextSize">17.0dip</dimen>
+    <dimen name="SmallerTextSize">13.0dip</dimen>
+    
+    <dimen name="divider_height">1dp</dimen>
+
+    <dimen name="vchat_invite_member_size">42dp</dimen>
+    <dimen name="vchat_invite_member_margin">3dp</dimen>
+    <dimen name="me_camera_tip_text_size">12sp</dimen>
+
+    <dimen name="gallery_folder_padding">8dp</dimen>
+
+    <dimen name="im_msg_head_content_margin">8dp</dimen>
+</resources>

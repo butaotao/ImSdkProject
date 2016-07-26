@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="#EDEEEE"
+              android:orientation="vertical">
+
+    <RelativeLayout style="@style/ActionBar_Container">
+
+        <Button
+            android:id="@+id/fast_reply_ui_back"
+            style="@style/BackStyle"/>
+
+        <TextView
+            android:id="@+id/fast_reply_ui_title"
+            style="@style/ActionBar_Title"
+            android:text="快捷回复"/>
+
+        <Button
+            android:id="@+id/fast_reply_ui_add"
+            style="@style/ActionBar_RightBtn"
+            android:layout_marginRight="10dp"
+            android:text="新增"
+            android:textSize="18dp"/>
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/fast_reply_ui_listView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+
+</LinearLayout>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#EDEEEE"
+    android:orientation="vertical" >
+
+    <RelativeLayout style="@style/ActionBar_Container" >
+
+        <Button
+            android:id="@+id/fast_reply_add_ui_back"
+            style="@style/BackStyle" />
+
+        <TextView
+            android:id="@+id/fast_reply_add_ui_title"
+            style="@style/ActionBar_Title"
+            android:text="新建快捷回复" />
+
+        <Button
+            android:id="@+id/fast_reply_add_ui_save"
+            style="@style/ActionBar_RightBtn"
+            android:layout_marginRight="10dp"
+            android:text="保存"
+            android:textSize="18dp" />
+    </RelativeLayout>
+
+    <EditText
+        android:id="@+id/fast_reply_add_ui_editText"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:layout_marginTop="15dp"
+        android:background="@color/white"
+        android:ems="10"
+        android:gravity="left|top"
+        android:hint="请您输入文字"
+        android:inputType="textMultiLine"
+        android:padding="5dp"
+        android:src="@drawable/inputbox" >
+
+        <requestFocus />
+    </EditText>
+
+</LinearLayout>

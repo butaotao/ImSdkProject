@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="HwPush_SDK_V2705_no_map">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../dgroupDoctorCompany/libs/HwPush_SDK_V2705_no_map.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

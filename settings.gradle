@@ -1,0 +1,8 @@
+include ':ImSdk'
+include ':dCommonLibrary'
+include ':meidecineLibrary'
+include ':pullToRefreshViewsLibrary'
+
+project(':dCommonLibrary').projectDir = new File(rootDir, "../CommonLibraryProject/dCommonLibrary")
+project(':meidecineLibrary').projectDir = new File(rootDir, "../MedicineProject/meidecineLibrary")
+project(':pullToRefreshViewsLibrary').projectDir = new File(rootDir, "../CommonLibraryProject/pullToRefreshViewsLibrary")

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    android:focusable="true"
+    android:orientation="vertical"
+    android:paddingBottom="10dp"
+    android:paddingLeft="12dp"
+    android:paddingRight="12dp"
+    android:paddingTop="10dp">
+
+    <com.dachen.common.widget.FixedRatioImageView
+        android:id="@+id/pic"
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:layout_alignParentRight="true"
+        android:scaleType="fitXY"
+        tools:src="@drawable/button_green"/>
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/pic"
+        android:background="#80000000"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:paddingBottom="12dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="12dp"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        tools:text="教你如何在30天内改掉一个坏习惯，教你如何在30天内改掉一个坏习惯"/>
+
+</RelativeLayout>

@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="gensee_rtmpplayer">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../CommonLibraryProject/rtmpResourceLib/libs/gensee_rtmpplayer.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

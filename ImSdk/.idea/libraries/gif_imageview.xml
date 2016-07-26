@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="gif_imageview">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../dGroupDoctor/libs/gif_imageview.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

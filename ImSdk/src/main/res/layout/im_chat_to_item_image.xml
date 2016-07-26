@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <include layout="@layout/msg_time" />
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:orientation="horizontal"
+        android:padding="10dip" >
+
+        <ImageView
+            android:id="@+id/chat_head_iv"
+            style="@style/ChatHeadImageSytle"
+            android:layout_alignParentLeft="true"
+            android:contentDescription="@string/app_name" />
+
+        <TextView
+            android:id="@+id/nick_name"
+            style="@style/OtherUserNameStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/im_msg_head_content_margin"
+            android:layout_toRightOf="@+id/chat_head_iv" />
+
+        <FrameLayout
+            android:id="@+id/chat_warp_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/nick_name"
+            android:layout_marginLeft="6dp"
+            android:layout_toRightOf="@+id/chat_head_iv"
+            android:background="@drawable/chat_to_warp_bg"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            android:orientation="vertical" >
+
+            <!-- TODO 设置maxWidth==60dp,原来是210dp -->
+
+            <ImageView
+                android:id="@+id/chat_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:contentDescription="@string/app_name"
+                android:maxWidth="210dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/defaultpic" />
+
+            <ProgressBar
+                android:id="@+id/img_progress"
+                style="@android:style/Widget.ProgressBar.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:visibility="gone" />
+        </FrameLayout>
+    </RelativeLayout>
+
+</LinearLayout>

@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="gensee_hb">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../CommonLibraryProject/cmsLiveLibrary/libs/gensee_hb.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

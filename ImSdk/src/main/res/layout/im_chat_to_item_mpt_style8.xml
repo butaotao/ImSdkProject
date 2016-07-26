@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:orientation="vertical">
+
+    <include layout="@layout/msg_time" />
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:orientation="horizontal"
+        android:padding="10dip" >
+
+        <ImageView
+            android:id="@+id/chat_head_iv"
+            style="@style/ChatHeadImageSytle"
+            android:layout_alignParentLeft="true"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/avatar_normal" />
+
+        <TextView
+            android:id="@+id/nick_name"
+            style="@style/OtherUserNameStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/im_msg_head_content_margin"
+            android:layout_toRightOf="@+id/chat_head_iv" />
+
+        <LinearLayout
+            android:id="@+id/chat_warp_view"
+            android:layout_width="245dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/nick_name"
+            android:layout_marginLeft="6dp"
+            android:layout_toRightOf="@+id/chat_head_iv"
+            android:background="@drawable/chat_to_warp_bg"
+            android:clickable="true"
+            android:focusable="true"
+            android:orientation="vertical"
+            android:paddingBottom="10dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="12dp"
+            android:paddingTop="10dp" >
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:textColor="@color/gray_333333"
+                    android:textSize="16sp"
+                    tools:text="科比"/>
+
+                <!--<ImageView-->
+                    <!--android:id="@+id/sex"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginLeft="10dp"-->
+                    <!--android:contentDescription="@string/content_description"-->
+                    <!--android:scaleType="fitXY"-->
+                    <!--android:src="@drawable/girl"/>-->
+                <TextView
+                    android:id="@+id/sex"
+                    android:layout_width="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="男"
+                    android:textSize="16sp"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:id="@+id/age"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:singleLine="true"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    tools:text="28"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:text="主诉：皮肤外科医生，主要职责是治疗皮肤相关疾病如病原体感染"
+                android:textColor="@color/gray_aaaaaa"
+                android:textSize="14sp"/>
+
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="1px"
+                android:layout_marginLeft="1dp"
+                android:layout_marginRight="1dp"
+                android:layout_marginTop="5dp"
+                android:background="@color/gray_cccccc"/>
+
+            <TextView
+                android:id="@+id/footer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="10dp"
+                android:drawablePadding="5dp"
+                android:drawableRight="@drawable/arrow_right"
+                android:singleLine="true"
+                android:textColor="@color/gray_333333"
+                android:textSize="14sp"
+                tools:text="查看患者病情资料"/>
+
+        </LinearLayout>
+    </RelativeLayout>
+
+</LinearLayout>

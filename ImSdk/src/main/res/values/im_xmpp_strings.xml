@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+
+        <!-- 圈子 -->
+    <string name="group">圈子</string>
+    <string name="group_sort">行业通讯录</string>
+    <string name="introduce">个人介绍</string>
+    <string name="group_block_message">屏蔽消息</string>
+    <string name="select_failed">选取失败</string>
+    <string name="group_sort_refreshed">行业通讯录已更新</string>
+    
+    <!-- 系统相机 -->
+    <string name="c_take_picture">拍照</string>
+    <string name="c_take_picture_failed">拍照失败</string>
+    <string name="c_photo_album">相册</string>
+    <string name="c_photo_album_failed">选择失败</string>
+    <string name="c_crop_failed">裁减失败</string>
+
+</resources>
