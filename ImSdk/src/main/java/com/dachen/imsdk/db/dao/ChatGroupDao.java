@@ -116,11 +116,11 @@ public class ChatGroupDao {
             QueryBuilder<ChatGroupPo, String> b = mDao.queryBuilder();
             Where<ChatGroupPo, String> where = b.where();
             int andNum = 0;
-            if (bizTypes != null && bizTypes.length > 0) {
+            if (bizTypes != null ) {
                 where.in(ChatGroupPo._bizType, bizTypes);
                 ++andNum;
             }
-            if (exceptIds != null && exceptIds.length > 0) {
+            if (exceptIds != null ) {
                 ++andNum;
                 where.notIn(ChatGroupPo._groupId, exceptIds);
             }
@@ -131,7 +131,6 @@ public class ChatGroupDao {
             }
             if (andNum > 0)
                 where.and(andNum);
-//			where.in(ChatGroupPo._bizType, bizTypes).and().notIn(ChatGroupPo._groupId, exceptIds);
             b.orderBy(ChatGroupPo._updateStamp, false);
             return b.query();
         } catch (SQLException e) {
@@ -142,21 +141,44 @@ public class ChatGroupDao {
 
 
     public List<ChatGroupPo> query(String bizType, Object[] orderStatus) {
-        try {
-            QueryBuilder<ChatGroupPo, String> b = mDao.queryBuilder();
-            b.where().eq(ChatGroupPo._bizType, bizType).and().in(ChatGroupPo._bizStatus, orderStatus);
-            b.orderBy(ChatGroupPo._updateStamp, false);
-            return b.query();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return new ArrayList<ChatGroupPo>();
+        return query(bizType, orderStatus,false);
     }
 
     public List<ChatGroupPo> query(String bizType, Object[] orderStatus, boolean ascending) {
+//        try {
+//            QueryBuilder<ChatGroupPo, String> b = mDao.queryBuilder();
+//            b.where().eq(ChatGroupPo._bizType, bizType).and().in(ChatGroupPo._bizStatus, orderStatus);
+//            b.orderBy(ChatGroupPo._updateStamp, ascending);
+//            return b.query();
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//        return new ArrayList<ChatGroupPo>();
+        return query(new String[]{bizType},orderStatus,ascending,null);
+    }
+
+    public List<ChatGroupPo> query(Object[] bizTypes, Object[] orderStatus, boolean ascending, Object[] exceptIds) {
         try {
             QueryBuilder<ChatGroupPo, String> b = mDao.queryBuilder();
-            b.where().eq(ChatGroupPo._bizType, bizType).and().in(ChatGroupPo._bizStatus, orderStatus);
+            Where<ChatGroupPo, String> where = b.where();
+            int andNum = 0;
+            if (bizTypes != null ) {
+                where.in(ChatGroupPo._bizType, bizTypes);
+                ++andNum;
+            }
+            if (orderStatus != null ) {
+                where.in(ChatGroupPo._bizStatus, orderStatus);
+                ++andNum;
+            }
+            if (exceptIds != null ) {
+                ++andNum;
+                where.notIn(ChatGroupPo._groupId, exceptIds);
+            }
+            if (andNum > 0)
+                where.and(andNum);
+            else{
+                b.setWhere(null);
+            }
             b.orderBy(ChatGroupPo._updateStamp, ascending);
             return b.query();
         } catch (SQLException e) {
