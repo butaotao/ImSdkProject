@@ -50,6 +50,8 @@ public class ImSdk {
     public void initUser(String accessToken,String userId,String userName,String userNick,String userAvatar){
         initUser(accessToken, userId, userName, userNick, userAvatar,false);
     }
+
+    @Deprecated
     public void initUser(String accessToken,String userId,String userName,String userNick,String userAvatar,boolean initVideo){
         if(TextUtils.isEmpty(userId))
             return;

@@ -197,8 +197,8 @@ public class GroupPolling {
 			List<ChatGroupPo> groupList =bean.list;
 			ChatGroupDao tDao = new ChatGroupDao(context, userId);
 			for (ChatGroupPo po : groupList) {
-				po.bizStatus=0;
-				po.param=null;
+//				po.bizStatus=0;
+//				po.param=null;
 				tDao.saveGroup(po);
 				if(ChatActivityV2.instance!=null&&po.groupId.equals(ChatActivityV2.instance.getGroupId()) ){
 					ChatActivityV2.instance.pollImmediately();

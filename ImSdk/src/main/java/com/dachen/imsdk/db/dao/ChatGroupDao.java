@@ -116,11 +116,11 @@ public class ChatGroupDao {
             QueryBuilder<ChatGroupPo, String> b = mDao.queryBuilder();
             Where<ChatGroupPo, String> where = b.where();
             int andNum = 0;
-            if (bizTypes != null && bizTypes.length > 0) {
+            if (bizTypes != null ) {
                 where.in(ChatGroupPo._bizType, bizTypes);
                 ++andNum;
             }
-            if (exceptIds != null && exceptIds.length > 0) {
+            if (exceptIds != null ) {
                 ++andNum;
                 where.notIn(ChatGroupPo._groupId, exceptIds);
             }
@@ -131,7 +131,6 @@ public class ChatGroupDao {
             }
             if (andNum > 0)
                 where.and(andNum);
-//			where.in(ChatGroupPo._bizType, bizTypes).and().notIn(ChatGroupPo._groupId, exceptIds);
             b.orderBy(ChatGroupPo._updateStamp, false);
             return b.query();
         } catch (SQLException e) {
@@ -142,21 +141,44 @@ public class ChatGroupDao {
 
 
     public List<ChatGroupPo> query(String bizType, Object[] orderStatus) {
-        try {
-            QueryBuilder<ChatGroupPo, String> b = mDao.queryBuilder();
-            b.where().eq(ChatGroupPo._bizType, bizType).and().in(ChatGroupPo._bizStatus, orderStatus);
-            b.orderBy(ChatGroupPo._updateStamp, false);
-            return b.query();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return new ArrayList<ChatGroupPo>();
+        return query(bizType, orderStatus,false);
     }
 
     public List<ChatGroupPo> query(String bizType, Object[] orderStatus, boolean ascending) {
+//        try {
+//            QueryBuilder<ChatGroupPo, String> b = mDao.queryBuilder();
+//            b.where().eq(ChatGroupPo._bizType, bizType).and().in(ChatGroupPo._bizStatus, orderStatus);
+//            b.orderBy(ChatGroupPo._updateStamp, ascending);
+//            return b.query();
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//        return new ArrayList<ChatGroupPo>();
+        return query(new String[]{bizType},orderStatus,ascending,null);
+    }
+
+    public List<ChatGroupPo> query(Object[] bizTypes, Object[] orderStatus, boolean ascending, Object[] exceptIds) {
         try {
             QueryBuilder<ChatGroupPo, String> b = mDao.queryBuilder();
-            b.where().eq(ChatGroupPo._bizType, bizType).and().in(ChatGroupPo._bizStatus, orderStatus);
+            Where<ChatGroupPo, String> where = b.where();
+            int andNum = 0;
+            if (bizTypes != null ) {
+                where.in(ChatGroupPo._bizType, bizTypes);
+                ++andNum;
+            }
+            if (orderStatus != null ) {
+                where.in(ChatGroupPo._bizStatus, orderStatus);
+                ++andNum;
+            }
+            if (exceptIds != null ) {
+                ++andNum;
+                where.notIn(ChatGroupPo._groupId, exceptIds);
+            }
+            if (andNum > 0)
+                where.and(andNum);
+            else{
+                b.setWhere(null);
+            }
             b.orderBy(ChatGroupPo._updateStamp, ascending);
             return b.query();
         } catch (SQLException e) {
@@ -219,51 +241,53 @@ public class ChatGroupDao {
     }
 
     public int getUnreadCount(Object[] bizTypes) {
-        int sum = 0;
-        try {
-            QueryBuilder<ChatGroupPo, String> b = mDao.queryBuilder();
-            b.selectColumns(ChatGroupPo._unreadCount);
-            b.where().in(ChatGroupPo._bizType, bizTypes).and().gt(ChatGroupPo._unreadCount, 0);
-            List<ChatGroupPo> tList = b.query();
-            for (ChatGroupPo po : tList) {
-                sum += po.unreadCount;
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return sum;
+        return getUnreadCount(bizTypes,null,null);
     }
+
     public int getUnreadCountForId(Object[] ids) {
-        int sum = 0;
-        try {
-            QueryBuilder<ChatGroupPo, String> b = mDao.queryBuilder();
-            b.selectColumns(ChatGroupPo._unreadCount);
-            b.where().in(ChatGroupPo._groupId, ids).and().gt(ChatGroupPo._unreadCount, 0);
-            List<ChatGroupPo> tList = b.query();
-            for (ChatGroupPo po : tList) {
-                sum += po.unreadCount;
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return sum;
+        return getUnreadCount(null,null,ids);
     }
 
     public int getUnreadCount(String bizType, Object[] orderStatus) {
+        return getUnreadCount(new Object[]{bizType},orderStatus,null);
+    }
+
+    public int getUnreadCount( Object[] bizTypes, Object[] orderStatus,Object[] ids) {
         int sum = 0;
         try {
             QueryBuilder<ChatGroupPo, String> b = getDao().queryBuilder();
-            b.selectColumns(ChatGroupPo._unreadCount, ChatGroupPo._param, ChatGroupPo._bizStatus);
-            b.where().eq(ChatGroupPo._bizType, bizType).and().in(ChatGroupPo._bizStatus, orderStatus).and().gt(ChatGroupPo._unreadCount, 0);
-            List<ChatGroupPo> tList = b.query();
-            for (ChatGroupPo po : tList) {
-                ChatGroupPo.ChatGroupParam p = JSON.parseObject(po.param, ChatGroupPo.ChatGroupParam.class);
-                //过滤掉未支付的图文订单
-                if(p != null && p.packType == 2 && po.bizStatus == 2){
-                    continue;
-                }
-                sum += po.unreadCount;
+            b.selectRaw("sum(unreadCount)");
+            Where<ChatGroupPo,String> where=b.where();
+            where.gt(ChatGroupPo._unreadCount, 0);
+            if(bizTypes!=null){
+                where.and().in(ChatGroupPo._bizType, bizTypes);
             }
+            if(orderStatus!=null){
+                where.and().in(ChatGroupPo._bizStatus, orderStatus);
+            }
+            if(ids!=null){
+                where.and().in(ChatGroupPo._groupId, ids);
+            }
+            String[] result= b.queryRawFirst();
+            if(result!=null&&result.length==1){
+                try {
+                    sum=Integer.parseInt(result[0]);
+                } catch (NumberFormatException e) {
+                    e.printStackTrace();
+                }
+            }
+
+//            b.where().in(ChatGroupPo._bizType, bizTypes).and().in(ChatGroupPo._bizStatus, orderStatus).and().gt(ChatGroupPo._unreadCount, 0);
+//            b.selectColumns(ChatGroupPo._unreadCount, ChatGroupPo._param, ChatGroupPo._bizStatus);
+//            List<ChatGroupPo> tList = b.query();
+//            for (ChatGroupPo po : tList) {
+//                ChatGroupPo.ChatGroupParam p = JSON.parseObject(po.param, ChatGroupPo.ChatGroupParam.class);
+//                //过滤掉未支付的图文订单
+//                if(p != null && p.packType == 2 && po.bizStatus == 2){
+//                    continue;
+//                }
+//                sum += po.unreadCount;
+//            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
