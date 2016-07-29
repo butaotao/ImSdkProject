@@ -273,7 +273,7 @@ public class ChatGroupDao {
                 try {
                     sum=Integer.parseInt(result[0]);
                 } catch (NumberFormatException e) {
-                    e.printStackTrace();
+//                    e.printStackTrace();
                 }
             }
 
