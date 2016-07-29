@@ -100,6 +100,7 @@ public class ChatGroupPo implements Serializable {
         public String departments;
         public String groupName;
         public String title;
+        public String cancelReason;
     }
     public static class ChatGroupNotifyParam{
         //@功能
