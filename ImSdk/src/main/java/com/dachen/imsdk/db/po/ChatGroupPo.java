@@ -101,6 +101,7 @@ public class ChatGroupPo implements Serializable {
         public String groupName;
         public String title;
         public String cancelReason;
+        public String expectAppointmentInfo;
     }
     public static class ChatGroupNotifyParam{
         //@功能
