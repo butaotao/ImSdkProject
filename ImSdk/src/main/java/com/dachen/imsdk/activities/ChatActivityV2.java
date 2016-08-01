@@ -233,6 +233,7 @@ public abstract class ChatActivityV2 extends ImBaseActivity implements MessageRe
             mTitle = (TextView) header.findViewById(R.id.title);
             mRightMenu = (ImageButton) header.findViewById(R.id.right_menu);
             mRightMenu.setOnClickListener(this);
+            setTitle(getIntent().getStringExtra(INTENT_EXTRA_GROUP_NAME));
         }
 
         onHeaderLayoutLoaded(header);
@@ -406,7 +407,6 @@ public abstract class ChatActivityV2 extends ImBaseActivity implements MessageRe
 
     private void init() {
         mGroupId = getIntent().getStringExtra(INTENT_EXTRA_GROUP_ID);
-        setTitle(getIntent().getStringExtra(INTENT_EXTRA_GROUP_NAME));
         if (mGroupId != null) {
             groupPo = groupDao.queryForId(mGroupId);
             if (groupPo != null) {
