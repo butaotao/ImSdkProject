@@ -293,4 +293,8 @@ public class ImMsgHandler {
     public boolean menuHasRetract(){
         return false;
     }
+
+    public boolean onForwardMessage(String msgId){
+        return false;
+    }
 }

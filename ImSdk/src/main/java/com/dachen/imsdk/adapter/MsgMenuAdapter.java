@@ -21,6 +21,7 @@ import com.dachen.imsdk.archive.download.ArchiveLoader;
 import com.dachen.imsdk.archive.entity.ArchiveItem;
 import com.dachen.imsdk.db.po.ChatMessagePo;
 import com.dachen.imsdk.entity.ChatMessageV2;
+import com.dachen.imsdk.out.ImMsgHandler;
 
 import java.util.List;
 
@@ -81,7 +82,10 @@ public class MsgMenuAdapter extends BaseAdapter {
                 if(action.equals(ITEM_RETRACT)){
                     mContext.retractMsg(mMsg);
                 }else if(action.equals(ITEM_FORWARD)){
-                    mContext.startActivity(new Intent(mContext,ChatGroupActivity.class).putExtra(INTENT_EXTRA_MSG_ID,mMsg.msgId));
+                    ImMsgHandler msgHandler=mChatAdapter.msgHandler;
+                    if(!msgHandler.onForwardMessage(mMsg.msgId)){
+                        mContext.startActivity(new Intent(mContext,ChatGroupActivity.class).putExtra(INTENT_EXTRA_MSG_ID,mMsg.msgId));
+                    }
                 }else if(action.equals(ITEM_COPY)){
                     mClipboardManager.setPrimaryClip(ClipData.newPlainText("text",mMsg.content));
                     ToastUtil.showToast(mContext,"文字已复制");

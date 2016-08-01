@@ -131,7 +131,7 @@ public class ChatAdapterV2 extends MultiItemCommonAdapter<ChatMessagePo> impleme
     //当前要处理的文件消息
 //    private ArchiveItem mArchiveItem;
     private ChatMessagePo mArchiveMsg;
-    private ImMsgHandler msgHandler;
+    public ImMsgHandler msgHandler;
     private ClipboardManager mClipboardManager;
 
     public ChatAdapterV2(ChatActivityV2 context, List<ChatMessagePo> data) {
