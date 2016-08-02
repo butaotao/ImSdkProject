@@ -97,5 +97,6 @@
     <color name="blue_3cbaff">#3cbaff</color>
     <color name="red_fc7d30">#FC7D30</color>
     <color name="blue_36a7e5">#36a7e5</color>
+    <color name="head_bg_color">#30b2cc</color>
 
 </resources>

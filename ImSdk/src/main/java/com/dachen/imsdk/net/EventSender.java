@@ -8,9 +8,8 @@ import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.dachen.common.json.ResultTemplate;
 import com.dachen.common.utils.VolleyUtil;
-import com.dachen.medicine.entity.Result;
-import com.dachen.medicine.volley.custom.ObjectResult;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -67,10 +66,10 @@ public class EventSender {
         SendEventRequest request = new SendEventRequest(eventType, toUserId, param, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                ObjectResult<Void> result = JSON.parseObject(response, new TypeReference<ObjectResult<Void>>() {
+                ResultTemplate<Void> result = JSON.parseObject(response, new TypeReference<ResultTemplate<Void>>() {
                 });
 
-                if (result == null || result.getResultCode() != Result.CODE_SUCCESS) {
+                if (result == null || result.resultCode != 1) {
                     if (listener != null) {
                         listener.onResult(false);
                     }
