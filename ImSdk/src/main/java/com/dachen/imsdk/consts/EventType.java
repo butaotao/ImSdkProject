@@ -60,5 +60,6 @@ public class EventType {
 	public static final int VISIT_CONFIRM = 39;//协同拜访确认
 	public static final int VISIT_DELETE = 40;//协同拜访取消(创建者)
 	public static final int VISIT_CANCEL = 41;//协同拜访取消(参与者)
+	public static final int NEW_DONG_TAI = 42;//新动态
 
 }
