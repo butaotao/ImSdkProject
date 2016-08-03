@@ -103,6 +103,7 @@ public class ChatMessageDao {
 			builder.orderBy(ChatMessagePo._sendTime, false);
 			Where<ChatMessagePo, Integer> where = builder.where();
 			where.eq(ChatMessagePo._groupId, groupId).and().eq(ChatMessagePo._requestState, ChatMessagePo.REQ_STATES_SEND_OK);
+			where.and().isNotNull(ChatMessagePo._msgId);
 			ChatMessagePo msg = builder.queryForFirst();
 			if (msg != null) {
 				msgId = msg.msgId;

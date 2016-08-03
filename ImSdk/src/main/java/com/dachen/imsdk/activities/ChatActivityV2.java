@@ -1155,7 +1155,7 @@ public abstract class ChatActivityV2 extends ImBaseActivity implements MessageRe
         Logger.d(TAG, "----------->发送成功");
 
         msg.requestState = ChatMessagePo.REQ_STATES_SEND_OK;
-        msg.msgId = msgId;
+//        msg.msgId = msgId;
         msg.sendTime = time;
         mChatContentView.notifyDataSetChanged(true);
         dao.saveClientMessage(msg,true);
