@@ -4,7 +4,7 @@ package com.dachen.imsdk.entity;
  * 用于im底部加号数据结构
  * 
  * @author gaozhuo
- * @date 2015年10月24日
+ * @since 2015年10月24日
  *
  */
 public class MoreItem {

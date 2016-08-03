@@ -2,15 +2,12 @@ package com.dachen.imsdk.utils;
 
 import com.dachen.imsdk.ImSdk;
 
-/**
- * 获取<a>标签 Pattern.compile("(<a[^<>]*>[^<>]*</a>)")
- * 
- * 
- */
+
+//获取<a>标签 Pattern.compile ("(<a[^<>]*>[^<>]*</a>)")
 public class HtmlUtils {
 
 	/**
-	 * @canClick 是不是可以点击 如:在列表展示的时候可以不用点击
+	 * @param  canClick 是不是可以点击 如:在列表展示的时候可以不用点击
 	 */
 	public static CharSequence transformSpanString(String msg, boolean canClick) {
 		return addSmileysToMessage(deleteHtml(msg), canClick);

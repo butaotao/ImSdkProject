@@ -102,10 +102,8 @@ import java.util.UUID;
 import de.greenrobot1.event.EventBus;
 
 /**
- * IM基础类，需要IM功能可继承该类，gid或userId至少要传入一个，群聊可以传入List<UserList>
- *
  * @author gaozhuo
- * @date 2015年10月09日
+ * @since 2015年10月09日
  */
 public abstract class ChatActivityV2 extends ImBaseActivity implements MessageReceivableV2, MessageSendCallbackV2,
         ChatBottomView2.ChatBottomListener, IMsgEventListenerV2, UploadEngine7Niu.FileUploadObserver7Niu, SessionGroupCallback, OnClickListener {
@@ -1298,7 +1296,6 @@ public abstract class ChatActivityV2 extends ImBaseActivity implements MessageRe
     /**
      * 设置header view 右侧菜单的图片资源id，由子类调用
      *
-     * @return
      */
     protected void setRightMenuImageResource(int resId) {
         if (mRightMenu != null) {
@@ -1309,7 +1306,6 @@ public abstract class ChatActivityV2 extends ImBaseActivity implements MessageRe
     /**
      * 设置右侧菜单的可见性
      *
-     * @return
      */
     protected void setRightMenuVisibility(int visibility) {
         if (mRightMenu != null) {

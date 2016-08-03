@@ -27,7 +27,7 @@ import java.util.Map;
  * 用于创建group和获取group信息
  *
  * @author gaozhuo
- * @date 2015年9月8日
+ * @since 2015年9月8日
  *
  */
 public class SessionGroup {
@@ -65,7 +65,6 @@ public class SessionGroup {
 	/**
 	 * 得到实例
 	 *
-	 * @return
 	 */
 //	public static SessionGroup getInstance(Context context) {
 //		if (mInstance == null) {

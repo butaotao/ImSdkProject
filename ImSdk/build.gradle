@@ -23,6 +23,92 @@ dependencies {
     //    testCompile 'junit:junit:4.12'
     //    compile 'com.android.support:appcompat-v7:23.1.1'
     compile project(':dCommonLibrary')
+//    compile 'com.dachen.library:dCommonLibrary:1.0.1'
     compile 'com.neovisionaries:nv-websocket-client:1.25'
     compile 'com.squareup.picasso:picasso:2.5.2'
 }
+
+
+//maven
+//apply plugin: 'com.github.dcendents.android-maven'
+//apply plugin: 'com.jfrog.bintray'
+//// This is the library version used when deploying the artifact
+//version = "1.0.0"
+//
+////def siteUrl = 'https://git.oschina.net/crazycodeboy/ScanProj'      // 项目的主页
+////def gitUrl = 'https://git.oschina.net/crazycodeboy/ScanProj.git'   // Git仓库的url
+//def siteUrl = 'test'      // 项目的主页
+//def gitUrl = 'test'   // Git仓库的url
+//group = "com.dachen.library"                                        // Maven Group ID for the artifact，一般填你唯一的包名
+//install {
+//    repositories.mavenInstaller {
+//        // This generates POM.xml with proper parameters
+//        pom {
+//            project {
+//                packaging 'aar'
+//                // Add your description here
+//                name 'imsdk lib.'
+//                url siteUrl
+//                // Set your license
+//                licenses {
+//                    license {
+//                        name 'The Apache Software License, Version 2.0'
+//                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+//                    }
+//                }
+//                developers {
+//                    developer {
+//                        id 'mcp'        //填写的一些基本信息
+//                        name 'mcp'
+//                        email 'mcp98252302@gmail.com'
+//                    }
+//                }
+//                scm {
+//                    connection gitUrl
+//                    developerConnection gitUrl
+//                    url siteUrl
+//                }
+//            }
+//        }
+//    }
+//}
+//task sourcesJar(type: Jar) {
+//    from android.sourceSets.main.java.srcDirs
+//    classifier = 'sources'
+//}
+//task javadoc(type: Javadoc) {
+//    source = android.sourceSets.main.java.srcDirs
+//    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+//}
+//task javadocJar(type: Jar, dependsOn: javadoc) {
+//    classifier = 'javadoc'
+//    from javadoc.destinationDir
+//}
+//artifacts {
+//    archives javadocJar
+//    archives sourcesJar
+//}
+////Properties properties = new Properties()
+////properties.load(project.rootProject.file('local.properties').newDataInputStream())
+//bintray {
+////    user = properties.getProperty("bintray.user")
+////    key = properties.getProperty("bintray.apikey")
+////    user = "mcp98252302@gmail.com"
+//    user = "mcp98252302"
+//    key = "72815af40bfabf0ff51a036681bb5ad4c5fd7eb7"
+//    configurations = ['archives']
+//    pkg {
+//        repo = "maven"
+//        name = "imSdk"    //发布到JCenter上的项目名字
+//        websiteUrl = siteUrl
+//        vcsUrl = gitUrl
+//        licenses = ["Apache-2.0"]
+//        publish = true
+//    }
+//}
+//javadoc { //jav doc采用utf-8编码否则会报“GBK的不可映射字符”错误
+//    options{
+//        encoding "UTF-8"
+//        charSet 'UTF-8'
+//    }
+//}

@@ -24,7 +24,7 @@ import java.util.List;
  * IM工具类
  *
  * @author mcp
- * @date 2015年12月14日
+ * @since 2015年12月14日
  */
 public class ImUtils {
 

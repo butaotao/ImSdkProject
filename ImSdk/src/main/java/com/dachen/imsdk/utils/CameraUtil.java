@@ -90,7 +90,6 @@ public final class CameraUtil {
 	 *            原始图片位置
 	 * @param outputFileUri
 	 *            裁减后图片的输出位置，两个地址最好不一样。如果一样的话，有的手机上面无法保存裁减的结果
-	 * @return
 	 */
 	public static void cropImage(Activity activity, Uri originalFileUri, Uri outputFileUri, int requestCode,
 			int aspectX, int aspectY, int outputX, int outputY) {
@@ -123,7 +122,6 @@ public final class CameraUtil {
 	 *            原始图片位置
 	 * @param outputFileUri
 	 *            裁减后图片的输出位置，两个地址最好不一样。如果一样的话，有的手机上面无法保存裁减的结果
-	 * @return
 	 */
 	public static void cropImageNoOutputXY(Activity activity, Uri originalFileUri, Uri outputFileUri, int requestCode,
 			int aspectX, int aspectY) {
@@ -175,7 +173,6 @@ public final class CameraUtil {
 	 * 
 	 * @param activity
 	 * @param requestCode
-	 * @return
 	 */
 	public static void pickImageSimple(Activity activity, int requestCode) {
 		Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -276,7 +273,6 @@ public final class CameraUtil {
 	 * ,4.4上无法确定用户是否是在图库里选择的照片，所以不使用该方法，使用pickImageSimple，返回后在调用裁减
 	 * 
 	 *            拍照后图片的存储路径
-	 * @return
 	 */
 	// @Deprecated
 	// public static void pickImageCrop(Activity activity, Uri outputUri, int

@@ -30,7 +30,7 @@ import java.util.Map;
  * HTTP消息轮询
  * 
  * @author mcp
- * @date 2015年12月9日
+ * @since 2015年12月9日
  *
  */
 public class MessagePollingV2 {

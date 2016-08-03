@@ -5,7 +5,7 @@ package com.dachen.imsdk.entity;
  * 表示发送消息的返回结果
  * 
  * @author gaozhuo
- * @date 2015年8月20日
+ * @since 2015年8月20日
  *
  */
 public class SendMessageResult {

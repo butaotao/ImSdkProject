@@ -26,7 +26,7 @@ import java.util.Map;
  * 消息发送类
  *
  * @author mcp
- * @date 2015年12月10日
+ * @since 2015年12月10日
  */
 public class MessageSenderV2 {
 

@@ -18,7 +18,7 @@ import java.util.Map;
  * 指令发送类
  *
  * @author gaozhuo
- * @date 2016/1/21
+ * @since 2016/1/21
  */
 public class EventSender {
     private static EventSender mInstance;

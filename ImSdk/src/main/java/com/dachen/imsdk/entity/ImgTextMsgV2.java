@@ -20,7 +20,7 @@ public class ImgTextMsgV2  {
 	 */
 	public int style;
 	/**
-	 * 标题 <18字符*2行
+	 * 标题 小于18字符*2行
 	 */
 	public String title;
 	/**
@@ -34,7 +34,7 @@ public class ImgTextMsgV2  {
 	public String content;
 
 	/**
-	 * 正文副文本(小号字体显示)<20字符*8行(不用)
+	 * 正文副文本(小号字体显示) 20字符*8行(不用)
 	 */
 	public String digest;
 	public String remark;

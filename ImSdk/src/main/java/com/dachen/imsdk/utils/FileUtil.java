@@ -197,7 +197,6 @@ public class FileUtil {
 
 	/**
 	 * 删除文件夹
-	 * @return boolean
 	 */
 	public static void delFolder(String folderPath) {
 		try {
