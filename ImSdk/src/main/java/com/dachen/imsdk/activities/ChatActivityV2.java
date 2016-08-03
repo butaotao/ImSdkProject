@@ -126,6 +126,7 @@ public abstract class ChatActivityV2 extends ImBaseActivity implements MessageRe
 
     public static final String INTENT_EXTRA_GROUP_ID = "intent_extra_group_id";
     public static final String INTENT_EXTRA_GROUP_NAME = "intent_extra_group_name";
+    public static final String INTENT_EXTRA_GROUP_PARAM="intent_extra_group_param";
     // 该参数仅用于群聊
     public static final String INTENT_EXTRA_GROUP_USER_LIST = "intent_extra_group_user_list";
     public static final String INTENT_EXTRA_USER_ID = "intent_extra_user_id";
