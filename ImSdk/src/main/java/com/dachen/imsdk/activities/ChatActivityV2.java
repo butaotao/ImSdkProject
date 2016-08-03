@@ -1096,6 +1096,8 @@ public abstract class ChatActivityV2 extends ImBaseActivity implements MessageRe
                 // 保存消息到数据库
                 msg.requestState = ChatMessagePo.REQ_STATES_SEND_OK;
                 saveMessage(msg);
+
+                receivedMessage(msg);
             }
             mChatContentView.notifyDataSetChanged(true);
 
@@ -1103,6 +1105,15 @@ public abstract class ChatActivityV2 extends ImBaseActivity implements MessageRe
         if (receivedMessage.more) {
             pollImmediately();
         }
+    }
+
+    /**
+     * 收到单条消息时调用，给子类继承
+     *
+     * @param chatMessage
+     */
+    protected void receivedMessage(ChatMessagePo chatMessage) {
+
     }
 
     private void loadMessageFromDB(long time) {
