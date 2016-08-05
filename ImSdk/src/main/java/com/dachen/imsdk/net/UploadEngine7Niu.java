@@ -1,5 +1,7 @@
 package com.dachen.imsdk.net;
 
+import android.support.annotation.NonNull;
+
 import com.alibaba.fastjson.JSON;
 import com.dachen.common.toolbox.QiniuUploadTask;
 import com.dachen.common.utils.QiNiuUtils;
@@ -31,6 +33,11 @@ public class UploadEngine7Niu {
 
     public interface UploadObserver7Niu {
         void onUploadSuccess(String url);
+
+        void onUploadFailure(String msg);
+    }
+    public interface UploadObserver7NiuV2 {
+        void onUploadSuccess(String key,String url);
 
         void onUploadFailure(String msg);
     }
@@ -113,6 +120,31 @@ public class UploadEngine7Niu {
             public void onFileUploadSuccess(String bucket, String key) {
                 String uri = QiNiuUtils.getFileUrl(bucket, key);
                 observer.onUploadSuccess(uri);
+            }
+
+            @Override
+            public void onFileUploadFailure(String msg) {
+                observer.onUploadFailure(msg);
+            }
+
+            @Override
+            public void onFileUploadProgress(double progress) {
+                if (progressCallBack != null) {
+                    progressCallBack.onProgress(progress);
+                }
+            }
+        };
+        QiniuUploadTask task = new QiniuUploadTask(filePath, bucket, tListener, PollingURLs.getUploadToken(), ImSdk.getInstance().accessToken, ImSdk.getInstance().context);
+        task.execute();
+        return task;
+    }
+
+    public static QiniuUploadTask uploadFileCommon(final String filePath, @NonNull final UploadObserver7NiuV2 observer, final String bucket, final UploadProgress7Niu progressCallBack) {
+        QiniuUploadTask.UpListener tListener = new QiniuUploadTask.UpListener() {
+            @Override
+            public void onFileUploadSuccess(String bucket, String key) {
+                String url = QiNiuUtils.getFileUrl(bucket, key);
+                observer.onUploadSuccess(key,url);
             }
 
             @Override
