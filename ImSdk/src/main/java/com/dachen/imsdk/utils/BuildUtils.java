@@ -1,5 +1,6 @@
 package com.dachen.imsdk.utils;
 
+import android.os.Build;
 import android.os.Environment;
 
 import java.io.File;
@@ -52,11 +53,11 @@ public class BuildUtils {
     }
 
     public static boolean isHuaweiSystem(){
-//        if(getEmuiLeval()>0){
-//            return true;
-//        }else if(Build.BRAND!=null&&Build.BRAND.equals("Huawei")){
-//            return true;
-//        }
+        if(getEmuiLeval()>0){
+            return true;
+        }else if(Build.BRAND!=null&&Build.BRAND.equals("Huawei")){
+            return true;
+        }
         return false;
 //        return true;
     }
