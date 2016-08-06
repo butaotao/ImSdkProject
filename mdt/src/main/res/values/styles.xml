@@ -1,0 +1,56 @@
+<resources>
+
+    <style name="AppTheme" parent="android:Theme.Light.NoTitleBar">
+        <item name="android:screenOrientation">portrait</item>
+    </style>
+
+    <style name="IMEditText">
+        <item name="android:textSize">16dp</item>
+        <item name="android:textColorHint">#bbbbbb</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:minHeight">44dp</item>
+        <item name="android:background">@null</item>
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:singleLine">true</item>
+    </style>
+    <style name="IMLineEditText" parent="@style/IMEditText">
+        <item name="android:paddingLeft">12dp</item>
+        <item name="android:paddingRight">12dp</item>
+        <item name="android:layout_width">match_parent</item>
+    </style>
+    <style name="IMHyperText">
+        <item name="android:textSize">16dp</item>
+        <item name="android:textColor">@color/hyper_text</item>
+        <item name="android:background">@null</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="divider_line">
+        <item name="android:background">#aaa</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0.5dp</item>
+    </style>
+    <!--MainActivity-->
+    <style name="main_tab_text">
+        <item name="android:textSize">16dp</item>
+        <item name="android:textColor">@color/tab_textview_color</item>
+        <item name="android:layout_centerInParent">true</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="main_title_bar">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">40dp</item>
+    </style>
+    <style name="main_title_text">
+        <item name="android:textSize">16dp</item>
+        <item name="android:textColor">@color/tab_textview_color</item>
+        <item name="android:layout_centerInParent">true</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+</resources>

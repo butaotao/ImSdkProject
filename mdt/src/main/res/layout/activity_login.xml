@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.dachen.mdt.activity.main.LoginActivity">
+
+    <TextView
+        android:id="@+id/tv_login_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="55dp"
+        android:text="用户登录"
+        android:textColor="#303B3F"
+        android:textSize="32sp"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="20dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <com.dachen.common.widget.ClearEditText
+            android:id="@+id/phone_numer_edit"
+            style="@style/IMLineEditText"
+            android:layout_marginLeft="18dp"
+            android:layout_marginRight="18dp"
+            android:background="@drawable/inputbox"
+            android:hint="@string/please_input_phone_number"
+            android:inputType="phone"/>
+
+        <com.dachen.common.widget.ClearEditText
+            android:id="@+id/password_edit"
+            style="@style/IMLineEditText"
+            android:inputType="textPassword"
+            android:layout_marginLeft="18dp"
+            android:layout_marginRight="18dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/inputbox"
+            android:hint="@string/please_input_password"
+            android:lines="1"
+            android:maxLength="18"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp">
+
+            <Button
+                android:id="@+id/forget_password_btn"
+                style="@style/IMHyperText"
+                android:layout_alignParentRight="true"
+                android:paddingBottom="9dp"
+                android:paddingLeft="9dp"
+                android:paddingRight="18dp"
+                android:text="@string/forget_password"
+                />
+            <!--android:textColor="@color/blue_45b9db"-->
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/login_btn"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_marginLeft="18dp"
+            android:layout_marginRight="18dp"
+            android:layout_marginTop="9dp"
+            android:text="@string/login"/>
+
+    </LinearLayout>
+</LinearLayout>
