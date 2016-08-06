@@ -2,19 +2,20 @@ package com.dachen.imsdk.net;
 
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.text.TextUtils;
 
 import com.alibaba.fastjson.JSON;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
 import com.android.volley.toolbox.StringRequest;
+import com.dachen.common.DCommonSdk;
 import com.dachen.common.json.EmptyResult;
 import com.dachen.common.toolbox.CommonManager;
 import com.dachen.imsdk.ImSdk;
 import com.dachen.imsdk.consts.ImConsts;
 
 import java.io.UnsupportedEncodingException;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -29,15 +30,6 @@ public class ImCommonRequest extends StringRequest {
         super(Method.POST, url, listener, errorListener);
         this.reqMap=map;
     }
-
-   /* @Override
-    public Map<String, String> getHeaders() throws AuthFailureError {
-        Map<String, String> m = new HashMap<String, String>();
-        String token=accessToken==null? ImSdk.getInstance().accessToken:accessToken;
-        m.put("access-token", token);
-        m.put("content-type", "application/json");
-        return m;
-    }*/
 
     @Override
     public byte[] getBody() throws AuthFailureError {
@@ -77,26 +69,13 @@ public class ImCommonRequest extends StringRequest {
 
     @Override
     public Map<String, String> getHeaders() throws AuthFailureError {
-        Map<String, String> headers = super.getHeaders();
-        if (headers == null || headers.equals(Collections.emptyMap())) {
-            headers = new HashMap<String, String>();
-        }
+        Map<String, String> headers =new HashMap<>();
         if (ImSdk.getInstance().context!= null) {
             StringBuilder label = new StringBuilder();
             try {
                 PackageInfo pInfo = ImSdk.getInstance().context.getPackageManager().getPackageInfo(ImSdk.getInstance().context.getPackageName(), 0);
-                if(pInfo.packageName.equals("com.dachen.dgroupdoctor")){
-                    label.append("DGroupDoctor");
-                    label.append("/");
-                }else if(pInfo.packageName.equals("com.dachen.dgrouppatient")){
-                    label.append("DGroupPatient");
-                    label.append("/");
-                }else if(pInfo.packageName.equals("com.bestunimed.dgroupdoctor")){
-                    label.append("DGroupDoctor_BDJL");
-                    label.append("/");
-                }else if(pInfo.packageName.equals("com.bestunimed.dgrouppatient")){
-                    label.append("DGroupPatient_BDJL");
-                    label.append("/");
+                if(!TextUtils.isEmpty(DCommonSdk.reqLabel)){
+                    label.append(DCommonSdk.reqLabel).append("/");
                 }
                 label.append(pInfo.versionName);
             } catch (PackageManager.NameNotFoundException e) {
