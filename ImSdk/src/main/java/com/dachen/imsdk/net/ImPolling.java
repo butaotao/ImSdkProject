@@ -146,7 +146,11 @@ public class ImPolling {
 	/**
 	 * 执行任务
 	 */
-	public void executeTask() {
+	public void executeTask(){
+		executeTask(false);
+	}
+
+	public void executeTask(final boolean onlyOnce) {
 		String userId =ImSdk.getInstance().userId;
 		String token=ImSdk.getInstance().accessToken;
 		if(TextUtils.isEmpty(userId)|| TextUtils.isEmpty(token) ||mSocket!=null){
@@ -190,7 +194,8 @@ public class ImPolling {
 				}
 
 				IN_WORK = false;
-				prepareNextPolling(getPollingTime());
+				if(!onlyOnce)
+					prepareNextPolling(getPollingTime());
 			}
 		};
 
@@ -198,9 +203,9 @@ public class ImPolling {
 			@Override
 			public void onErrorResponse(VolleyError error) {
 				Logger.w(TAG, "onErrorResponse()" + error.getMessage());
-				// ToastUtil.showToast(mContext, "failed");
 				IN_WORK = false;
-				prepareNextPolling(getPollingTime());
+				if(!onlyOnce)
+					prepareNextPolling(getPollingTime());
 			}
 		});
 		request.setRetryPolicy(new DefaultRetryPolicy(timeOut, 0, 0));
@@ -355,7 +360,7 @@ public class ImPolling {
         public void postConnected(WebSocket websocket, Map<String, List<String>> headers) {
 //            Toast.makeText(context,"连接成功",Toast.LENGTH_SHORT).show();
             wsRecTimes=0;
-            executeTask();
+            executeTask(true);
             mSocket=websocket;
         }
 
@@ -363,6 +368,8 @@ public class ImPolling {
         public void onConnectError(WebSocket websocket, WebSocketException cause) throws Exception {
             super.onConnectError(websocket, cause);
             sendRecWebSocket();
+			if(!uiPaused)
+				prepareNextPolling(getPollingTime());
         }
 
         @Override
