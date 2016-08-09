@@ -14,23 +14,20 @@ import com.dachen.mdt.activity.order.EditOrderCaseActivity;
 import com.dachen.mdt.view.ImOrderListView;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 import de.greenrobot1.event.EventBus;
 
 /**
  * Created by Mcp on 2016/8/6.
  */
 public class OrderFragment extends BaseFragment {
-    private Unbinder mUnBinder;
+
     @BindView(R.id.list_view)
     public ImOrderListView mListView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v=inflater.inflate(R.layout.fragment_order,container,false);
-        mUnBinder = ButterKnife.bind(this,v);
+        View v=super.onCreateView(inflater, container, savedInstanceState);
         EventBus.getDefault().register(this);
         return v;
     }
@@ -38,7 +35,6 @@ public class OrderFragment extends BaseFragment {
     @Override
     public void onDestroyView() {
         EventBus.getDefault().unregister(this);
-        mUnBinder.unbind();
         super.onDestroyView();
     }
 
@@ -46,6 +42,11 @@ public class OrderFragment extends BaseFragment {
     public void onResume() {
         super.onResume();
         mListView.updateView();
+    }
+
+    @Override
+    protected int getLayoutResource() {
+        return R.layout.fragment_order;
     }
 
     @OnClick(R.id.create_order)

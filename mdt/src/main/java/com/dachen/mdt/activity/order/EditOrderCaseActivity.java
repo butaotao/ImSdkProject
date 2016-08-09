@@ -140,6 +140,7 @@ public class EditOrderCaseActivity extends BaseActivity {
 
     @OnClick(R.id.ll_mdt_group)
     protected void chooseMdtGroup(View v) {
+        TextView tv = commonClickItem(v);
         Intent i = new Intent(mThis, ChooseMdtActivity.class).putExtra(AppConstants.INTENT_MDT_GROUP_ID, mdtGroupId);
         startActivityForResult(i, REQ_CODE_MDT_GROUP);
     }
@@ -150,6 +151,7 @@ public class EditOrderCaseActivity extends BaseActivity {
             holder.tvMdtGroup.setError(Html.fromHtml("<font color='red'>请先选择MDT小组!</font>"));
             return;
         }
+        TextView tv = commonClickItem(v);
         Intent i = new Intent(mThis, ChooseMdtPatientTypeActivity.class).putExtra(AppConstants.INTENT_MDT_GROUP_ID, mdtGroupId)
                 .putExtra(ChooseMdtPatientTypeActivity.KEY_TYPE_ID,mPatientTypeId);
         startActivityForResult(i, REQ_CODE_PATIENT_TYPE);
@@ -163,7 +165,7 @@ public class EditOrderCaseActivity extends BaseActivity {
             holder.tvMdtGroup.setError(Html.fromHtml("<font color='red'>请先选择MDT小组!</font>"));
             return;
         }
-        TextView tv = (TextView) ((ViewGroup) v).getChildAt(1);
+        TextView tv = commonClickItem(v);
         String type = getTypeMap().get(v.getId());
         if (type == null) return;
         Intent i = new Intent(mThis, ChooseMdtInfoActivity.class).putExtra(AppConstants.INTENT_MDT_GROUP_ID, mdtGroupId)
@@ -176,7 +178,7 @@ public class EditOrderCaseActivity extends BaseActivity {
     @OnClick({R.id.ll_chief_complaint, R.id.ll_present_history, R.id.ll_previous_history, R.id.ll_family_history, R.id.ll_personal_history
     ,R.id.ll_treat_process,R.id.ll_examine_result,R.id.ll_body_sign})
     protected void goInput(View v) {
-        TextView tv = (TextView) ((ViewGroup) v).getChildAt(1);
+        TextView tv = commonClickItem(v);
         Intent i = new Intent(mThis, CommonInputActivity.class)
                 .putExtra(CommonInputActivity.KEY_TEXT, tv.getText().toString())
                 .putExtra(AppConstants.INTENT_VIEW_ID, tv.getId());
@@ -196,7 +198,8 @@ public class EditOrderCaseActivity extends BaseActivity {
     }
 
     @OnClick({R.id.ll_end_time})
-    protected void showTimeDialog(){
+    protected void showTimeDialog(View v){
+        TextView tv = commonClickItem(v);
         final View dialogView = View.inflate(mThis, R.layout.date_time_picker, null);
         final Dialog dialog=new Dialog(mThis);
 //        final AlertDialog alertDialog = new AlertDialog.Builder(activity).create();
@@ -222,6 +225,12 @@ public class EditOrderCaseActivity extends BaseActivity {
 //        dialog.setView(dialogView);
         dialog.setContentView(dialogView);
         dialog.show();
+    }
+    private TextView commonClickItem(View v){
+        TextView tv = (TextView) ((ViewGroup) v).getChildAt(1);
+        tv.clearFocus();
+        tv.setError(null);
+        return tv;
     }
 
     @Override
