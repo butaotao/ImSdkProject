@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+
+              android:paddingLeft="10dp"
+              android:paddingRight="10dp"
+              android:paddingTop="5dp"
+              android:paddingBottom="5dp"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:padding="10dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/iv_pic"
+            android:layout_width="55dp"
+            android:src="@drawable/avatar_normal"
+            android:layout_height="55dp"/>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_marginLeft="10dp"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/tv_name"
+                    android:layout_width="wrap_content"
+                    android:lines="1"
+                    android:ellipsize="end"
+                    android:maxEms="8"
+                    android:textSize="18sp"
+                    android:textColor="#333"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:id="@+id/tv_name_info"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="10dp"
+                    android:text="女 28岁"
+                    android:textSize="12sp"
+                    android:textColor="#aaa"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:id="@+id/tv_state"
+                    android:layout_width="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="咨询中"
+                    android:textSize="15sp"
+                    android:textColor="@color/green"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_marginTop="6dp"
+                android:layout_width="wrap_content"
+                android:text="初步诊断:1"
+                android:ellipsize="end"
+                android:lines="2"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <ImageView
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        style="@style/divider_line"/>
+
+    <RelativeLayout
+        android:background="@color/white"
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/text_view_1"
+            android:text="主管医生:"
+            android:layout_marginRight="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/tv_doc_manager"
+            android:layout_toRightOf="@id/text_view_1"
+            android:text="主管医生"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/text_view_2"
+            android:layout_marginTop="4dp"
+            android:text="结束时间:"
+            android:layout_below="@+id/text_view_1"
+            android:layout_marginRight="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/tv_end_time"
+            android:layout_toRightOf="@id/text_view_2"
+            android:layout_alignTop="@+id/text_view_2"
+            android:text="10:10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/tv_from"
+            android:layout_alignBottom="@id/text_view_2"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:text="我发起的"
+            android:layout_height="wrap_content"/>
+
+    </RelativeLayout>
+
+    <ImageView
+        style="@style/divider_line"/>
+
+    <RelativeLayout
+        android:background="#FCFCFD"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!--<TextView-->
+            <!--android:id="@+id/tv_msg_name"-->
+            <!--android:text="陈医生"-->
+            <!--android:layout_margin="10dp"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"/>-->
+
+
+        <TextView
+            android:id="@+id/tv_msg_content"
+            android:text="消息内容"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/tv_unread"
+            android:layout_alignRight="@id/tv_msg_content"
+            android:layout_alignTop="@id/tv_msg_content"
+            android:layout_width="wrap_content"
+            android:layout_marginTop="-6dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/tab_unread_bg"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            android:textSize="10.0dip"
+            android:visibility="visible" />
+
+    </RelativeLayout>
+</LinearLayout>

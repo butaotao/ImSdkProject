@@ -1,71 +1,152 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     android:id="@+id/v_container"
-    android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:paddingBottom="10dp"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:background="@color/white"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/iv_pic"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:layout_margin="15dp"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/avatar_normal"/>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical"
+            android:layout_marginBottom="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_toRightOf="@+id/iv_pic"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/ll_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:layout_marginRight="5dp"
+                    android:text="患者"
+                    android:textColor="#303b3f"
+                    android:textSize="16sp"/>
+
+                <TextView
+                    android:id="@+id/tv_name_info"
+                    android:text="医师"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#aaa"
+                    android:textSize="12sp"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_state"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/red"
+                    android:text="未确认"
+                    android:textSize="12sp"/>
+
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/tv_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@id/ll_name"
+                android:layout_marginTop="10dp"
+                android:layout_centerVertical="true"
+                android:text="患者XXX 22岁 广东省 深圳市"
+                android:textColor="#aaa"
+                android:textSize="14sp"
+                />
+
+
+        </RelativeLayout>
+    </RelativeLayout>
 
     <LinearLayout
+        android:background="@color/white"
         android:layout_width="match_parent"
-        android:orientation="horizontal"
-        android:layout_height="wrap_content">
-        <TextView
-            android:layout_width="wrap_content"
-            android:text="主管医生："
-            android:layout_height="wrap_content"/>
-        <TextView
-            android:id="@+id/tv_doc_manager"
-            android:layout_width="wrap_content"
-            android:text="123"
-            android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:orientation="horizontal"
-        android:layout_height="wrap_content">
-        <TextView
-            android:layout_width="wrap_content"
-            android:text="患者："
-            android:layout_height="wrap_content"/>
-        <TextView
-            android:id="@+id/tv_patient"
-            android:layout_width="wrap_content"
-            android:text="123"
-            android:layout_height="wrap_content"/>
 
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:orientation="horizontal"
-        android:layout_height="wrap_content">
-        <TextView
-            android:layout_width="wrap_content"
-            android:text="会诊结束时间："
-            android:layout_height="wrap_content"/>
-        <TextView
-            android:id="@+id/tv_end_time"
-            android:layout_width="wrap_content"
-            android:text="123"
-            android:layout_height="wrap_content"/>
+        <ImageView
+            style="@style/divider_line"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"/>
 
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:orientation="horizontal"
-        android:layout_height="wrap_content">
-        <TextView
-            android:layout_width="wrap_content"
-            android:text="倒计时："
-            android:layout_height="wrap_content"/>
-        <TextView
-            android:id="@+id/tv_count_down"
-            android:layout_width="wrap_content"
-            android:textColor="@color/red"
-            android:text="123"
-            android:layout_height="wrap_content"/>
+        <LinearLayout
+            style="@style/order_confirm_line">
 
+            <TextView
+                style="@style/order_confirm_line_title"
+                android:text="患者信息："/>
+
+            <TextView
+                android:id="@+id/tv_patient"
+                style="@style/order_confirm_line_content"
+                android:text="123"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/order_confirm_line">
+
+            <TextView
+                style="@style/order_confirm_line_title"
+                android:text="结束时间："/>
+
+            <TextView
+                android:id="@+id/tv_end_time"
+                style="@style/order_confirm_line_content"
+                android:text="123"/>
+        </LinearLayout>
     </LinearLayout>
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:orientation="horizontal"-->
+    <!--android:visibility="gone">-->
+
+    <!--<TextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="倒计时："/>-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/tv_count_down"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="123"-->
+    <!--android:textColor="@color/red"/>-->
+
+    <!--</LinearLayout>-->
 
 </LinearLayout>

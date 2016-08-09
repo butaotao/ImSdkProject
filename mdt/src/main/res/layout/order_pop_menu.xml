@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="2dip"
+        android:background="@drawable/box_add_img"
+        android:orientation="vertical"
+        android:paddingLeft="10dip"
+        >
+
+        <LinearLayout
+            android:id="@+id/ll_order_case"
+            style="@style/PopWindowItemStyle"
+            android:visibility="visible"
+            >
+
+            <TextView
+                style="@style/PopWindowItemTextStyle"
+                android:drawableLeft="@drawable/arrow_right"
+                android:text="会诊病例"
+                android:gravity="center_vertical"
+                />
+        </LinearLayout>
+        <ImageView
+            android:background="@color/white"
+            style="@style/divider_line"/>
+        <LinearLayout
+            android:id="@+id/ll_expert"
+            style="@style/PopWindowItemStyle"
+            android:visibility="visible"
+            >
+
+            <TextView
+                style="@style/PopWindowItemTextStyle"
+                android:drawableLeft="@drawable/arrow_right"
+                android:text="会诊专家"
+                android:gravity="center_vertical"
+                />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -11,10 +11,23 @@ import com.dachen.mdt.activity.BaseActivity;
 public class BaseFragment extends Fragment {
 
     protected BaseActivity mParent;
+    protected boolean isActive;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mParent= (BaseActivity) getActivity();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        isActive=false;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        isActive=true;
     }
 }

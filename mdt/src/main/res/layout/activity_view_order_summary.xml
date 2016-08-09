@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@color/background"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.order.ViewOrderSummaryActivity">
+
+    <RelativeLayout style="@style/Common_Title_style">
+
+        <Button
+            android:id="@+id/back_btn"
+            style="@style/ActionBar_BackBtn"/>
+
+        <TextView
+            android:id="@+id/title"
+            style="@style/ActionBar_Title"
+            android:text="查看会诊专家意见"/>
+
+        <ImageView
+            style="@style/title_divider_line"
+            />
+
+        <TextView
+            android:id="@+id/right_btn"
+            style="@style/ActionBar_RightText"
+            android:text="填写小结"
+            />
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/list_view"
+        android:divider="@null"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+</LinearLayout>

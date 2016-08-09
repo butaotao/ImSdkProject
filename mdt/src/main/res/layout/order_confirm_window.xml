@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/white"
+              android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:id="@+id/ll_patient_info"
+        style="@style/order_confirm_line">
+
+        <TextView
+            style="@style/order_confirm_line_title"
+            android:text="患者信息"
+            />
+
+        <TextView
+            android:id="@+id/tv_patient_info"
+            style="@style/order_confirm_line_content"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_patient_num"
+        style="@style/order_confirm_line">
+
+        <TextView
+            style="@style/order_confirm_line_title"
+            android:text="医院ID"
+            />
+
+        <TextView
+            android:id="@+id/tv_patient_num"
+            style="@style/order_confirm_line_content"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_mdt_num"
+        style="@style/order_confirm_line">
+
+        <TextView
+            style="@style/order_confirm_line_title"
+            android:text="eMDT号"
+            />
+
+        <TextView
+            android:id="@+id/tv_mdt_num"
+            style="@style/order_confirm_line_content"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_purpose"
+        style="@style/order_confirm_line">
+
+        <TextView
+            style="@style/order_confirm_line_title"
+            android:text="会诊目的"
+            />
+
+        <TextView
+            android:id="@+id/tv_purpose"
+            style="@style/order_confirm_line_content"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_end_time"
+        style="@style/order_confirm_line">
+
+        <TextView
+            style="@style/order_confirm_line_title"
+            android:text="结束时间"
+            />
+
+        <TextView
+            android:id="@+id/tv_end_time"
+            style="@style/order_confirm_line_content"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_first_diagnose"
+        style="@style/order_confirm_line">
+
+        <TextView
+            style="@style/order_confirm_line_title"
+            android:text="初步诊断"
+            />
+
+        <TextView
+            android:id="@+id/tv_first_diagnose"
+            style="@style/order_confirm_line_content"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_chief_complaint"
+        style="@style/order_confirm_line">
+
+        <TextView
+            style="@style/order_confirm_line_title"
+            android:text="主诉"
+            />
+
+        <TextView
+            android:id="@+id/tv_chief_complaint"
+            style="@style/order_confirm_line_content"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_present_history"
+        style="@style/order_confirm_line">
+
+        <TextView
+            style="@style/order_confirm_line_title"
+            android:text="现病史"
+            />
+        <TextView
+            android:id="@+id/tv_present_history"
+            style="@style/order_confirm_line_content"
+
+            />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_previous_history"
+        style="@style/order_confirm_line">
+
+        <TextView
+            style="@style/order_confirm_line_title"
+            android:text="既往史"
+            />
+
+        <TextView
+            android:id="@+id/tv_previous_history"
+            style="@style/order_confirm_line_content"
+            />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_family_history"
+        style="@style/order_confirm_line">
+
+        <TextView
+            style="@style/order_confirm_line_title"
+            android:text="家族史"
+            />
+
+        <TextView
+            android:id="@+id/tv_family_history"
+            style="@style/order_confirm_line_content"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_personal_history"
+        style="@style/order_confirm_line">
+
+        <TextView
+            style="@style/order_confirm_line_title"
+            android:text="个人史"
+            />
+
+        <TextView
+            android:id="@+id/tv_personal_history"
+            style="@style/order_confirm_line_content"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_body_sign"
+        style="@style/order_confirm_line">
+
+        <TextView
+            style="@style/order_confirm_line_title"
+            android:text="体征"
+            />
+
+        <TextView
+            android:id="@+id/tv_body_sign"
+            style="@style/order_confirm_line_content"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_treat_process"
+        style="@style/order_confirm_line">
+
+        <TextView
+            style="@style/order_confirm_line_title"
+            android:text="诊疗经过"
+            />
+
+        <TextView
+            android:id="@+id/tv_treat_process"
+            style="@style/order_confirm_line_content"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_examine_result"
+        style="@style/order_confirm_line">
+
+        <TextView
+            style="@style/order_confirm_line_title"
+            android:text="检查结果"
+            />
+
+        <TextView
+            android:id="@+id/tv_examine_result"
+            style="@style/order_confirm_line_content"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:padding="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_margin="5dp"
+            android:id="@+id/btn_cancel"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:text="拒绝"
+            android:textColor="@color/white"
+            android:background="@drawable/button_red"
+            android:layout_height="wrap_content"/>
+        <Button
+            android:layout_margin="5dp"
+            android:id="@+id/btn_confirm"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:text="同意"
+            android:textColor="@color/white"
+            android:background="@drawable/button_green"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+</LinearLayout>

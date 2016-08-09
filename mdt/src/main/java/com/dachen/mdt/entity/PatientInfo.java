@@ -7,9 +7,9 @@ public class PatientInfo {
     public String id;
     public String name;
     public String number;
-    public String mdtNum;
     public String telephone;
     public int age;
+    /*性别:1男，2女*/
     public int sex;
 
 }

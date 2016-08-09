@@ -3,6 +3,11 @@
           xmlns:android="http://schemas.android.com/apk/res/android"
           xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
+
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
@@ -25,6 +30,30 @@
         <activity android:name=".activity.order.EditOrderCaseActivity">
         </activity>
         <activity android:name=".activity.me.MyInfoActivity">
+        </activity>
+        <activity android:name=".activity.order.SubmitSummaryActivity">
+        </activity>
+        <activity
+            android:name=".activity.main.CommonInputActivity"
+            android:windowSoftInputMode="stateAlwaysVisible">
+        </activity>
+        <activity android:name=".activity.main.ChooseTextActivity">
+        </activity>
+        <activity android:name=".activity.order.ViewOrderSummaryActivity">
+        </activity>
+        <activity android:name=".activity.order.OrderChatActivity">
+        </activity>
+        <activity android:name=".activity.order.ChooseMdtActivity">
+        </activity>
+        <activity android:name=".activity.order.ChooseMdtInfoActivity">
+        </activity>
+        <activity android:name=".activity.order.ChooseMdtPatientTypeActivity">
+        </activity>
+        <activity android:name=".activity.order.ViewOrderReportActivity">
+        </activity>
+        <activity android:name=".activity.order.OrderExpertActivity">
+        </activity>
+        <activity android:name=".activity.order.ViewOrderCaseActivity">
         </activity>
     </application>
 

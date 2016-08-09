@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="horizontal"
+              android:padding="10dp">
+
+    <TextView
+        android:id="@+id/text_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="23"
+        android:layout_weight="1"
+        android:textSize="18sp"/>
+
+    <ImageView
+        android:id="@+id/iv_check"
+        android:layout_width="wrap_content"
+        android:src="@drawable/icon_check"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>
