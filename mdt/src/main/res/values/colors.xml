@@ -1,3 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="half_transparent_press">#88000000</color>
+    <color name="background">#aaa</color>
 </resources>

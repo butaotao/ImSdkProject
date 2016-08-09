@@ -28,10 +28,14 @@
         <item name="android:layout_height">wrap_content</item>
     </style>
 
+    <!--common-->
     <style name="divider_line">
         <item name="android:background">#aaa</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">0.5dp</item>
+    </style>
+    <style name="title_divider_line" parent="divider_line">
+        <item name="android:layout_alignParentBottom">true</item>
     </style>
     <!--MainActivity-->
     <style name="main_tab_text">
@@ -51,6 +55,79 @@
         <item name="android:textColor">@color/tab_textview_color</item>
         <item name="android:layout_centerInParent">true</item>
         <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="Arrow_Item_right">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@null</item>
+        <item name="android:scaleType">fitCenter</item>
+        <item name="android:layout_marginRight">10dp</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:contentDescription">@string/app_name</item>
+    </style>
+
+    <style name="ActionBar_BackBtn">
+        <item name="android:paddingLeft">15dp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:background">@drawable/selector_btn_back</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:layout_alignParentLeft">true</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:minWidth">40dip</item>
+        <item name="android:drawableLeft">@drawable/title_bar_back</item>
+        <item name="android:drawablePadding">5dp</item>
+        <item name="android:alpha">255</item>
+        <item name="android:onClick">onLeftClick</item>
+        <item name="android:paddingRight">10dip</item>
+        <item name="android:text">@string/back_text</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+    <style name="Common_Title_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">54dp</item>
+        <item name="android:background">@color/white</item>
+    </style>
+
+    <style name="ActionBar_Title">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:maxWidth">180dp</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:layout_centerInParent">true</item>
+    </style>
+
+    <!--Order-->
+    <style name="edit_order_list_item">
+        <item name="android:orientation">horizontal</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:paddingTop">5dp</item>
+        <item name="android:paddingBottom">5dp</item>
+    </style>
+    <style name="edit_order_item_title">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+    <style name="edit_order_item_content" >
+        <item name="android:focusable">true</item>
+        <item name="android:focusableInTouchMode">true</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">right</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+    <style name="edit_order_item_arrow">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:src">@drawable/arrow_right</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
 </resources>

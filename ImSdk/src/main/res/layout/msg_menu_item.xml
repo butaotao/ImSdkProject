@@ -3,14 +3,14 @@
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:orientation="horizontal"
-             android:padding="8dp"
     >
     <TextView
         android:id="@+id/text_view"
+        android:gravity="center"
         android:layout_width="match_parent"
         android:text="123"
-        android:textSize="15sp"
-        android:textColor="@color/black"
-        android:layout_height="wrap_content"/>
+        android:textSize="17sp"
+        android:textColor="#333"
+        android:layout_height="60dp"/>
 
 </FrameLayout>

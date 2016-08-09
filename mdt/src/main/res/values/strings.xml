@@ -2,4 +2,5 @@
     <string name="app_name">MDT</string>
     <string name="login">登录</string>
     <string name="forget_password">忘记密码</string>
+    <string name="back_text">返回</string>
 </resources>

@@ -24,6 +24,8 @@
         </activity>
         <activity android:name=".activity.order.EditOrderCaseActivity">
         </activity>
+        <activity android:name=".activity.me.MyInfoActivity">
+        </activity>
     </application>
 
 </manifest>

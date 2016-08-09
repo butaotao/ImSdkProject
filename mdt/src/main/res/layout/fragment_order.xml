@@ -10,6 +10,7 @@
             android:text="大厅"
             />
         <Button
+            android:id="@+id/create_order"
             android:layout_width="wrap_content"
             android:text="发起会诊"
             android:layout_alignParentRight="true"
