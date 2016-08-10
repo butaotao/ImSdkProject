@@ -18,6 +18,7 @@ public class ImSpUtils {
 
 	private static final String SURFIX_MSG_FILE_CACHE="_msg_file_cache";
 	private static final String SURFIX_GROUP_FIRST_MSG="_group_first_msg";
+	private static final String SET_NOTIFICATION_UNREAD="setNotificationUnread";
 
 
 	public static SharedPreferences spCommon(){
@@ -32,6 +33,17 @@ public class ImSpUtils {
 		String userId=ImUtils.getLoginUserId();
 		return ImSdk.getInstance().context.getSharedPreferences(userId + SURFIX_GROUP_FIRST_MSG, Context.MODE_PRIVATE);
 	}
+
+	public static void setNotificationUnread(int setNotificationUnread){
+		String userId=ImUtils.getLoginUserId();
+		ImSdk.getInstance().context.getSharedPreferences(userId + SET_NOTIFICATION_UNREAD, Context.MODE_PRIVATE).edit().putInt("setNotificationUnread",setNotificationUnread).commit();
+	}
+
+	public static int getNotificationUnread(){
+		String userId=ImUtils.getLoginUserId();
+		return ImSdk.getInstance().context.getSharedPreferences(userId + SET_NOTIFICATION_UNREAD, Context.MODE_PRIVATE).getInt("setNotificationUnread",0);
+	}
+
 
 	public static String getMsgFilePath(ChatMessagePo msg){
 		if(msg.isMySend()){
