@@ -13,6 +13,7 @@ public class SplashActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        startActivity(new Intent(this,MainActivity.class));
+        startActivity(new Intent(this,LoginActivity.class));
+        finish();
     }
 }

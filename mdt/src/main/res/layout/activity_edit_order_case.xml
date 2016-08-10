@@ -22,6 +22,12 @@
         <ImageView
             style="@style/title_divider_line"
             />
+
+        <TextView
+            android:id="@+id/right_btn"
+            style="@style/ActionBar_RightText"
+            android:text="确定"
+            />
     </RelativeLayout>
 
     <ScrollView
@@ -34,6 +40,81 @@
             android:layout_height="wrap_content">
 
             <LinearLayout
+                android:id="@+id/ll_patient_name"
+                style="@style/edit_order_list_item">
+                <TextView
+                    style="@style/edit_order_item_title"
+                    android:text="患者姓名"
+                   />
+                <TextView
+                    android:id="@+id/tv_patient_name"
+                    style="@style/edit_order_item_content"
+                    
+                   />
+                <ImageView
+                   style="@style/edit_order_item_arrow"/>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll_patient_sex"
+                style="@style/edit_order_list_item">
+                <TextView
+                    style="@style/edit_order_item_title"
+                    android:text="性别"
+                   />
+                <TextView
+                    android:id="@+id/tv_patient_sex"
+                    style="@style/edit_order_item_content"
+
+                   />
+                <ImageView
+                   style="@style/edit_order_item_arrow"/>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll_patient_age"
+                style="@style/edit_order_list_item">
+                <TextView
+                    style="@style/edit_order_item_title"
+                    android:text="年龄"
+                   />
+                <TextView
+                    android:id="@+id/tv_patient_age"
+                    style="@style/edit_order_item_content"
+
+                   />
+                <ImageView
+                   style="@style/edit_order_item_arrow"/>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll_patient_phone"
+                style="@style/edit_order_list_item">
+                <TextView
+                    style="@style/edit_order_item_title"
+                    android:text="电话"
+                   />
+                <TextView
+                    android:id="@+id/tv_patient_phone"
+                    style="@style/edit_order_item_content"
+
+                   />
+                <ImageView
+                   style="@style/edit_order_item_arrow"/>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll_patient_id"
+                style="@style/edit_order_list_item">
+                <TextView
+                    style="@style/edit_order_item_title"
+                    android:text="患者ID"
+                   />
+                <TextView
+                    android:id="@+id/tv_patient_id"
+                    style="@style/edit_order_item_content"
+
+                   />
+                <ImageView
+                   style="@style/edit_order_item_arrow"/>
+            </LinearLayout>
+            <LinearLayout
                 android:id="@+id/ll_mdt_group"
                 style="@style/edit_order_list_item">
                 <TextView
@@ -43,7 +124,7 @@
                 <TextView
                     android:id="@+id/tv_mdt_group"
                     style="@style/edit_order_item_content"
-                    android:text="123"
+
                    />
                 <ImageView
                    style="@style/edit_order_item_arrow"/>
@@ -59,7 +140,6 @@
                 <TextView
                     android:id="@+id/tv_category"
                     style="@style/edit_order_item_content"
-                    android:text="123"
                    />
                 <ImageView
                    style="@style/edit_order_item_arrow"/>
@@ -75,7 +155,6 @@
                 <TextView
                     android:id="@+id/tv_purpose"
                     style="@style/edit_order_item_content"
-                    android:text="123"
                     />
                 <ImageView
                     style="@style/edit_order_item_arrow"/>
@@ -86,12 +165,12 @@
                 style="@style/edit_order_list_item">
                 <TextView
                     style="@style/edit_order_item_title"
-                    android:text="会诊结束时间"
+                    android:text="结束时间"
                    />
                 <TextView
                     android:id="@+id/tv_end_time"
                     style="@style/edit_order_item_content"
-                    android:text="123"
+                    
                    />
                 <ImageView
                    style="@style/edit_order_item_arrow"/>
@@ -107,7 +186,7 @@
                 <TextView
                     android:id="@+id/tv_first_diagnose"
                     style="@style/edit_order_item_content"
-                    android:text="123"
+                    
                    />
                 <ImageView
                    style="@style/edit_order_item_arrow"/>
@@ -123,7 +202,7 @@
                 <TextView
                     android:id="@+id/tv_chief_complaint"
                     style="@style/edit_order_item_content"
-                    android:text="123"
+                    
                    />
                 <ImageView
                    style="@style/edit_order_item_arrow"/>
@@ -139,7 +218,7 @@
                 <TextView
                     android:id="@+id/tv_present_history"
                     style="@style/edit_order_item_content"
-                    android:text="123"
+                    
                    />
                 <ImageView
                    style="@style/edit_order_item_arrow"/>
@@ -154,7 +233,22 @@
                 <TextView
                     android:id="@+id/tv_previous_history"
                     style="@style/edit_order_item_content"
-                    android:text="123"
+                    
+                   />
+                <ImageView
+                   style="@style/edit_order_item_arrow"/>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll_family_history"
+                style="@style/edit_order_list_item">
+                <TextView
+                    style="@style/edit_order_item_title"
+                    android:text="家族史"
+                   />
+                <TextView
+                    android:id="@+id/tv_family_history"
+                    style="@style/edit_order_item_content"
+
                    />
                 <ImageView
                    style="@style/edit_order_item_arrow"/>
@@ -170,7 +264,7 @@
                 <TextView
                     android:id="@+id/tv_personal_history"
                     style="@style/edit_order_item_content"
-                    android:text="123"
+                    
                    />
                 <ImageView
                    style="@style/edit_order_item_arrow"/>
@@ -186,7 +280,7 @@
                 <TextView
                     android:id="@+id/tv_body_sign"
                     style="@style/edit_order_item_content"
-                    android:text="123"
+                    
                    />
                 <ImageView
                    style="@style/edit_order_item_arrow"/>
@@ -202,7 +296,7 @@
                 <TextView
                     android:id="@+id/tv_treat_process"
                     style="@style/edit_order_item_content"
-                    android:text="123"
+                    
                    />
                 <ImageView
                    style="@style/edit_order_item_arrow"/>
@@ -218,18 +312,11 @@
                 <TextView
                     android:id="@+id/tv_examine_result"
                     style="@style/edit_order_item_content"
-                    android:text="123"
+                    
                    />
                 <ImageView
                    style="@style/edit_order_item_arrow"/>
             </LinearLayout>
-
-            <Button
-                android:id="@+id/btn_save"
-                android:layout_width="match_parent"
-                android:text="save"
-                android:layout_height="wrap_content"/>
-
 
         </LinearLayout>
     </ScrollView>

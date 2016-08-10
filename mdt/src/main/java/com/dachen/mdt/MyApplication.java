@@ -4,6 +4,9 @@ import android.app.Application;
 import android.graphics.Bitmap.Config;
 import android.os.Environment;
 
+import com.dachen.imsdk.ImSdk;
+import com.dachen.mdt.entity.DoctorInfo;
+import com.dachen.mdt.util.AppImUtils;
 import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiscCache;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -18,6 +21,8 @@ import java.io.File;
  */
 public class MyApplication extends Application {
     private static MyApplication instance;
+
+    public DoctorInfo mUserInfo;
 
     public String mAppDir = Environment.getExternalStorageDirectory() + "/Android/data/com.dachen.dgroupdoctor";
     public String mPicturesDir = mAppDir + "/pictures";
@@ -36,6 +41,10 @@ public class MyApplication extends Application {
         instance=this;
         initAppDir();
         initImageLoader();
+        AppImUtils.initImAct();
+        ImSdk.getInstance().initSdk(this,mAppDir,mVoicesDir,mVideosDir,mPicturesDir);
+//        UrlConstants.changIp("http://192.168.3.7:8101","192.168.3.7:8102");
+        UrlConstants.changIp("http://120.25.84.65:8101","120.25.84.65:8102");
     }
 
     private void initAppDir() {

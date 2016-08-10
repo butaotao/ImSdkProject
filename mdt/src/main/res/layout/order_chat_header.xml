@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/header_container"
+        style="@style/Common_Title_style">
+
+        <Button
+            android:id="@+id/back_btn"
+            style="@style/ActionBar_BackBtn"/>
+
+        <TextView
+            android:id="@+id/title"
+            style="@style/ActionBar_Title"
+            android:text="发起会诊"/>
+
+        <ImageView
+            style="@style/title_divider_line"
+            />
+
+        <ImageView
+            android:id="@+id/right_btn"
+            style="@style/ActionBar_RightImg"
+            />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:padding="10dp"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/iv_check"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/icon_check"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/tv_info"
+            android:text="订单已完成"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/tv_count_down"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"/>
+        <Button
+            android:id="@+id/btn_ex"
+            android:background="@drawable/button_green"
+            android:layout_width="wrap_content"
+            android:textColor="@color/white"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:text="撰写报告"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+</LinearLayout>

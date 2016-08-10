@@ -15,7 +15,12 @@ public class PatientFragment extends BaseFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v=inflater.inflate(R.layout.fragment_patient,container,false);
+        View v=super.onCreateView(inflater, container, savedInstanceState);
         return v;
+    }
+
+    @Override
+    protected int getLayoutResource() {
+        return R.layout.fragment_patient;
     }
 }

@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:layout_height="match_parent"
+    android:background="@color/background"
     tools:context="com.dachen.mdt.activity.main.MainActivity">
 
     <!--<FrameLayout-->
@@ -21,7 +22,8 @@
         android:layout_width="match_parent"
         android:orientation="horizontal"
         android:weightSum="3"
-        android:layout_height="40dp">
+        android:background="#FBFDFD"
+        android:layout_height="50dp">
 
         <RelativeLayout
             android:id="@+id/rl_tab_order"

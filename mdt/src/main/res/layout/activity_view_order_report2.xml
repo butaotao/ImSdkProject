@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    tools:context="com.dachen.mdt.activity.order.ViewOrderReportActivity">
+
+    <RelativeLayout style="@style/Common_Title_style">
+
+        <Button
+            android:id="@+id/back_btn"
+            style="@style/ActionBar_BackBtn"/>
+
+        <TextView
+            android:id="@+id/title"
+            style="@style/ActionBar_Title"
+            android:text="查看会诊报告"/>
+
+        <ImageView
+            style="@style/title_divider_line"
+            />
+
+    </RelativeLayout>
+    <!--<include-->
+        <!--android:id="@+id/v_report"-->
+        <!--layout="@layout/order_report_item"/>-->
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:id="@+id/v_report"
+        >
+        <LinearLayout
+            android:id="@+id/ll_doc_manager"
+            style="@style/order_report_line"
+            >
+
+            <TextView
+                style="@style/order_report_line_title"
+                android:text="主管医生:"
+                />
+
+            <TextView
+                android:id="@+id/tv_doc_manager"
+                style="@style/order_report_line_content"
+                android:text="考虑XXXXXXX细胞癌"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/ll_patient_info"
+            style="@style/order_report_line"
+            >
+
+            <TextView
+                style="@style/order_report_line_title"
+                android:text="患者信息:"
+                />
+
+            <TextView
+                android:id="@+id/tv_patient_info"
+                style="@style/order_report_line_content"
+                android:text="考虑XXXXXXX细胞癌"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_mdt_group"
+            style="@style/order_report_line"
+            >
+
+            <TextView
+                style="@style/order_report_line_title"
+                android:text="MDT小组:"
+                />
+
+            <TextView
+                android:id="@+id/tv_mdt_group"
+                style="@style/order_report_line_content"
+                android:text="考虑XXXXXXX细胞癌"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_category"
+            style="@style/order_report_line"
+            >
+
+            <TextView
+                style="@style/order_report_line_title"
+                android:text="分组:"
+                />
+
+            <TextView
+                android:id="@+id/tv_category"
+                style="@style/order_report_line_content"
+                android:text="考虑XXXXXXX细胞癌"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_purpose"
+            style="@style/order_report_line"
+            >
+
+            <TextView
+                style="@style/order_report_line_title"
+                android:text="会诊目的:"
+                />
+
+            <TextView
+                android:id="@+id/tv_purpose"
+                style="@style/order_report_line_content"
+                android:text="考虑XXXXXXX细胞癌"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_first_diagnose"
+            style="@style/order_report_line"
+            >
+
+            <TextView
+                style="@style/order_report_line_title"
+                android:text="初步诊断:"
+                />
+
+            <TextView
+                android:id="@+id/tv_first_diagnose"
+                style="@style/order_report_line_content"
+                android:text="考虑XXXXXXX细胞癌"
+                />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/iv_divider"
+            style="@style/divider_line"
+            android:layout_marginBottom="10dp"
+            />
+
+        <LinearLayout
+            android:id="@+id/ll_diagnose_opinion"
+            style="@style/order_report_line"
+            >
+
+            <TextView
+                style="@style/order_report_line_title"
+                android:text="诊断意见:"
+                />
+
+            <TextView
+                android:id="@+id/tv_diagnose_opinion"
+                style="@style/order_report_line_content"
+                android:text="考虑XXXXXXX细胞癌"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_examine_opinion"
+            style="@style/order_report_line"
+            >
+
+            <TextView
+                style="@style/order_report_line_title"
+                android:text="检查意见:"
+                />
+
+            <TextView
+                android:id="@+id/tv_examine_opinion"
+                style="@style/order_report_line_content"
+                android:text="考虑XXXXXXX细胞癌"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_treat_opinion"
+            style="@style/order_report_line"
+            >
+
+            <TextView
+                style="@style/order_report_line_title"
+                android:text="治疗建议:"
+                />
+
+            <TextView
+                android:id="@+id/tv_treat_opinion"
+                style="@style/order_report_line_content"
+                android:text="考虑XXXXXXX细胞癌"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_other"
+            style="@style/order_report_line"
+            >
+
+            <TextView
+                style="@style/order_report_line_title"
+                android:text="其他:"
+                />
+
+            <TextView
+                android:id="@+id/tv_other"
+                style="@style/order_report_line_content"
+                android:text="考虑XXXXXXX细胞癌"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_end_time"
+            style="@style/order_report_line"
+            >
+
+            <TextView
+                style="@style/order_report_line_title"
+                android:text="结束时间:"
+                />
+
+            <TextView
+                android:id="@+id/tv_end_time"
+                style="@style/order_report_line_content"
+                android:text="考虑XXXXXXX细胞癌"
+                />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
