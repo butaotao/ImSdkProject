@@ -34,7 +34,7 @@ public class AtChatMemberActivity extends ImBaseActivity implements OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.vchat_menber_activity);
+        setContentView(R.layout.at_member_activity);
         TextView tvTitle= (TextView) findViewById(R.id.tv_title);
         tvTitle.setText("选择用户");
         mGroupId = getIntent().getStringExtra(ChatActivityV2.INTENT_EXTRA_GROUP_ID);
