@@ -509,6 +509,7 @@ public abstract class ChatActivityV2 extends ImBaseActivity implements MessageRe
 //        instance = null;
         mChatContentView.reset();
         baseHandler.removeMessages(MSG_UPDATE_BUSINESS);
+        mChatBottomView.hideKeyboard();
         super.onPause();
     }
 

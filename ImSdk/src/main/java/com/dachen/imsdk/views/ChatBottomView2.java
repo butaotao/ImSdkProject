@@ -489,6 +489,14 @@ public class ChatBottomView2 extends LinearLayout implements View.OnClickListene
         SpannableString ss=new SpannableString(text);
         ss.setSpan(new AtMsgSpan(isAll,u.id,text),0,text.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         mChatEdit.getText().replace(targetIndex,index,ss);
+        mChatEdit.requestFocus();
+        mInputManager.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
+//        mInputManager.toggleSoftInput(0, InputMethodManager.SHOW_FORCED);
+//        mInputManager.toggleSoftInput(InputMethodManager.SHOW_IMPLICIT, InputMethodManager.HIDE_IMPLICIT_ONLY);
+    }
+
+    public void hideKeyboard(){
+        mInputManager.hideSoftInputFromWindow(mChatEdit.getApplicationWindowToken(), 0);;
     }
 
 }

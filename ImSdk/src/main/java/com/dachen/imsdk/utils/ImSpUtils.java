@@ -34,15 +34,15 @@ public class ImSpUtils {
 		return ImSdk.getInstance().context.getSharedPreferences(userId + SURFIX_GROUP_FIRST_MSG, Context.MODE_PRIVATE);
 	}
 
-	public static void setNotificationUnread(int setNotificationUnread){
-		String userId=ImUtils.getLoginUserId();
-		ImSdk.getInstance().context.getSharedPreferences(userId + SET_NOTIFICATION_UNREAD, Context.MODE_PRIVATE).edit().putInt("setNotificationUnread",setNotificationUnread).commit();
-	}
-
-	public static int getNotificationUnread(){
-		String userId=ImUtils.getLoginUserId();
-		return ImSdk.getInstance().context.getSharedPreferences(userId + SET_NOTIFICATION_UNREAD, Context.MODE_PRIVATE).getInt("setNotificationUnread",0);
-	}
+//	public static void setNotificationUnread(int setNotificationUnread){
+//		String userId=ImUtils.getLoginUserId();
+//		ImSdk.getInstance().context.getSharedPreferences(userId + SET_NOTIFICATION_UNREAD, Context.MODE_PRIVATE).edit().putInt("setNotificationUnread",setNotificationUnread).commit();
+//	}
+//
+//	public static int getNotificationUnread(){
+//		String userId=ImUtils.getLoginUserId();
+//		return ImSdk.getInstance().context.getSharedPreferences(userId + SET_NOTIFICATION_UNREAD, Context.MODE_PRIVATE).getInt("setNotificationUnread",0);
+//	}
 
 
 	public static String getMsgFilePath(ChatMessagePo msg){
