@@ -63,6 +63,7 @@ import com.dachen.imsdk.entity.ChatMessageV2.VoiceMsgParam;
 import com.dachen.imsdk.entity.GroupInfo2Bean;
 import com.dachen.imsdk.entity.GroupInfo2Bean.Data.UserInfo;
 import com.dachen.imsdk.entity.MoreItem;
+import com.dachen.imsdk.entity.event.CloseChatEvent;
 import com.dachen.imsdk.entity.event.GroupSettingEvent;
 import com.dachen.imsdk.entity.event.MsgRetractEvent;
 import com.dachen.imsdk.entity.fastreply.ReplyBean;
@@ -1081,6 +1082,7 @@ public abstract class ChatActivityV2 extends ImBaseActivity implements MessageRe
                 if (msg.isMySend() && !TextUtils.isEmpty(msg.clientMsgId)) {
                     for (int i = mChatMessages.size() - 1; i >= 0; i--) {
                         if (msg.clientMsgId.equals(mChatMessages.get(i).clientMsgId)) {
+                            mChatMessages.get(i).msgId=mChatMessages.get(i).msgId;
                             toRemove = i;
                             break;
                         }
@@ -1603,5 +1605,11 @@ public abstract class ChatActivityV2 extends ImBaseActivity implements MessageRe
             if(groupPo!=null)
                 groupPo.status=event.status;
         }
+    }
+
+    public void onEventMainThread(CloseChatEvent event) {
+        if(!event.groupId.equals(mGroupId))
+            return;
+        finish();
     }
 }

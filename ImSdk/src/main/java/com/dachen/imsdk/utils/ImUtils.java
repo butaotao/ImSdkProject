@@ -14,11 +14,14 @@ import com.dachen.imsdk.db.po.ChatGroupPo;
 import com.dachen.imsdk.db.po.ChatMessagePo;
 import com.dachen.imsdk.entity.GroupInfo2Bean.Data.UserInfo;
 import com.dachen.imsdk.entity.ImgTextMsgV2;
+import com.dachen.imsdk.entity.event.CloseChatEvent;
 import com.dachen.imsdk.out.ImMsgHandler;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 
 import java.util.List;
+
+import de.greenrobot1.event.EventBus;
 
 /**
  * IM工具类
@@ -167,5 +170,9 @@ public class ImUtils {
                 text=mpt.title;
         }
         return text;
+    }
+
+    public static void closeChat(String groupId){
+        EventBus.getDefault().post(new CloseChatEvent(groupId));
     }
 }
