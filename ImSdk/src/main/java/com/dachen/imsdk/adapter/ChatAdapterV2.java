@@ -75,7 +75,7 @@ public class ChatAdapterV2 extends MultiItemCommonAdapter<ChatMessagePo> impleme
     public static final String TAG = ChatAdapterV2.class.getSimpleName();
 
     // item 类型的个数，必须为下面定义的item类型个数之和
-    private static final int ITEM_TYPE_COUNT = 30;
+    private static final int ITEM_TYPE_COUNT = 31;
 
     // item 类型
     private static final int VIEW_SYSTEM = 0;
@@ -108,6 +108,7 @@ public class ChatAdapterV2 extends MultiItemCommonAdapter<ChatMessagePo> impleme
     private static final int VIEW_WHOLE_NEWMPT_18 = 27;
     private static final int VIEW_FROM_ME_MPT_STYLE8 = 28;
     private static final int VIEW_TO_ME_MPT_STYLE8 = 29;
+    private static final int VIEW_FROM_ME_NEWMPT_17 = 30;
 
     /// 聊天类型，1-单聊 2-群聊
     public int mChatType = 1;
@@ -281,6 +282,7 @@ public class ChatAdapterV2 extends MultiItemCommonAdapter<ChatMessagePo> impleme
             case VIEW_TO_ME_MPT_STYLE16:
                 showMptStyle16Message(holder, data);
             case VIEW_TO_ME_NEWMPT_17:
+            case VIEW_FROM_ME_NEWMPT_17:
                 showNewmpt17Message(holder, data);
                 break;
             case VIEW_FROM_ME_MPT_STYLE8:
@@ -313,9 +315,6 @@ public class ChatAdapterV2 extends MultiItemCommonAdapter<ChatMessagePo> impleme
                 @Override
                 public void onClick(View v) {
                     msgHandler.onClickNewMpt17(chatMessage, ChatAdapterV2.this, v);
-//                    Intent intent = new Intent(mContext, WebActivity.class);
-//                    intent.putExtra("url", url);
-//                    mContext.startActivity(intent);
                 }
             });
         }
@@ -1068,7 +1067,8 @@ public class ChatAdapterV2 extends MultiItemCommonAdapter<ChatMessagePo> impleme
             @Override
             public boolean onLongClick(View v) {
                 UserInfo u=msgHandler.getGroupUser(chatMessage,mChatType,mUserInfo);
-                mContext.addAtPeople(u,false);
+                if(u!=null)
+                    mContext.addAtPeople(u,false);
                 return true;
             }
         });
@@ -1425,6 +1425,9 @@ public class ChatAdapterV2 extends MultiItemCommonAdapter<ChatMessagePo> impleme
                 case VIEW_TO_ME_NEWMPT_17:
                     return R.layout.im_chat_to_item_newmpt_17;
 
+                case VIEW_FROM_ME_NEWMPT_17:
+                    return R.layout.im_chat_from_item_newmpt_17;
+
                 case VIEW_WHOLE_MPT_STYLE6:
                     return R.layout.im_chat_whole_item_mpt_style6;
 
@@ -1506,7 +1509,7 @@ public class ChatAdapterV2 extends MultiItemCommonAdapter<ChatMessagePo> impleme
                 case MessageType.newmpt16:
                     return VIEW_WHOLE_NEWMPT_16;
                 case MessageType.newmpt17:
-                    return VIEW_TO_ME_NEWMPT_17;
+                    return showOnRight(data) ?VIEW_FROM_ME_NEWMPT_17: VIEW_TO_ME_NEWMPT_17;
                 case MessageType.newmpt18:
                     return VIEW_WHOLE_NEWMPT_18;
                 case MessageType.notification:
