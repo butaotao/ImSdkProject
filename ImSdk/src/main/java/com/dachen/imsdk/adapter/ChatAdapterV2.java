@@ -1480,7 +1480,7 @@ public class ChatAdapterV2 extends MultiItemCommonAdapter<ChatMessagePo> impleme
 
                     ImgTextMsgV2 mpt = JSON.parseObject(data.param, ImgTextMsgV2.class);
                     if (mpt == null) {
-                        return VIEW_FROM_ME_TEXT;
+                        return showOnRight(data) ? VIEW_FROM_ME_TEXT : VIEW_TO_ME_TEXT;
                     }
                     // TODO
                     // List<ImgTextMsgV2> mptList = JSON.parseArray(data.param,
