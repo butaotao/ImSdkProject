@@ -14,7 +14,7 @@ import com.dachen.mdt.activity.main.SplashActivity;
 /**
  * Created by Mcp on 2016/8/4.
  */
-public class BaseActivity extends FragmentActivity {
+public abstract class BaseActivity extends FragmentActivity {
 
     private ProgressDialog mProDialog;
     protected BaseActivity mThis;

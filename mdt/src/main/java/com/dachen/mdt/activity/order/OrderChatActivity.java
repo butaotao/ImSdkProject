@@ -272,4 +272,5 @@ public class OrderChatActivity extends AppBaseChatActivity {
     protected int chatType() {
         return CHAT_TYPE_GROUP;
     }
+
 }

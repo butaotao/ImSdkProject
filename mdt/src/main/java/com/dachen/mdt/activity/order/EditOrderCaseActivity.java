@@ -7,6 +7,7 @@ import android.text.Html;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
+import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
@@ -17,6 +18,7 @@ import com.dachen.mdt.R;
 import com.dachen.mdt.UrlConstants;
 import com.dachen.mdt.activity.BaseActivity;
 import com.dachen.mdt.activity.main.CommonInputActivity;
+import com.dachen.mdt.adapter.UpImgGridAdapter;
 import com.dachen.mdt.entity.DiseaseInfo;
 import com.dachen.mdt.entity.MdtGroupInfo;
 import com.dachen.mdt.entity.OrderParam;
@@ -51,6 +53,7 @@ public class EditOrderCaseActivity extends BaseActivity {
     private String mdtGroupId;
     private String mPatientTypeId;
     private long mEndTime;
+    private UpImgGridAdapter mImageExamineAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +70,8 @@ public class EditOrderCaseActivity extends BaseActivity {
         holder.tvPatientAge.setText("22");
         holder.tvPatientPhone.setText("1234567890123");
         holder.tvPatientId.setText("100123");
+        mImageExamineAdapter =new UpImgGridAdapter(mThis);
+        holder.gvImageExamine.setAdapter(mImageExamineAdapter);
     }
 
     @OnClick(R.id.right_btn)
@@ -300,6 +305,8 @@ public class EditOrderCaseActivity extends BaseActivity {
         TextView tvTreatProcess;
         @BindView(R.id.tv_examine_result)
         TextView tvExamineResult;
+        @BindView(R.id.gv_image_exmine)
+        GridView gvImageExamine;
 
         public LocalViewHolder() {
             ButterKnife.bind(this, EditOrderCaseActivity.this);

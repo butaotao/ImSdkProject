@@ -156,7 +156,37 @@
 
 
     <RelativeLayout
-        android:id="@+id/position_layout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/setting_click_bg">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="15dp"
+            android:background="@color/divide_line_color"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:text="科室"
+            android:textColor="#303B3F"
+            android:textSize="15sp"/>
+
+        <TextView
+            android:id="@+id/tv_department"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:text="neike"
+            android:textColor="#6A6E6F"
+            android:textSize="15sp"/>
+    </RelativeLayout>
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@drawable/setting_click_bg">
@@ -177,13 +207,44 @@
             android:textSize="15sp"/>
 
         <TextView
-            android:id="@+id/position_tv"
+            android:id="@+id/tv_doc_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
             android:text="医生助手"
+            android:textColor="#6A6E6F"
+            android:textSize="15sp"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/setting_click_bg">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="15dp"
+            android:background="@color/divide_line_color"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:text="医院"
+            android:textColor="#303B3F"
+            android:textSize="15sp"/>
+
+        <TextView
+            android:id="@+id/tv_hospital"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:text="123"
             android:textColor="#6A6E6F"
             android:textSize="15sp"/>
     </RelativeLayout>
