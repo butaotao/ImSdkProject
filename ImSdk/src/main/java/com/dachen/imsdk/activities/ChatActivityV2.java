@@ -1082,7 +1082,7 @@ public abstract class ChatActivityV2 extends ImBaseActivity implements MessageRe
                 if (msg.isMySend() && !TextUtils.isEmpty(msg.clientMsgId)) {
                     for (int i = mChatMessages.size() - 1; i >= 0; i--) {
                         if (msg.clientMsgId.equals(mChatMessages.get(i).clientMsgId)) {
-                            mChatMessages.get(i).msgId=msg.clientMsgId;
+                            mChatMessages.get(i).msgId=msg.msgId;
                             toRemove = i;
                             break;
                         }
