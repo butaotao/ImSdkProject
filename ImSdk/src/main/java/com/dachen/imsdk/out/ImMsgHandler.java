@@ -119,6 +119,7 @@ public class ImMsgHandler {
     }
 
     public GroupInfo2Bean.Data.UserInfo getGroupUser(ChatMessagePo chatMessage, int mChatType, Map<String, GroupInfo2Bean.Data.UserInfo> mUserInfo) {
+        if(mUserInfo==null)return null;
         GroupInfo2Bean.Data.UserInfo userInfo = mUserInfo.get(chatMessage.fromUserId);
         if (userInfo == null && mChatType != ChatActivityV2.CHAT_TYPE_PUB) {
             userInfo = ImGroupUserInfoManager.getInstance().getUserInfoForId(chatMessage.groupId, chatMessage.fromUserId);
