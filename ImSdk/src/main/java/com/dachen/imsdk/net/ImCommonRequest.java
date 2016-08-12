@@ -56,7 +56,14 @@ public class ImCommonRequest extends StringRequest {
 
     @Override
     protected void deliverResponse(String response) {
-        EmptyResult res=JSON.parseObject(response,EmptyResult.class);
+        EmptyResult res;
+        try {
+            res = JSON.parseObject(response,EmptyResult.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+            super.deliverResponse(response);
+            return;
+        }
         boolean b=false;
         if(res!=null){
             if(res.resultCode== ImConsts.IM_ERROR_TOKEN_ERROR){
