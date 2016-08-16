@@ -30,7 +30,7 @@ import java.util.List;
  */
 public class MsgMenuAdapter extends BaseAdapter {
     public static final String INTENT_EXTRA_MSG_ID="msgId";
-
+    public static final String INTENT_EXTRA_GROUP_ID="groupId";
     public static final String ITEM_FORWARD="转发";
     public static final String ITEM_RETRACT="撤回";
     public static final String ITEM_COPY="复制";
