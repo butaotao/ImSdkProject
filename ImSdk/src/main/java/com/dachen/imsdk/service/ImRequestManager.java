@@ -9,7 +9,13 @@ import com.dachen.common.async.SimpleResultListener;
 import com.dachen.common.json.EmptyResult;
 import com.dachen.common.utils.VolleyUtil;
 import com.dachen.imsdk.ImSdk;
+import com.dachen.imsdk.archive.entity.ArchiveItem;
+import com.dachen.imsdk.consts.MessageType;
+import com.dachen.imsdk.db.po.ChatMessagePo;
+import com.dachen.imsdk.entity.ChatMessageV2;
 import com.dachen.imsdk.net.ImCommonRequest;
+import com.dachen.imsdk.net.MessageSenderV2;
+import com.dachen.imsdk.net.MessageSenderV2.MessageSendCallbackV2;
 import com.dachen.imsdk.net.PollingURLs;
 
 import java.util.HashMap;
@@ -68,5 +74,22 @@ public class ImRequestManager {
         };
         StringRequest req=new ImCommonRequest(PollingURLs.forwardMsg(),reqMap,lis,errorListener);
         VolleyUtil.getQueue(ImSdk.getInstance().context).add(req);
+    }
+
+    public static void sendArchive(ArchiveItem item, String groupId, MessageSendCallbackV2 callback){
+        ChatMessagePo chatMessage = new ChatMessagePo();
+        chatMessage.type = MessageType.file;
+        ChatMessageV2.ArchiveMsgParam p = new ChatMessageV2.ArchiveMsgParam();
+        p.name = item.name;
+        p.key = item.fileId;
+        p.uri = item.url;
+        p.size = item.size;
+        p.format = item.suffix;
+        chatMessage.param = JSON.toJSONString(p);
+        chatMessage.fromUserId = ImSdk.getInstance().userId;
+        chatMessage.groupId = groupId;
+        MessageSenderV2 sender=MessageSenderV2.getInstance(ImSdk.getInstance().context);
+        sender.setMessageSendCallbackListener(callback);
+        sender.sendMessage(chatMessage);
     }
 }

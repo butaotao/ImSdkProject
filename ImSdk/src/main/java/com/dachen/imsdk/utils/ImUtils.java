@@ -8,10 +8,12 @@ import android.text.TextUtils;
 import com.alibaba.fastjson.JSON;
 import com.dachen.imsdk.ImSdk;
 import com.dachen.imsdk.R;
+import com.dachen.imsdk.archive.entity.ArchiveItem;
 import com.dachen.imsdk.consts.MessageType;
 import com.dachen.imsdk.db.dao.ChatMessageDao;
 import com.dachen.imsdk.db.po.ChatGroupPo;
 import com.dachen.imsdk.db.po.ChatMessagePo;
+import com.dachen.imsdk.entity.ChatMessageV2;
 import com.dachen.imsdk.entity.GroupInfo2Bean.Data.UserInfo;
 import com.dachen.imsdk.entity.ImgTextMsgV2;
 import com.dachen.imsdk.entity.event.CloseChatEvent;
@@ -175,4 +177,5 @@ public class ImUtils {
     public static void closeChat(String groupId){
         EventBus.getDefault().post(new CloseChatEvent(groupId));
     }
+
 }
