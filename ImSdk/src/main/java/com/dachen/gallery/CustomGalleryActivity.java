@@ -136,6 +136,7 @@ public class CustomGalleryActivity extends ImBaseActivity implements OnClickList
         tvFolder= (TextView) findViewById(R.id.tv_folder_name);
         tvFolder.setOnClickListener(this);
         findViewById(R.id.back_btn).setOnClickListener(this);
+        refreshSelNum();
     }
 
     private void checkImageStatus() {
@@ -213,11 +214,10 @@ public class CustomGalleryActivity extends ImBaseActivity implements OnClickList
 //        }
 //    };
     private void refreshSelNum(){
+        if(!isMultiPick)return;
         int num=adapter.getSelectCount();
         String txt="确定";
-        if(num>0){
-            txt+=String.format( "(%d)",num);
-        }
+        txt+=String.format( "(%d)",num);
         tvConfirm.setText(txt);
     }
 

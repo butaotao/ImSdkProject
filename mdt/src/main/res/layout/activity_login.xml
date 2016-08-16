@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="55dp"
+        android:layout_marginTop="85dp"
         android:text="用户登录"
         android:textColor="#303B3F"
         android:textSize="32sp"
@@ -21,7 +21,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="40dp"
         android:layout_weight="1"
         android:orientation="vertical">
 
@@ -34,17 +34,27 @@
             android:hint="@string/please_input_phone_number"
             android:inputType="phone"/>
 
-        <com.dachen.common.widget.ClearEditText
+        <!--<com.dachen.common.widget.ClearEditText-->
+            <!--android:id="@+id/et_pwd"-->
+            <!--style="@style/IMLineEditText"-->
+            <!--android:inputType="textPassword"-->
+            <!--android:layout_marginLeft="18dp"-->
+            <!--android:layout_marginRight="18dp"-->
+            <!--android:layout_marginTop="10dp"-->
+            <!--android:background="@drawable/inputbox"-->
+            <!--android:hint="@string/please_input_password"-->
+            <!--android:lines="1"-->
+            <!--android:maxLength="18"/>-->
+
+        <com.dachen.common.widget.PasswordView
             android:id="@+id/et_pwd"
-            style="@style/IMLineEditText"
-            android:inputType="textPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="18dp"
             android:layout_marginRight="18dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/inputbox"
-            android:hint="@string/please_input_password"
-            android:lines="1"
-            android:maxLength="18"/>
+            android:layout_marginTop="9dp"
+            android:minHeight="44dp"
+            />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -64,11 +74,14 @@
         </RelativeLayout>
 
         <Button
+            android:background="@drawable/button_green_bg"
             android:id="@+id/login_btn"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_width="match_parent"
             android:layout_marginLeft="18dp"
+            android:textColor="@color/white"
             android:layout_marginRight="18dp"
+            android:textSize="18sp"
             android:layout_marginTop="9dp"
             android:text="@string/login"/>
 

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.DatePicker;
 import android.widget.GridView;
 import android.widget.TextView;
@@ -13,13 +14,16 @@ import android.widget.TimePicker;
 
 import com.dachen.common.utils.ToastUtil;
 import com.dachen.common.utils.VolleyUtil;
+import com.dachen.gallery.CustomGalleryActivity;
 import com.dachen.mdt.AppConstants;
 import com.dachen.mdt.R;
 import com.dachen.mdt.UrlConstants;
 import com.dachen.mdt.activity.BaseActivity;
 import com.dachen.mdt.activity.main.CommonInputActivity;
 import com.dachen.mdt.adapter.UpImgGridAdapter;
+import com.dachen.mdt.adapter.UpImgGridAdapter.UpImgGridItem;
 import com.dachen.mdt.entity.DiseaseInfo;
+import com.dachen.mdt.entity.DiseaseType;
 import com.dachen.mdt.entity.MdtGroupInfo;
 import com.dachen.mdt.entity.OrderParam;
 import com.dachen.mdt.entity.PatientInfo;
@@ -40,6 +44,7 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnItemClick;
 
 public class EditOrderCaseActivity extends BaseActivity {
 
@@ -47,10 +52,13 @@ public class EditOrderCaseActivity extends BaseActivity {
     private static final int REQ_CODE_MDT_INFO = 2;
     private static final int REQ_CODE_INPUT = 3;
     private static final int REQ_CODE_PATIENT_TYPE = 4;
+    private static final int REQ_CODE_IMG_EXAMINE = 5;
+    private static final int REQ_CODE_DIS_TYPE = 6;
     private static Map<Integer, String> TYPE_MAP;
 
     private LocalViewHolder holder;
     private String mdtGroupId;
+    private DiseaseType diseaseType;
     private String mPatientTypeId;
     private long mEndTime;
     private UpImgGridAdapter mImageExamineAdapter;
@@ -119,8 +127,8 @@ public class EditOrderCaseActivity extends BaseActivity {
             return;
         }
         reqParam.expectEndTime=mEndTime;
-        reqParam.diseaseTypeId=mPatientTypeId;
-        reqParam.mdtGroupId=mdtGroupId;
+        reqParam.diseaseTypeId=diseaseType.topDiseaseId;
+        reqParam.firstDiag=diseaseType.name;
         reqParam.patient=pInfo;
         reqParam.disease=dInfo;
 
@@ -143,24 +151,31 @@ public class EditOrderCaseActivity extends BaseActivity {
         getProgressDialog().show();
     }
 
+    @OnClick(R.id.ll_disease_type)
+    protected void chooseDisType(View v) {
+        TextView tv = commonClickItem(v);
+        Intent i = new Intent(mThis, ChooseDiseaseTypeActivity.class).putExtra(ChooseDiseaseTypeActivity.KEY_START, mdtGroupId);
+        startActivityForResult(i, REQ_CODE_MDT_GROUP);
+    }
     @OnClick(R.id.ll_mdt_group)
     protected void chooseMdtGroup(View v) {
         TextView tv = commonClickItem(v);
         Intent i = new Intent(mThis, ChooseMdtActivity.class).putExtra(AppConstants.INTENT_MDT_GROUP_ID, mdtGroupId);
         startActivityForResult(i, REQ_CODE_MDT_GROUP);
     }
-    @OnClick(R.id.ll_category)
-    protected void choosePatientType(View v) {
-        if (mdtGroupId == null) {
-            holder.tvMdtGroup.requestFocus();
-            holder.tvMdtGroup.setError(Html.fromHtml("<font color='red'>请先选择MDT小组!</font>"));
-            return;
-        }
-        TextView tv = commonClickItem(v);
-        Intent i = new Intent(mThis, ChooseMdtPatientTypeActivity.class).putExtra(AppConstants.INTENT_MDT_GROUP_ID, mdtGroupId)
-                .putExtra(ChooseMdtPatientTypeActivity.KEY_TYPE_ID,mPatientTypeId);
-        startActivityForResult(i, REQ_CODE_PATIENT_TYPE);
-    }
+
+//    @OnClick(R.id.ll_category)
+//    protected void choosePatientType(View v) {
+//        if (mdtGroupId == null) {
+//            holder.tvMdtGroup.requestFocus();
+//            holder.tvMdtGroup.setError(Html.fromHtml("<font color='red'>请先选择MDT小组!</font>"));
+//            return;
+//        }
+//        TextView tv = commonClickItem(v);
+//        Intent i = new Intent(mThis, ChooseMdtPatientTypeActivity.class).putExtra(AppConstants.INTENT_MDT_GROUP_ID, mdtGroupId)
+//                .putExtra(ChooseMdtPatientTypeActivity.KEY_TYPE_ID,mPatientTypeId);
+//        startActivityForResult(i, REQ_CODE_PATIENT_TYPE);
+//    }
 
     @OnClick({R.id.ll_purpose, R.id.ll_first_diagnose})
     //, R.id.tv_first_diagnose, R.id.tv_diagnose_opinion, R.id.tv_examine_opinion, R.id.tv_treat_opinion
@@ -265,6 +280,14 @@ public class EditOrderCaseActivity extends BaseActivity {
         TextView tv = ButterKnife.findById(mThis, viewId);
         if (tv != null) {
             tv.setText(res);
+        }
+    }
+
+    @OnItemClick(R.id.gv_image_exmine)
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        UpImgGridItem item=mImageExamineAdapter.getItem(position);
+        if(item.isAdd){
+            CustomGalleryActivity.openUi(mThis,true,REQ_CODE_IMG_EXAMINE,8-mImageExamineAdapter.getData().size());
         }
     }
 

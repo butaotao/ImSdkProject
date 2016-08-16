@@ -124,11 +124,10 @@ public class CustomGalleryPreviewFragment extends Fragment implements OnClickLis
     }
 
     private void refreshSelNum(){
+        if(!mParent.isMultiPick)return;
         int num=mParent.adapter.getSelectCount();
         String txt="确定";
-        if(num>0){
-            txt+=String.format( "(%d)",num);
-        }
+        txt+=String.format( "(%d)",num);
         tvConfirm.setText(txt);
     }
 

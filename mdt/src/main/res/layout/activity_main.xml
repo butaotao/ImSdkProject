@@ -18,12 +18,16 @@
         android:layout_width="match_parent"
         android:layout_weight="1"
         android:layout_height="0dp"/>
+
+    <ImageView
+        style="@style/divider_line_2"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:orientation="horizontal"
         android:weightSum="3"
         android:background="#FBFDFD"
-        android:layout_height="50dp">
+        android:layout_height="56dp">
 
         <RelativeLayout
             android:id="@+id/rl_tab_order"
@@ -32,6 +36,7 @@
             android:layout_height="match_parent">
             <TextView
                 style="@style/main_tab_text"
+                android:drawableTop="@drawable/main_btm_hall_selector"
                 android:text="会诊大厅"
                 />
 
@@ -42,6 +47,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent">
             <TextView
+                android:drawableTop="@drawable/main_btm_patient_selector"
                 style="@style/main_tab_text"
                 android:text="患者"
                 />
@@ -53,6 +59,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent">
             <TextView
+                android:drawableTop="@drawable/main_btm_me_selector"
                 style="@style/main_tab_text"
                 android:text="我"
                 />

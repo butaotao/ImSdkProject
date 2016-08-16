@@ -13,6 +13,7 @@ import com.dachen.common.toolbox.DCommonRequest;
 import com.dachen.common.utils.Logger;
 import com.dachen.common.utils.ToastUtil;
 import com.dachen.common.utils.VolleyUtil;
+import com.dachen.common.widget.PasswordView;
 import com.dachen.imsdk.ImSdk;
 import com.dachen.imsdk.net.ImCommonRequest;
 import com.dachen.mdt.MyApplication;
@@ -39,7 +40,7 @@ public class LoginActivity extends BaseActivity {
     @BindView(R.id.et_phone)
     public EditText etPhone;
     @BindView(R.id.et_pwd)
-    public EditText etPwd;
+    public PasswordView etPwd;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,7 +56,7 @@ public class LoginActivity extends BaseActivity {
         final String pwd;
         try {
             userName = ViewUtils.checkTextEmpty(etPhone);
-            pwd=ViewUtils.checkTextEmpty(etPwd);
+            pwd=ViewUtils.checkTextEmpty(etPwd.getEditView());
         } catch (TextEmptyException e) {
             e.tv.requestFocus();
             e.tv.setError(Html.fromHtml("<font color='red'>不能为空!</font>"));

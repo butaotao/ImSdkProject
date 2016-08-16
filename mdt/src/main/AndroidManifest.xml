@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
     <application
         android:name=".MyApplication"
@@ -54,6 +55,10 @@
         <activity android:name=".activity.order.OrderExpertActivity">
         </activity>
         <activity android:name=".activity.order.ViewOrderCaseActivity">
+        </activity>
+        <activity android:name="com.dachen.gallery.CustomGalleryActivity">
+        </activity>
+        <activity android:name=".activity.order.ChooseDiseaseTypeActivity">
         </activity>
     </application>
 
