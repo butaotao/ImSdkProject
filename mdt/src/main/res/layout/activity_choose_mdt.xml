@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background"
     tools:context="com.dachen.mdt.activity.order.ChooseMdtActivity">
 
     <RelativeLayout style="@style/Common_Title_style">
@@ -30,6 +31,9 @@
     </RelativeLayout>
 
     <ListView
+        android:layout_marginTop="10dp"
+        tools:listitem="@layout/choose_text_item"
+        android:footerDividersEnabled="true"
         android:id="@+id/list_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>

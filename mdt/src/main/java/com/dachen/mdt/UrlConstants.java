@@ -15,13 +15,16 @@ public class UrlConstants {
     public static final String MODIFY_AVATAR="/mdt/user/modifyAvatar";
     public static final String GET_DOCTOR_INFO="/mdt/user/getDoctorInfo";
     public static final String MODIFY_SETTING="/mdt/user/userSetting";
-    public static final String GET_PATIENTS="/mdt/user/getPatients";//获取患者列表
+//    public static final String GET_PATIENTS="/mdt/user/getPatients";//获取患者列表
     public static final String SET_PATIENT_TAG="/mdt/user/setPatientTag";//获取患者列表
 
     public static final String GET_PATIENT_TAGS="/mdt/base/getTags";
     public static final String GET_DISEASE_TYPES="/mdt/base/getDiseaseTypes";
     public static final String GET_ALL_DATABASE_LIST="/mdt/base/getAllDatabaseList";
     public static final String GET_MDT_GROUP_LIST="/mdt/base/getMdtGroupList";
+    public static final String GET_CHECK_TYPE="/mdt/base/getCheckItemType";
+    public static final String GET_CHECK_LIST="/mdt/base/getCheckItemList";
+    public static final String GET_DISEASE_WITH_TAG="/mdt/base/getDiseaseWithTag";
 
     public static final String CREATE_ORDER="/mdt/order/createOrder";
     public static final String GET_ORDER="/mdt/order/getOrder";
@@ -35,6 +38,10 @@ public class UrlConstants {
     public static final String GET_SUMMARY_LIST="/mdt/order/getSummaryList";
     public static final String GET_MDT_REPORT="/mdt/order/getMdtReport";
     public static final String GET_STATUS="/mdt/order/getStatus";
+
+    public static final String GET_ALL_PATIENTS="/mdt/patient/getAllPatients";
+    public static final String GET_TAG_PATIENTS="/mdt/patient/getTagPatients";
+    public static final String GET_PATIENT_ORDER="/mdt/patient/getPatientOrder";
 
 
 

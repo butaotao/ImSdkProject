@@ -46,7 +46,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:background="@color/white"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                >
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -57,7 +58,7 @@
 
                     <ImageView
                         android:layout_width="2dp"
-                        android:layout_height="match_parent"
+                        android:layout_height="16dp"
                         android:background="#3764ba"/>
 
                     <TextView
@@ -80,7 +81,6 @@
                     <TextView
                         android:id="@+id/tv_patient_name"
                         style="@style/edit_order_item_content"
-
                         />
 
                     <ImageView
@@ -91,6 +91,27 @@
                     style="@style/divider_line"
                     android:layout_marginLeft="@dimen/edit_case_divider_left"/>
 
+                <LinearLayout
+                    android:id="@+id/ll_id_card"
+                    style="@style/edit_order_list_item">
+
+                    <TextView
+                        style="@style/edit_order_item_title"
+                        android:text="身份证号"
+                        />
+
+                    <TextView
+                        android:id="@+id/tv_id_card"
+                        style="@style/edit_order_item_content"
+                        />
+
+                    <ImageView
+                        style="@style/edit_order_item_arrow"/>
+                </LinearLayout>
+
+                <ImageView
+                    style="@style/divider_line"
+                    android:layout_marginLeft="@dimen/edit_case_divider_left"/>
                 <LinearLayout
                     android:id="@+id/ll_patient_sex"
                     style="@style/edit_order_list_item">
@@ -103,7 +124,7 @@
                     <TextView
                         android:id="@+id/tv_patient_sex"
                         style="@style/edit_order_item_content"
-
+                        android:hint="*请选择"
                         />
 
                     <ImageView
@@ -196,7 +217,7 @@
 
                     <ImageView
                         android:layout_width="2dp"
-                        android:layout_height="match_parent"
+                        android:layout_height="16dp"
                         android:background="#3764ba"/>
 
                     <TextView
@@ -224,6 +245,7 @@
                     <ImageView
                         style="@style/edit_order_item_arrow"/>
                 </LinearLayout>
+
                 <ImageView
                     style="@style/divider_line"
                     android:layout_marginLeft="@dimen/edit_case_divider_left"/>
@@ -246,30 +268,28 @@
                     <ImageView
                         style="@style/edit_order_item_arrow"/>
                 </LinearLayout>
+
                 <ImageView
                     style="@style/divider_line"
                     android:layout_marginLeft="@dimen/edit_case_divider_left"/>
 
-                <LinearLayout
-                    android:id="@+id/ll_category"
-                    style="@style/edit_order_list_item">
+                <!--<LinearLayout-->
+                    <!--android:id="@+id/ll_category"-->
+                    <!--style="@style/edit_order_list_item">-->
 
-                    <TextView
-                        style="@style/edit_order_item_title"
-                        android:text="分组"
-                        />
+                    <!--<TextView-->
+                        <!--style="@style/edit_order_item_title"-->
+                        <!--android:text="分组"-->
+                        <!--/>-->
 
-                    <TextView
-                        android:id="@+id/tv_category"
-                        style="@style/edit_order_item_content"
-                        />
+                    <!--<TextView-->
+                        <!--android:id="@+id/tv_category"-->
+                        <!--style="@style/edit_order_item_content"-->
+                        <!--/>-->
 
-                    <ImageView
-                        style="@style/edit_order_item_arrow"/>
-                </LinearLayout>
-                <ImageView
-                    style="@style/divider_line"
-                    android:layout_marginLeft="@dimen/edit_case_divider_left"/>
+                    <!--<ImageView-->
+                        <!--style="@style/edit_order_item_arrow"/>-->
+                <!--</LinearLayout>-->
 
                 <LinearLayout
                     android:id="@+id/ll_purpose"
@@ -288,6 +308,7 @@
                     <ImageView
                         style="@style/edit_order_item_arrow"/>
                 </LinearLayout>
+
                 <ImageView
                     style="@style/divider_line"
                     android:layout_marginLeft="@dimen/edit_case_divider_left"/>
@@ -313,233 +334,329 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/ll_first_diagnose"
-                style="@style/edit_order_list_item">
-
-                <TextView
-                    style="@style/edit_order_item_title"
-                    android:text="初步诊断"
-                    />
-
-                <TextView
-                    android:id="@+id/tv_first_diagnose"
-                    style="@style/edit_order_item_content"
-
-                    />
-
-                <ImageView
-                    style="@style/edit_order_item_arrow"/>
-            </LinearLayout>
-            <ImageView
-                style="@style/divider_line"
-                android:layout_marginLeft="@dimen/edit_case_divider_left"/>
-
-            <LinearLayout
-                android:id="@+id/ll_chief_complaint"
-                style="@style/edit_order_list_item">
-
-                <TextView
-                    style="@style/edit_order_item_title"
-                    android:text="主诉"
-                    />
-
-                <TextView
-                    android:id="@+id/tv_chief_complaint"
-                    style="@style/edit_order_item_content"
-
-                    />
-
-                <ImageView
-                    style="@style/edit_order_item_arrow"/>
-            </LinearLayout>
-            <ImageView
-                style="@style/divider_line"
-                android:layout_marginLeft="@dimen/edit_case_divider_left"/>
-
-            <LinearLayout
-                android:id="@+id/ll_present_history"
-                style="@style/edit_order_list_item">
-
-                <TextView
-                    style="@style/edit_order_item_title"
-                    android:text="现病史"
-                    />
-
-                <TextView
-                    android:id="@+id/tv_present_history"
-                    style="@style/edit_order_item_content"
-
-                    />
-
-                <ImageView
-                    style="@style/edit_order_item_arrow"/>
-            </LinearLayout>
-            <ImageView
-                style="@style/divider_line"
-                android:layout_marginLeft="@dimen/edit_case_divider_left"/>
-
-            <LinearLayout
-                android:id="@+id/ll_previous_history"
-                style="@style/edit_order_list_item">
-
-                <TextView
-                    style="@style/edit_order_item_title"
-                    android:text="既往史"
-                    />
-
-                <TextView
-                    android:id="@+id/tv_previous_history"
-                    style="@style/edit_order_item_content"
-
-                    />
-
-                <ImageView
-                    style="@style/edit_order_item_arrow"/>
-            </LinearLayout>
-            <ImageView
-                style="@style/divider_line"
-                android:layout_marginLeft="@dimen/edit_case_divider_left"/>
-
-            <LinearLayout
-                android:id="@+id/ll_family_history"
-                style="@style/edit_order_list_item">
-
-                <TextView
-                    style="@style/edit_order_item_title"
-                    android:text="家族史"
-                    />
-
-                <TextView
-                    android:id="@+id/tv_family_history"
-                    style="@style/edit_order_item_content"
-
-                    />
-
-                <ImageView
-                    style="@style/edit_order_item_arrow"/>
-            </LinearLayout>
-            <ImageView
-                style="@style/divider_line"
-                android:layout_marginLeft="@dimen/edit_case_divider_left"/>
-
-            <LinearLayout
-                android:id="@+id/ll_personal_history"
-                style="@style/edit_order_list_item">
-
-                <TextView
-                    style="@style/edit_order_item_title"
-                    android:text="个人史"
-                    />
-
-                <TextView
-                    android:id="@+id/tv_personal_history"
-                    style="@style/edit_order_item_content"
-
-                    />
-
-                <ImageView
-                    style="@style/edit_order_item_arrow"/>
-            </LinearLayout>
-            <ImageView
-                style="@style/divider_line"
-                android:layout_marginLeft="@dimen/edit_case_divider_left"/>
-
-            <LinearLayout
-                android:id="@+id/ll_body_sign"
-                style="@style/edit_order_list_item">
-
-                <TextView
-                    style="@style/edit_order_item_title"
-                    android:text="体征"
-                    />
-
-                <TextView
-                    android:id="@+id/tv_body_sign"
-                    style="@style/edit_order_item_content"
-
-                    />
-
-                <ImageView
-                    style="@style/edit_order_item_arrow"/>
-            </LinearLayout>
-            <ImageView
-                style="@style/divider_line"
-                android:layout_marginLeft="@dimen/edit_case_divider_left"/>
-
-            <LinearLayout
-                android:id="@+id/ll_treat_process"
-                style="@style/edit_order_list_item">
-
-                <TextView
-                    style="@style/edit_order_item_title"
-                    android:text="诊疗经过"
-                    />
-
-                <TextView
-                    android:id="@+id/tv_treat_process"
-                    style="@style/edit_order_item_content"
-
-                    />
-
-                <ImageView
-                    style="@style/edit_order_item_arrow"/>
-            </LinearLayout>
-            <ImageView
-                style="@style/divider_line"
-                android:layout_marginLeft="@dimen/edit_case_divider_left"/>
-
-            <LinearLayout
-                android:id="@+id/ll_examine_result"
-                style="@style/edit_order_list_item">
-
-                <TextView
-                    style="@style/edit_order_item_title"
-                    android:text="检查结果"
-                    />
-
-                <TextView
-                    android:id="@+id/tv_examine_result"
-                    style="@style/edit_order_item_content"
-
-                    />
-
-                <ImageView
-                    style="@style/edit_order_item_arrow"/>
-            </LinearLayout>
-            <ImageView
-                style="@style/divider_line"
-                android:layout_marginLeft="@dimen/edit_case_divider_left"/>
-
-            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@color/white"
                 android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="影像学检查"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="0dp"
+                    >
 
-                <!--<com.dachen.common.widget.NoScrollerGridView-->
-                <GridView
-                    android:id="@+id/gv_image_exmine"
+                    <ImageView
+                        android:layout_width="2dp"
+                        android:layout_height="16dp"
+                        android:background="#3764ba"/>
+
+                    <TextView
+                        style="@style/edit_order_item_title"
+                        android:layout_marginLeft="10dp"
+                        android:text="会诊资料"
+                        android:textColor="#171717"
+                        />
+                </LinearLayout>
+
+                <!--<LinearLayout-->
+                    <!--android:id="@+id/ll_first_diagnose"-->
+                    <!--style="@style/edit_order_list_item">-->
+
+                    <!--<TextView-->
+                        <!--style="@style/edit_order_item_title"-->
+                        <!--android:text="初步诊断"-->
+                        <!--/>-->
+
+                    <!--<TextView-->
+                        <!--android:id="@+id/tv_first_diagnose"-->
+                        <!--style="@style/edit_order_item_content"-->
+
+                        <!--/>-->
+
+                    <!--<ImageView-->
+                        <!--style="@style/edit_order_item_arrow"/>-->
+                <!--</LinearLayout>-->
+
+                <!--<ImageView-->
+                    <!--style="@style/divider_line"-->
+                    <!--android:layout_marginLeft="@dimen/edit_case_divider_left"/>-->
+
+                <LinearLayout
+                    android:id="@+id/ll_chief_complaint"
+                    style="@style/edit_order_list_item">
+
+                    <TextView
+                        style="@style/edit_order_item_title"
+                        android:text="主诉"
+                        />
+
+                    <TextView
+                        android:id="@+id/tv_chief_complaint"
+                        style="@style/edit_order_item_content"
+
+                        />
+
+                    <ImageView
+                        style="@style/edit_order_item_arrow"/>
+                </LinearLayout>
+
+                <ImageView
+                    style="@style/divider_line"
+                    android:layout_marginLeft="@dimen/edit_case_divider_left"/>
+
+                <LinearLayout
+                    android:id="@+id/ll_present_history"
+                    style="@style/edit_order_list_item">
+
+                    <TextView
+                        style="@style/edit_order_item_title"
+                        android:text="现病史"
+                        />
+
+                    <TextView
+                        android:id="@+id/tv_present_history"
+                        style="@style/edit_order_item_content"
+
+                        />
+
+                    <ImageView
+                        style="@style/edit_order_item_arrow"/>
+                </LinearLayout>
+
+                <ImageView
+                    style="@style/divider_line"
+                    android:layout_marginLeft="@dimen/edit_case_divider_left"/>
+
+                <LinearLayout
+                    android:id="@+id/ll_previous_history"
+                    style="@style/edit_order_list_item">
+
+                    <TextView
+                        style="@style/edit_order_item_title"
+                        android:text="既往史"
+                        />
+
+                    <TextView
+                        android:id="@+id/tv_previous_history"
+                        style="@style/edit_order_item_content"
+
+                        />
+
+                    <ImageView
+                        style="@style/edit_order_item_arrow"/>
+                </LinearLayout>
+
+                <ImageView
+                    style="@style/divider_line"
+                    android:layout_marginLeft="@dimen/edit_case_divider_left"/>
+
+                <LinearLayout
+                    android:id="@+id/ll_family_history"
+                    style="@style/edit_order_list_item">
+
+                    <TextView
+                        style="@style/edit_order_item_title"
+                        android:text="家族史"
+                        />
+
+                    <TextView
+                        android:id="@+id/tv_family_history"
+                        style="@style/edit_order_item_content"
+
+                        />
+
+                    <ImageView
+                        style="@style/edit_order_item_arrow"/>
+                </LinearLayout>
+
+                <ImageView
+                    style="@style/divider_line"
+                    android:layout_marginLeft="@dimen/edit_case_divider_left"/>
+
+                <LinearLayout
+                    android:id="@+id/ll_personal_history"
+                    style="@style/edit_order_list_item">
+
+                    <TextView
+                        style="@style/edit_order_item_title"
+                        android:text="个人史"
+                        />
+
+                    <TextView
+                        android:id="@+id/tv_personal_history"
+                        style="@style/edit_order_item_content"
+
+                        />
+
+                    <ImageView
+                        style="@style/edit_order_item_arrow"/>
+                </LinearLayout>
+
+                <ImageView
+                    style="@style/divider_line"
+                    android:layout_marginLeft="@dimen/edit_case_divider_left"/>
+
+                <LinearLayout
+                    android:id="@+id/ll_body_sign"
+                    style="@style/edit_order_list_item">
+
+                    <TextView
+                        style="@style/edit_order_item_title"
+                        android:text="体征"
+                        />
+
+                    <TextView
+                        android:id="@+id/tv_body_sign"
+                        style="@style/edit_order_item_content"
+
+                        />
+
+                    <ImageView
+                        style="@style/edit_order_item_arrow"/>
+                </LinearLayout>
+
+                <ImageView
+                    style="@style/divider_line"
+                    android:layout_marginLeft="@dimen/edit_case_divider_left"/>
+
+                <LinearLayout
+                    android:id="@+id/ll_treat_process"
+                    style="@style/edit_order_list_item">
+
+                    <TextView
+                        style="@style/edit_order_item_title"
+                        android:text="诊疗经过"
+                        />
+
+                    <TextView
+                        android:id="@+id/tv_treat_process"
+                        style="@style/edit_order_item_content"
+
+                        />
+
+                    <ImageView
+                        style="@style/edit_order_item_arrow"/>
+                </LinearLayout>
+
+                <ImageView
+                    style="@style/divider_line"
+                    android:layout_marginLeft="@dimen/edit_case_divider_left"/>
+
+                <LinearLayout
+                    android:id="@+id/ll_examine_result"
+                    style="@style/edit_order_list_item">
+
+                    <TextView
+                        style="@style/edit_order_item_title"
+                        android:text="检查结果"
+                        />
+
+                    <TextView
+                        android:id="@+id/tv_examine_result"
+                        style="@style/edit_order_item_content"
+
+                        />
+
+                    <ImageView
+                        style="@style/edit_order_item_arrow"/>
+                </LinearLayout>
+
+                <ImageView
+                    style="@style/divider_line"
+                    android:layout_marginLeft="@dimen/edit_case_divider_left"/>
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="20dp"
-                    android:background="@color/red"
-                    android:fadingEdge="none"
-                    android:fastScrollEnabled="false"
-                    android:focusable="false"
-                    android:numColumns="4"
-                    android:scrollbars="none"
-                    android:smoothScrollbar="true"/>
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_margin="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="影像学检查"/>
+
+                    <EditText
+                        android:id="@+id/et_image_examine"
+                        android:background="@drawable/grey_round_corner_shape"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:textSize="12sp"
+                        android:padding="5dp"
+                        android:hint="备注"
+                        android:layout_marginBottom="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                    <com.dachen.common.widget.NoScrollerGridView
+                        android:id="@+id/gv_image_examine"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:fadingEdge="none"
+                        android:listSelector="@null"
+                        android:verticalSpacing="3dp"
+                        android:horizontalSpacing="3dp"
+                        android:fastScrollEnabled="false"
+                        android:focusable="false"
+                        android:padding="0dp"
+                        android:numColumns="4"
+                        android:scrollbars="none"
+                        android:smoothScrollbar="true"/>
+
+                </LinearLayout>
+
+                <ImageView
+                    style="@style/divider_line"
+                    android:layout_marginLeft="@dimen/edit_case_divider_left"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_margin="10dp"
+                        android:layout_height="wrap_content"
+                        android:text="病理学检查"/>
+                    <!--<GridView-->
+                    <EditText
+                        android:id="@+id/et_pathology_examine"
+                        android:background="@drawable/grey_round_corner_shape"
+                        android:layout_marginRight="10dp"
+                        android:hint="备注"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:textSize="12sp"
+                        android:padding="5dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                    <com.dachen.common.widget.NoScrollerGridView
+                        android:id="@+id/gv_pathology_examine"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:verticalSpacing="3dp"
+                        android:horizontalSpacing="3dp"
+                        android:listSelector="@null"
+                        android:fadingEdge="none"
+                        android:fastScrollEnabled="false"
+                        android:focusable="false"
+                        android:numColumns="4"
+                        android:scrollbars="none"
+                        android:smoothScrollbar="true"/>
 
 
+                </LinearLayout>
             </LinearLayout>
-            <ImageView
-                style="@style/divider_line"
-                android:layout_marginLeft="@dimen/edit_case_divider_left"/>
-
         </LinearLayout>
     </ScrollView>
 

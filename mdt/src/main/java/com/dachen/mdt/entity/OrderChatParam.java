@@ -11,6 +11,7 @@ public class OrderChatParam {
     public long endTime;
     public String userName;
     public String firstDiag;
+    public String topDiseaseId;
     public int patientAge;
     public int patientSex;
 //    "patientName":"患者张三",

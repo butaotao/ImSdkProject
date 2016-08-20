@@ -16,4 +16,12 @@
             />
     </RelativeLayout>
 
+    <ExpandableListView
+        android:id="@+id/list_view"
+        android:groupIndicator="@null"
+        android:background="@color/white"
+        android:childDivider="@color/transparent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
 </LinearLayout>

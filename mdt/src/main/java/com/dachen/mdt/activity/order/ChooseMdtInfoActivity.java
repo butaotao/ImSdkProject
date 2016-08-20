@@ -33,7 +33,8 @@ public class ChooseMdtInfoActivity extends BaseActivity {
     @BindView(R.id.list_view)
     public ListView mListView;
 
-    private String mdtGroupId;
+//    private String mdtGroupId;
+    private String mDiseaseTypeId;
     private ChooseTextAdapter mAdapter;
     private String mType;
     @Override
@@ -41,7 +42,7 @@ public class ChooseMdtInfoActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_mdt_info);
         ButterKnife.bind(this);
-        mdtGroupId=getIntent().getStringExtra(AppConstants.INTENT_MDT_GROUP_ID);
+        mDiseaseTypeId=getIntent().getStringExtra(AppConstants.INTENT_DISEASE_TOP_ID);
         mType=getIntent().getStringExtra(KEY_TYPE);
         mAdapter=new ChooseTextAdapter(this,null);
         mAdapter.setSelectText(getIntent().getStringExtra(KEY_START_TEXT));
@@ -84,7 +85,7 @@ public class ChooseMdtInfoActivity extends BaseActivity {
         };
         String url= UrlConstants.getUrl(UrlConstants.GET_ALL_DATABASE_LIST);
         Map<String,Object> reqMap=new HashMap<>();
-        reqMap.put("mdtGroupId",mdtGroupId);
+        reqMap.put("diseaseTypeId",mDiseaseTypeId);
         ImCommonRequest request=new ImCommonRequest(url,reqMap, RequestHelper.makeSucListener(false,listener),RequestHelper.makeErrorListener(listener));
         VolleyUtil.getQueue(mThis).add(request);
     }

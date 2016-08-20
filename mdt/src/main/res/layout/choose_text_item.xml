@@ -2,7 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
+              android:gravity="center_vertical"
               android:orientation="horizontal"
+              android:background="@color/white"
               android:padding="10dp">
 
     <TextView
@@ -17,6 +19,13 @@
         android:id="@+id/iv_check"
         android:layout_width="wrap_content"
         android:src="@drawable/icon_check"
+        android:layout_height="wrap_content"/>
+    <ImageView
+        android:id="@+id/iv_arrow"
+        android:layout_marginLeft="5dp"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:src="@drawable/arrow_right"
         android:layout_height="wrap_content"/>
 
 </LinearLayout>

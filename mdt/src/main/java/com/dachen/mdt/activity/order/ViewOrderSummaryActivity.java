@@ -38,6 +38,7 @@ public class ViewOrderSummaryActivity extends BaseActivity {
     @BindView(R.id.right_btn)
     public TextView mRightBtn;
     private boolean isLeader;
+    private int myStatus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,18 +46,25 @@ public class ViewOrderSummaryActivity extends BaseActivity {
         setContentView(R.layout.activity_view_order_summary);
         ButterKnife.bind(this);
         mOrderId=getIntent().getStringExtra(AppConstants.INTENT_ORDER_ID);
+        myStatus=getIntent().getIntExtra(AppConstants.INTENT_MY_ORDER_STATUS,-1);
         mAdapter=new OrderSummaryAdapter(this,new ArrayList<SummaryResult>());
         mListView.setAdapter(mAdapter);
         fetchOrderReport();
         isLeader=getIntent().getBooleanExtra(AppConstants.INTENT_IS_LEADER,false);
-        mRightBtn.setText(isLeader?"填写报告":"填写小结");
+        if(isLeader){
+            mRightBtn.setText(myStatus==2?"填写报告":"填写小结");
+        }else{
+            mRightBtn.setText("填写小结");
+        }
     }
 
     @OnClick(R.id.right_btn)
     protected void goEdit(){
         Intent i=new Intent(mThis,SubmitSummaryActivity.class);
         i.putExtra(AppConstants.INTENT_ORDER_ID,mOrderId);
-        i.putExtra(AppConstants.INTENT_IS_LEADER,getIntent().getBooleanExtra(AppConstants.INTENT_IS_LEADER,false));
+        i.putExtra(AppConstants.INTENT_DISEASE_TOP_ID,getIntent().getStringExtra(AppConstants.INTENT_DISEASE_TOP_ID));
+        boolean isReport= isLeader&&myStatus==2;
+        i.putExtra(SubmitSummaryActivity.KEY_IS_REPORT,isReport);
         startActivityForResult(i,REQ_CODE_EDIT);
     }
 

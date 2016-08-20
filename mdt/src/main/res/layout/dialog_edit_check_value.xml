@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_custom_dialog"
+    android:orientation="vertical" >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:padding="15dp"
+        android:orientation="vertical"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="123"
+            android:layout_marginBottom="15dp"
+            android:textColor="#000"
+            android:textSize="18sp"
+            />
+        <LinearLayout
+            android:background="#EDEFEF"
+            android:padding="10dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <EditText
+                android:id="@+id/et_value"
+                android:layout_width="0dp"
+                android:inputType="numberDecimal"
+                android:layout_weight="1"
+                android:maxLines="1"
+                android:hint="请填写结果"
+                android:background="@color/transparent"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:textColor="#000"
+                android:id="@+id/tv_unit"
+                android:text="ng/ml"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+        <TextView
+            android:textColor="#aaa"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="2dp"
+            android:layout_width="wrap_content"
+            android:text="正常范围 1-2"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+    <ImageView
+        style="@style/divider_line"/>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+
+        <Button
+            android:layout_weight="1"
+            android:id="@+id/btn_cancel"
+            android:background="@color/transparent"
+            android:layout_width="0dp"
+            android:text="取消"
+            android:textColor="@color/blue"
+            android:layout_height="match_parent"/>
+        <ImageView
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            style="@style/divider_line"/>
+        <Button
+            android:layout_weight="1"
+            android:id="@+id/btn_confirm"
+            android:background="@color/transparent"
+            android:layout_width="0dp"
+            android:text="确定"
+            android:textColor="@color/blue"
+            android:layout_height="match_parent"/>
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,7 +1,7 @@
 package com.dachen.mdt.entity;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.ArrayList;
 
 /**
  * Created by Mcp on 2016/8/16.
@@ -12,5 +12,6 @@ public class DiseaseType implements Serializable{
     public String topDiseaseId;
     public String parentId;
     public int level;
-    public List<DiseaseType> children;
+    public ArrayList<DiseaseType> children;
+    public ArrayList<DiseaseTag> tagList;
 }

@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@color/background"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.dachen.mdt.activity.order.ChooseDiseaseTypeActivity">
 
     <RelativeLayout style="@style/Common_Title_style">
@@ -15,7 +17,7 @@
         <TextView
             android:id="@+id/title"
             style="@style/ActionBar_Title"
-            android:text="选择"
+            android:text="选择病种"
             />
 
         <ImageView
@@ -30,9 +32,9 @@
 
     <ListView
         android:id="@+id/list_view"
-        android:background="@color/white"
-        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"/>
 
-</RelativeLayout>
+</LinearLayout>

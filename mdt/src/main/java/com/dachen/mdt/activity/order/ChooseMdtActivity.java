@@ -23,7 +23,10 @@ import com.dachen.mdt.entity.MdtGroupInfo;
 import com.dachen.mdt.listener.RequestHelperListener;
 import com.dachen.mdt.net.RequestHelper;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -33,12 +36,16 @@ import butterknife.OnItemClick;
 public class ChooseMdtActivity extends BaseActivity {
 
     public static final String KEY_RESULT_MDT="resultMdt";
+    public static final String KEY_PARENT="keyParent";
+    public static final int REQ_CODE_NEXT = 1;
 
     @BindView(R.id.list_view)
     public ListView mListView;
     private String mdtGroupId;
     private ChooseMdtAdapter mAdapter;
     private MdtGroupInfo mResultMdt;
+    private MdtGroupInfo mParent;
+    private String diseaseId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,16 +53,37 @@ public class ChooseMdtActivity extends BaseActivity {
         setContentView(R.layout.activity_choose_mdt);
         ButterKnife.bind(this);
         mdtGroupId =getIntent().getStringExtra(AppConstants.INTENT_MDT_GROUP_ID);
+        diseaseId=getIntent().getStringExtra(AppConstants.INTENT_DISEASE_TOP_ID);
+        mParent= (MdtGroupInfo) getIntent().getSerializableExtra(KEY_PARENT);
         mAdapter=new ChooseMdtAdapter(this,null);
         mListView.setAdapter(mAdapter);
-        fetchInfo();
+        if(mParent==null){
+            fetchInfo();
+        }else{
+            List<MdtGroupInfo> list = new ArrayList<>();
+            list.add(mParent);
+            list.addAll(mParent.children);
+            mAdapter.update(list);
+        }
     }
 
     @OnItemClick(R.id.list_view)
     public void onItemClick(AdapterView<?> parent, View view, int position, long id){
-        mdtGroupId=mAdapter.getItem(position).id;
+        MdtGroupInfo info=mAdapter.getItem(position);
+        if(info.children==null){
+            clickResult(info);
+        }else if(mParent!=null&& mParent.id.equals(info.id)){
+            clickResult(info);
+        }else{
+            Intent i=new Intent(this,ChooseMdtActivity.class).putExtra(KEY_PARENT,info)
+                    .putExtra(AppConstants.INTENT_MDT_GROUP_ID,mdtGroupId);
+            startActivityForResult(i,REQ_CODE_NEXT);
+        }
+    }
+    private void clickResult( MdtGroupInfo info){
+        mResultMdt=info;
         mAdapter.notifyDataSetChanged();
-        mResultMdt=mAdapter.getItem(position);
+        mdtGroupId=info.id;
     }
 
     @OnClick(R.id.right_btn)
@@ -81,9 +109,20 @@ public class ChooseMdtActivity extends BaseActivity {
             }
         };
         String url= UrlConstants.getUrl(UrlConstants.GET_MDT_GROUP_LIST);
-        ImCommonRequest request=new ImCommonRequest(url,null, RequestHelper.makeSucListener(false,listener),RequestHelper.makeErrorListener(listener));
+        Map<String, Object> reqMap = new HashMap<>();
+        reqMap.put("diseaseTypeId",diseaseId);
+        ImCommonRequest request=new ImCommonRequest(url,reqMap, RequestHelper.makeSucListener(false,listener),RequestHelper.makeErrorListener(listener));
         VolleyUtil.getQueue(mThis).add(request);
         getProgressDialog().show();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode==REQ_CODE_NEXT){
+            if(resultCode!=RESULT_OK)return;
+            setResult(RESULT_OK,data );
+            finish();
+        }
     }
 
     private class ChooseMdtAdapter extends CommonAdapterV2<MdtGroupInfo>{
@@ -101,7 +140,16 @@ public class ChooseMdtActivity extends BaseActivity {
         public View getView(int position, View convertView, ViewGroup parent) {
             ViewHolder holder=ViewHolder.get(mContext,convertView,parent,R.layout.choose_text_item,position);
             MdtGroupInfo info=mData.get(position);
-            holder.setText(R.id.text_view,info.name);
+            String text=info.name;
+            int arrowVis=View.GONE;
+            if(info.children!=null)
+                arrowVis=View.VISIBLE;
+            if(mParent!=null&& mParent.id.equals(info.id) ){
+                text="全部";
+                arrowVis= View.GONE;
+            }
+            holder.setVisibility(R.id.iv_arrow,arrowVis);
+            holder.setText(R.id.text_view, text);
             int vis=View.INVISIBLE;
             if(TextUtils.equals(mdtGroupId,info.id)){
                 vis=View.VISIBLE;

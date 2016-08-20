@@ -29,8 +29,13 @@
             />
     </RelativeLayout>
 
-    <include
-        android:id="@+id/v_order_info"
-        layout="@layout/order_view_layout"
-        />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <include
+            android:id="@+id/v_order_info"
+            layout="@layout/order_view_layout"
+            />
+    </ScrollView>
+
 </LinearLayout>

@@ -21,7 +21,7 @@
 
             <TextView
                 style="@style/PopWindowItemTextStyle"
-                android:drawableLeft="@drawable/arrow_right"
+                android:drawableLeft="@drawable/painter_data"
                 android:text="会诊病例"
                 android:gravity="center_vertical"
                 />
@@ -37,7 +37,7 @@
 
             <TextView
                 style="@style/PopWindowItemTextStyle"
-                android:drawableLeft="@drawable/arrow_right"
+                android:drawableLeft="@drawable/consultation_expert"
                 android:text="会诊专家"
                 android:gravity="center_vertical"
                 />

@@ -2,6 +2,7 @@ package com.dachen.mdt.activity.main;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -29,6 +30,10 @@ public class CommonInputActivity extends BaseActivity {
         setContentView(R.layout.activity_common_input);
         ButterKnife.bind(this);
         et.setText(getIntent().getStringExtra(KEY_TEXT));
+        String title=getIntent().getStringExtra(KEY_TITLE);
+        if(!TextUtils.isEmpty(title)){
+            mTitle.setText(title);
+        }
     }
 
     @OnClick(R.id.right_btn)

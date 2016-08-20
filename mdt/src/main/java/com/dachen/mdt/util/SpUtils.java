@@ -28,6 +28,9 @@ public class SpUtils {
     public static void saveUser(String token, DoctorInfo info){
         edit().putString(KEY_USER_ID,info.userId).putString(KEY_USER_INFO, JSON.toJSONString(info)).putString(KEY_USER_TOKEN,token).apply();
     }
+    public static void saveUser(DoctorInfo info){
+        edit().putString(KEY_USER_ID,info.userId).putString(KEY_USER_INFO, JSON.toJSONString(info)).apply();
+    }
     public static void clearUser(){
         edit().remove(KEY_USER_ID).remove(KEY_USER_INFO).remove(KEY_USER_TOKEN).apply();
     }

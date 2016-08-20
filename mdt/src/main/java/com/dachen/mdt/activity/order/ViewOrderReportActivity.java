@@ -66,7 +66,6 @@ public class ViewOrderReportActivity extends BaseActivity {
         holder.setText(R.id.tv_doc_manager,item.userName);
         holder.setText(R.id.tv_patient_info,item.patient.name);
         holder.setText(R.id.tv_mdt_group,item.mdtGroupName);
-        holder.setText(R.id.tv_category,item.diseaseType);
         holder.setText(R.id.tv_purpose,item.target);
         holder.setText(R.id.tv_first_diagnose,item.firstDiag);
         holder.setText(R.id.tv_diagnose_opinion,item.diagSuggest);

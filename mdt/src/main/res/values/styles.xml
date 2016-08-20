@@ -1,7 +1,9 @@
 <resources>
 
-    <style name="AppTheme" parent="android:Theme.Light.NoTitleBar">
+    <!--<style name="AppTheme" parent="android:Theme.Light.NoTitleBar">-->
+    <style name="AppTheme" parent="android:Theme.Holo.Light.NoActionBar">
         <item name="android:screenOrientation">portrait</item>
+        <item name="android:buttonStyle">@android:style/Widget.Button</item>
     </style>
 
     <style name="IMEditText">
@@ -47,6 +49,7 @@
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/tab_textview_color</item>
         <item name="android:layout_centerInParent">true</item>
+        <item name="android:gravity">center_horizontal</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
@@ -135,7 +138,7 @@
 
     <!--Order-->
     <style name="edit_order_list_item">
-        <item name="android:background">@drawable/selector_btn_back</item>
+        <item name="android:background">@drawable/setting_click_bg</item>
         <item name="android:orientation">horizontal</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:gravity">center_vertical</item>
@@ -188,7 +191,6 @@
     <style name="order_confirm_line">
         <item name="android:orientation">horizontal</item>
         <item name="android:layout_width">match_parent</item>
-        <item name="android:gravity">center_vertical</item>
         <item name="android:paddingLeft">10dp</item>
         <item name="android:paddingRight">10dp</item>
         <item name="android:layout_height">wrap_content</item>

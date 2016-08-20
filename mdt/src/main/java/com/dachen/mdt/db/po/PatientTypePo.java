@@ -14,6 +14,9 @@ public class PatientTypePo {
     @DatabaseField
     public String name;
 
+    public PatientTypePo() {
+    }
+
     public PatientTypePo(String id, String name) {
         this.id = id;
         this.name = name;

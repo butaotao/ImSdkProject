@@ -1,31 +1,32 @@
 package com.dachen.mdt.entity;
 
-import java.util.List;
-
 public class DiseaseInfo {
 	/*初步诊断*/
 	public String firstDiag;
 	/*主诉*/
-	public String desc;
+//	public TempTextParam desc;
+	public TempTextParam complain;
 	/*体征 TODO*/
-	public String symptom;
+	public TempTextParam symptom;
 	/*现病史*/
-	public String diseaseNow;
+	public TempTextParam diseaseNow;
     //既往史
-    public String diseaseOld;
+    public TempTextParam diseaseOld;
     //家族史
-    public String diseaseFamily;
+    public TempTextParam diseaseFamily;
     //个人史
-    public String diseaseSelf;
+    public TempTextParam diseaseSelf;
 	
 	/*影像学检查(图片url，不超过8张)*/
-	public List<String> imaging;
+//	public List<String> imaging;
+	public TextImgListParam imaging;
 	/*病理学检查(图片url，不超过8张)*/
-	public List<String> pathology;
+//	public List<String> pathology;
+	public TextImgListParam pathology;
 	/*诊疗经过*/
-	public String checkProcess;
+	public TempTextParam checkProcess;
 	/*检验结果*/
-	public String result;
+	public CheckTypeResult result;
 
 	public DiseaseInfo(){
 //		this.firstDiag="初步诊断";

@@ -2,7 +2,6 @@ package com.dachen.mdt.activity.order;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Html;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -15,11 +14,14 @@ import com.dachen.mdt.R;
 import com.dachen.mdt.UrlConstants;
 import com.dachen.mdt.activity.BaseActivity;
 import com.dachen.mdt.activity.main.CommonInputActivity;
+import com.dachen.mdt.entity.DiseaseTag;
+import com.dachen.mdt.entity.DiseaseType;
 import com.dachen.mdt.exception.TextEmptyException;
 import com.dachen.mdt.listener.RequestHelperListener;
 import com.dachen.mdt.net.RequestHelper;
 import com.dachen.mdt.util.ViewUtils;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,6 +33,10 @@ public class SubmitSummaryActivity extends BaseActivity {
 
     private static final int REQ_CODE_MDT_INFO = 2;
     private static final int REQ_CODE_INPUT = 3;
+    private static final int REQ_CODE_DISEASE = 4;
+    private static final int REQ_CODE_DISEASE_TAG = 5;
+
+    public static final String KEY_IS_REPORT="isReport";
 
     @BindView(R.id.tv_diagnose_opinion)
     TextView tvDiagnoseOpinion;
@@ -42,20 +48,30 @@ public class SubmitSummaryActivity extends BaseActivity {
     TextView tvOther;
     @BindView(R.id.title)
     TextView tvTitle;
+    @BindView(R.id.tv_diagnose_tag)
+    TextView tvDiagnoseTag;
+    @BindView(R.id.ll_diagnose_tag)
+    View layoutDiagnoseTag;
 
-    private String mdtGroupId;
+//    private String mdtGroupId;
+    private String mDisTopId;
     private String mOrderId;
-    private boolean isLeader;
+    private boolean isReport;
+    private DiseaseType mType;
+    private DiseaseTag mDisTag;
+//    private String mDisTag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_submit_summary);
         ButterKnife.bind(this);
-        mdtGroupId=getIntent().getStringExtra(AppConstants.INTENT_MDT_GROUP_ID);
+//        mdtGroupId=getIntent().getStringExtra(AppConstants.INTENT_MDT_GROUP_ID);
+        mDisTopId=getIntent().getStringExtra(AppConstants.INTENT_DISEASE_TOP_ID);
         mOrderId =getIntent().getStringExtra(AppConstants.INTENT_ORDER_ID);
-        isLeader=getIntent().getBooleanExtra(AppConstants.INTENT_IS_LEADER,false);
-        tvTitle.setText(isLeader?"填写报告":"填写小结");
+        isReport =getIntent().getBooleanExtra(KEY_IS_REPORT,false);
+        tvTitle.setText(isReport ?"填写报告":"填写小结");
+        refreshTagForDisease();
     }
 
     @OnClick(R.id.right_btn)
@@ -65,11 +81,17 @@ public class SubmitSummaryActivity extends BaseActivity {
         try {
             reqMap.put("diagSuggest", ViewUtils.checkTextEmpty(tvDiagnoseOpinion));
         } catch (TextEmptyException e) {
-            e.tv.requestFocus();
-            e.tv.setError(Html.fromHtml("<font color='red'>不能为空!</font>"));
+            ViewUtils.setError(e.tv,"不能为空!");
             return;
         }
-        reqMap.put("checkSuggest", tvExamineOpinion.getText().toString());
+        String examOpinion=tvExamineOpinion.getText().toString();
+        if(isReport){
+            examOpinion+="-"+ tvDiagnoseTag.getText().toString();
+        }
+        if(mDisTag!=null)
+            reqMap.put("tagId", mDisTag.id);
+        reqMap.put("diseaseTypeId", mType.id);
+        reqMap.put("checkSuggest", examOpinion);
         reqMap.put("treatSuggest", tvTreatOpinion.getText().toString());
         reqMap.put("other", tvOther.getText().toString());
 
@@ -90,25 +112,39 @@ public class SubmitSummaryActivity extends BaseActivity {
 
         };
         getProgressDialog().show();
-        String url= UrlConstants.getUrl(isLeader?UrlConstants.SUBMIT_REPORT:UrlConstants.SAVE_SUMMARY);
+        String url= UrlConstants.getUrl(isReport ?UrlConstants.SUBMIT_REPORT:UrlConstants.SAVE_SUMMARY);
         ImCommonRequest request=new ImCommonRequest(url,reqMap, RequestHelper.makeSucListener(true,listener),RequestHelper.makeErrorListener(listener));
         VolleyUtil.getQueue(mThis).add(request);
     }
 
-    @OnClick({R.id.ll_diagnose_opinion, R.id.ll_examine_opinion,R.id.ll_treat_opinion})
+    @OnClick({ R.id.ll_examine_opinion,R.id.ll_treat_opinion})
     protected void chooseMdtInfo(View v) {
-        if (mdtGroupId == null) {
-            // TODO: 2016/8/10
-            mdtGroupId="mdt_zl01";
-        }
         TextView tv = (TextView) ((ViewGroup) v).getChildAt(1);
         String type = EditOrderCaseActivity.getTypeMap().get(v.getId());
         if (type == null) return;
-        Intent i = new Intent(mThis, ChooseMdtInfoActivity.class).putExtra(AppConstants.INTENT_MDT_GROUP_ID, mdtGroupId)
+        Intent i = new Intent(mThis, ChooseMdtInfoActivity.class).putExtra(AppConstants.INTENT_DISEASE_TOP_ID, mDisTopId)
                 .putExtra(ChooseMdtInfoActivity.KEY_TYPE, type)
                 .putExtra(ChooseMdtInfoActivity.KEY_START_TEXT,tv.getText().toString())
                 .putExtra(AppConstants.INTENT_VIEW_ID, tv.getId());
         startActivityForResult(i, REQ_CODE_MDT_INFO);
+    }
+    @OnClick(R.id.ll_diagnose_opinion)
+    protected void chooseDiagnoseOpinion(View v) {
+        Intent i = new Intent(mThis, ChooseSummaryDiseaseActivity.class)
+                .putExtra(ChooseSummaryDiseaseActivity.KEY_START, mType)
+                .putExtra(AppConstants.INTENT_DISEASE_TOP_ID, mDisTopId);
+        startActivityForResult(i, REQ_CODE_DISEASE);
+    }
+    @OnClick(R.id.ll_diagnose_tag)
+    protected void chooseDiseaseTag(View v) {
+        ArrayList<String> list=new ArrayList<>();
+        for(DiseaseTag tag:mType.tagList){
+            list.add(tag.name);
+        }
+        Intent i = new Intent(mThis, ChooseDiseaseTagActivity.class)
+                .putExtra(AppConstants.INTENT_START_DATA, mDisTag)
+                .putExtra(ChooseDiseaseTagActivity.KEY_TYPE,mType);
+        startActivityForResult(i, REQ_CODE_DISEASE_TAG);
     }
 
     @OnClick({R.id.ll_other})
@@ -122,10 +158,29 @@ public class SubmitSummaryActivity extends BaseActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode != RESULT_OK) return;
         if (requestCode == REQ_CODE_MDT_INFO || requestCode == REQ_CODE_INPUT) {
-            if (resultCode != RESULT_OK) return;
             handleTextResult(data);
+        }else if(requestCode==REQ_CODE_DISEASE){
+            mType= (DiseaseType) data.getSerializableExtra(ChooseSummaryDiseaseActivity.KEY_RESULT);
+            tvDiagnoseOpinion.setText(mType.name);
+            refreshTagForDisease();
+        }else if(requestCode==REQ_CODE_DISEASE_TAG){
+            mDisTag= (DiseaseTag) data.getSerializableExtra(AppConstants.INTENT_RESULT);
+            tvDiagnoseTag.setText(mDisTag.name);
         }
+    }
+    private void refreshTagForDisease(){
+//        DiseaseTag tag=mDisTag;
+//        String tag=mDisTag;
+        mDisTag=null;
+        tvDiagnoseTag.setText(null);
+        if(!isReport ||mType==null||mType.tagList==null||mType.tagList.size()==0){
+            layoutDiagnoseTag.setVisibility(View.GONE);
+            return;
+        }
+        layoutDiagnoseTag.setVisibility(View.VISIBLE);
+
     }
 
     private void handleTextResult(Intent data) {

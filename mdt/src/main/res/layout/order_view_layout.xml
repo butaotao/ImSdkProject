@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="match_parent"
+              android:orientation="vertical">
 
     <LinearLayout
-        android:layout_marginTop="10dp"
         android:id="@+id/ll_patient_info"
-        style="@style/order_confirm_line">
+        style="@style/order_confirm_line"
+        android:layout_marginTop="10dp">
 
         <TextView
             style="@style/order_confirm_line_title"
@@ -119,6 +119,7 @@
             style="@style/order_confirm_line_title"
             android:text="现病史"
             />
+
         <TextView
             android:id="@+id/tv_present_history"
             style="@style/order_confirm_line_content"
@@ -221,6 +222,44 @@
             android:id="@+id/tv_examine_result"
             style="@style/order_confirm_line_content"
             />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_image_examine"
+        style="@style/order_confirm_line">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/order_confirm_line_title"
+                android:layout_width="wrap_content"
+                android:text="影像学学检查"
+                />
+
+            <com.dachen.common.widget.NoScrollerGridView
+                android:id="@+id/gv_image_examine"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_marginTop="10dp"
+                android:fadingEdge="none"
+                android:fastScrollEnabled="false"
+                android:focusable="false"
+                android:horizontalSpacing="3dp"
+                android:verticalSpacing="3dp"
+                android:numColumns="4"
+                android:scrollbars="none"
+                android:smoothScrollbar="true"/>
+            <TextView
+                android:layout_marginTop="10dp"
+                android:id="@+id/tv_image_examine"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
 
     </LinearLayout>
 

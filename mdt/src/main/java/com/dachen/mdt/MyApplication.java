@@ -43,8 +43,8 @@ public class MyApplication extends Application {
         initImageLoader();
         AppImUtils.initImAct();
         ImSdk.getInstance().initSdk(this,mAppDir,mVoicesDir,mVideosDir,mPicturesDir);
-//        UrlConstants.changIp("http://192.168.3.7:8101","192.168.3.7:8102");
-        UrlConstants.changIp("http://120.25.84.65:8101","120.25.84.65:8102");
+        UrlConstants.changIp("http://192.168.3.7:8101","192.168.3.7:8102");
+//        UrlConstants.changIp("http://120.25.84.65:8101","120.25.84.65:8102");
     }
 
     private void initAppDir() {

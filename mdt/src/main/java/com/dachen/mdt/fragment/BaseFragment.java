@@ -11,6 +11,7 @@ import com.dachen.mdt.activity.BaseActivity;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import de.greenrobot1.event.EventBus;
 
 /**
  * Created by Mcp on 2016/8/6.
@@ -31,11 +32,15 @@ public abstract class BaseFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v=inflater.inflate(getLayoutResource(),container,false);
         mUnBinder = ButterKnife.bind(this,v);
+        if(useEventBus())
+            EventBus.getDefault().register(this);
         return v;
     }
 
     @Override
     public void onDestroyView() {
+        if(useEventBus())
+            EventBus.getDefault().unregister(this);
         mUnBinder.unbind();
         super.onDestroyView();
     }
@@ -53,4 +58,8 @@ public abstract class BaseFragment extends Fragment {
     }
 
     protected abstract int getLayoutResource();
+
+    protected boolean useEventBus(){
+        return false;
+    }
 }

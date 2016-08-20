@@ -1,6 +1,7 @@
 package com.dachen.mdt.adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap.Config;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -14,6 +15,8 @@ import com.dachen.imsdk.utils.ImUtils;
 import com.dachen.mdt.R;
 import com.dachen.mdt.entity.OrderChatParam;
 import com.dachen.mdt.listener.ChatGroupClickListener;
+import com.dachen.mdt.util.OrderUtils;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.Date;
@@ -24,6 +27,15 @@ import java.util.List;
  */
 public class ImOrderAdapter extends CommonAdapterV2<ChatGroupPo>{
 
+    private DisplayImageOptions opts= new DisplayImageOptions.Builder()
+            .bitmapConfig(Config.RGB_565)
+            .cacheInMemory(true)
+            .cacheOnDisk(true)
+            .resetViewBeforeLoading(true)
+            .showImageForEmptyUri(R.drawable.mdt_icon)
+            .showImageOnFail(R.drawable.mdt_icon)
+            .showImageOnLoading(R.drawable.mdt_icon)
+            .build();
     public ImOrderAdapter(Context mContext, List<ChatGroupPo> mData) {
         super(mContext, mData);
     }
@@ -39,7 +51,9 @@ public class ImOrderAdapter extends CommonAdapterV2<ChatGroupPo>{
         ChatGroupPo po=mData.get(position);
         OrderChatParam param= JSON.parseObject(po.param,OrderChatParam.class);
         holder.setText(R.id.tv_name,param.patientName);
-        ImageLoader.getInstance().displayImage(po.gpic, (ImageView) holder.getView(R.id.iv_pic));
+        holder.setText(R.id.tv_name_info, OrderUtils.getSexStr(param.patientSex)+" "+param.patientAge+"岁");
+        holder.setText(R.id.tv_first_diagnose, "初步诊断:"+param.firstDiag );
+        ImageLoader.getInstance().displayImage(po.gpic, (ImageView) holder.getView(R.id.iv_pic),opts);
         holder.getConvertView().setOnClickListener(new ChatGroupClickListener(po));
         holder.setText(R.id.tv_doc_manager,param.userName);
         holder.setText(R.id.tv_msg_content,po.lastMsgContent);

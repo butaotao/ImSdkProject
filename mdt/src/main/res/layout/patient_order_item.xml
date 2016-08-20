@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:id="@+id/ll_mdt_group"
+        style="@style/order_confirm_line">
+
+        <TextView
+            style="@style/order_confirm_line_title"
+            android:text="MDT小组:"
+            />
+
+        <TextView
+            android:id="@+id/tv_mdt_group"
+            style="@style/order_confirm_line_content"
+            />
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/ll_purpose"
+        style="@style/order_confirm_line">
+
+        <TextView
+            style="@style/order_confirm_line_title"
+            android:text="会诊目的:"
+            />
+
+        <TextView
+            android:id="@+id/tv_purpose"
+            style="@style/order_confirm_line_content"
+            />
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/ll_first_diagnose"
+        style="@style/order_confirm_line">
+
+        <TextView
+            style="@style/order_confirm_line_title"
+            android:text="初步诊断:"
+            />
+
+        <TextView
+            android:id="@+id/tv_first_diagnose"
+            style="@style/order_confirm_line_content"
+            />
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/ll_diagnose_opinion"
+        style="@style/order_confirm_line">
+
+        <TextView
+            style="@style/order_confirm_line_title"
+            android:text="诊断意见:"
+            />
+
+        <TextView
+            android:id="@+id/tv_diagnose_opinion"
+            style="@style/order_confirm_line_content"
+            />
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/ll_treat_opinion"
+        style="@style/order_confirm_line">
+
+        <TextView
+            style="@style/order_confirm_line_title"
+            android:text="诊断意见:"
+            />
+
+        <TextView
+            android:id="@+id/tv_treat_opinion"
+            style="@style/order_confirm_line_content"
+            />
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/ll_examine_opinion"
+        style="@style/order_confirm_line">
+
+        <TextView
+            style="@style/order_confirm_line_title"
+            android:text="检查意见:"
+            />
+
+        <TextView
+            android:id="@+id/tv_examine_opinion"
+            style="@style/order_confirm_line_content"
+            />
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/ll_end_time"
+        style="@style/order_confirm_line">
+
+        <TextView
+            style="@style/order_confirm_line_title"
+            android:text="会诊时间:"
+            />
+
+        <TextView
+            android:id="@+id/tv_end_time"
+            style="@style/order_confirm_line_content"
+            />
+
+    </LinearLayout>
+</LinearLayout>

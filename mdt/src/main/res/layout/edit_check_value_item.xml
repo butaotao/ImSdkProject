@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="horizontal"
+              android:layout_width="match_parent"
+              android:padding="10dp"
+              android:gravity="center_vertical"
+              android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="wrap_content"
+        android:text="乙肝"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:id="@+id/tv_value"
+        android:layout_width="0dp"
+        android:gravity="right"
+        android:layout_weight="1"
+        android:text="乙肝"
+        android:layout_marginRight="5dp"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:id="@+id/tv_unit"
+        android:layout_width="wrap_content"
+        android:textColor="#aaa"
+        android:text="乙肝"
+        android:layout_height="wrap_content"/>
+
+    <ImageView
+        android:src="@drawable/arrow_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>

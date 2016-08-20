@@ -20,7 +20,7 @@
 
     <RelativeLayout
         android:layout_marginTop="10dp"
-        android:id="@+id/base_info_layout"
+        android:id="@+id/layout_base_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/setting_click_bg"
@@ -87,6 +87,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@drawable/setting_click_bg"
+        android:visibility="gone"
         android:paddingRight="6dp">
 
         <!--<ImageView-->
@@ -131,23 +132,24 @@
         android:background="@drawable/setting_click_bg"
         android:paddingRight="6dp">
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginLeft="15dp"
-            android:background="@color/divide_line_color"
-            />
-
-        <!--<ImageView-->
-            <!--android:id="@+id/setting_iv"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_centerVertical="true"-->
-            <!--android:layout_marginLeft="21dp"-->
-            <!--android:src="@drawable/me_setting"-->
+        <!--<View-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="1dp"-->
+            <!--android:layout_marginLeft="15dp"-->
+            <!--android:background="@color/divide_line_color"-->
             <!--/>-->
 
+        <ImageView
+            android:id="@+id/setting_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="21dp"
+            android:src="@drawable/setting"
+            />
+
         <TextView
+            android:layout_toRightOf="@id/setting_iv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"

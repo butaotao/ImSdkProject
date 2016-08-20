@@ -26,7 +26,7 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/avatar_layout"
+        android:id="@+id/layout_avatar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/setting_click_bg"
@@ -61,7 +61,7 @@
             android:layout_toLeftOf="@id/avatar_arrow">
 
             <ImageView
-                android:id="@+id/avatar_iv"
+                android:id="@+id/iv_avatar"
                 android:layout_width="72dip"
                 android:layout_height="72dip"
                 android:src="@drawable/avatar_normal"/>
@@ -92,10 +92,9 @@
         android:background="@drawable/setting_click_bg">
 
         <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
+            style="@style/divider_line"
             android:layout_marginLeft="15dp"
-            android:background="@color/divide_line_color"/>
+            />
 
         <TextView
             android:layout_width="wrap_content"
@@ -107,7 +106,7 @@
             android:textSize="15sp"/>
 
         <TextView
-            android:id="@+id/name_tv"
+            android:id="@+id/tv_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -123,16 +122,15 @@
             android:src="@drawable/arrow_right"/>
     </RelativeLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="10dp"/>
-
     <RelativeLayout
         android:id="@+id/telephone_layout"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@drawable/setting_click_bg">
-
+        <View
+            style="@style/divider_line"
+            android:layout_marginLeft="15dp"
+            />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -143,7 +141,7 @@
             android:textSize="15sp"/>
 
         <TextView
-            android:id="@+id/telephone_tv"
+            android:id="@+id/tv_telephone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -155,16 +153,17 @@
     </RelativeLayout>
 
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"/>
+
+
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@drawable/setting_click_bg">
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginLeft="15dp"
-            android:background="@color/divide_line_color"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -182,7 +181,6 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
-            android:text="neike"
             android:textColor="#6A6E6F"
             android:textSize="15sp"/>
     </RelativeLayout>
@@ -192,10 +190,9 @@
         android:background="@drawable/setting_click_bg">
 
         <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
+            style="@style/divider_line"
             android:layout_marginLeft="15dp"
-            android:background="@color/divide_line_color"/>
+            />
 
         <TextView
             android:layout_width="wrap_content"
@@ -213,7 +210,6 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
-            android:text="医生助手"
             android:textColor="#6A6E6F"
             android:textSize="15sp"/>
     </RelativeLayout>
@@ -223,10 +219,9 @@
         android:background="@drawable/setting_click_bg">
 
         <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
+            style="@style/divider_line"
             android:layout_marginLeft="15dp"
-            android:background="@color/divide_line_color"/>
+            />
 
         <TextView
             android:layout_width="wrap_content"
@@ -244,7 +239,6 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
-            android:text="123"
             android:textColor="#6A6E6F"
             android:textSize="15sp"/>
     </RelativeLayout>

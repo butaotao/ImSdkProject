@@ -36,6 +36,7 @@ public class ChooseDiseaseTypeActivity extends BaseActivity {
     public static final String KEY_RESULT = "result";
     public static final String KEY_START = "current";
     public static final String KEY_PARENT = "parent";
+    public static final int REQ_CODE_NEXT = 1;
 
     @BindView(R.id.list_view)
     public ListView mListView;
@@ -53,6 +54,7 @@ public class ChooseDiseaseTypeActivity extends BaseActivity {
         mParent = (DiseaseType) getIntent().getSerializableExtra(KEY_PARENT);
         mCurrent= (DiseaseType) getIntent().getSerializableExtra(KEY_START);
         mAdapter=new ChooseTypeAdapter(mThis,null);
+        mListView.setAdapter(mAdapter);
         if (mParent == null) {
             fetchInfo();
         } else {
@@ -87,7 +89,19 @@ public class ChooseDiseaseTypeActivity extends BaseActivity {
 
     @OnItemClick(R.id.list_view)
     public void onItemClick(AdapterView<?> parent, View view, int position, long id){
-        mResult=mAdapter.getItem(position);
+        DiseaseType type=mAdapter.getItem(position);
+        if(type.children==null){
+            clickResult(type);
+        }else if(mParent!=null&&type.id.equals(mParent.id)){
+            clickResult(type);
+        }else{
+            Intent i=new Intent(this,ChooseDiseaseTypeActivity.class).putExtra(KEY_PARENT,type)
+                    .putExtra(KEY_START,mCurrent);
+            startActivityForResult(i,REQ_CODE_NEXT);
+        }
+    }
+    private void clickResult(DiseaseType type){
+        mResult=type;
         mCurrent=mResult;
         mAdapter.notifyDataSetChanged();
     }
@@ -102,7 +116,8 @@ public class ChooseDiseaseTypeActivity extends BaseActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(resultCode==RESULT_OK){
+        if(requestCode==REQ_CODE_NEXT){
+            if(resultCode!=RESULT_OK)return;
             setResult(RESULT_OK,data );
             finish();
         }
@@ -124,9 +139,14 @@ public class ChooseDiseaseTypeActivity extends BaseActivity {
             ViewHolder holder = ViewHolder.get(mContext, convertView, parent, R.layout.choose_text_item, position);
             DiseaseType info = mData.get(position);
             String text=info.name;
+            int arrowVis=View.GONE;
+            if(info.children!=null)
+                arrowVis=View.VISIBLE;
             if(mParent!=null&& mParent.id.equals(info.id) ){
                 text="未确诊";
+                arrowVis= View.GONE;
             }
+            holder.setVisibility(R.id.iv_arrow,arrowVis);
             holder.setText(R.id.text_view, text);
             int vis = View.INVISIBLE;
             if (mCurrent!=null && TextUtils.equals(mCurrent.id, info.id)) {

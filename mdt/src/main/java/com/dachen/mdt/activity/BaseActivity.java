@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
+import android.view.View.OnClickListener;
 
 import com.dachen.imsdk.net.ImPolling;
 import com.dachen.mdt.R;
@@ -14,7 +15,7 @@ import com.dachen.mdt.activity.main.SplashActivity;
 /**
  * Created by Mcp on 2016/8/4.
  */
-public abstract class BaseActivity extends FragmentActivity {
+public abstract class BaseActivity extends FragmentActivity implements OnClickListener{
 
     private ProgressDialog mProDialog;
     protected BaseActivity mThis;
@@ -53,5 +54,9 @@ public abstract class BaseActivity extends FragmentActivity {
 
     public void onLeftClick(View v) {
         finish();
+    }
+
+    @Override
+    public void onClick(View v) {
     }
 }

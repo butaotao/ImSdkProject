@@ -6,23 +6,12 @@
               android:layout_height="match_parent">
 
 
-    <!--<com.dachen.common.widget.RatioRelativeLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--app:ratio="1"-->
-        <!--&gt;-->
+    <com.dachen.common.widget.RatioRelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:ratio="1"
+        >
 
-        <!--<ImageView-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:scaleType="centerCrop"-->
-            <!--android:src="@drawable/defaultpic"-->
-            <!--android:layout_height="match_parent"/>-->
-    <!--</com.dachen.common.widget.RatioRelativeLayout>-->
-
-    <RelativeLayout
-        android:background="@color/black"
-        android:layout_width="100dp"
-        android:layout_height="100dp">
         <ImageView
             android:id="@+id/iv_pic"
             android:layout_width="match_parent"
@@ -32,8 +21,38 @@
 
         <ImageButton
             android:id="@+id/btn_delete"
-            android:layout_width="20dp"
-            android:background="@color/red"
-            android:layout_height="20dp"/>
-    </RelativeLayout>
+            android:layout_width="25dp"
+            android:background="@null"
+            android:scaleType="centerInside"
+            android:src="@drawable/delete_image"
+            android:layout_height="25dp"/>
+        <TextView
+            android:id="@+id/tv_state"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:maxLines="1"
+            android:text="已完成"
+            android:background="#88000000"
+            android:textColor="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </com.dachen.common.widget.RatioRelativeLayout>
+
+    <!--<RelativeLayout-->
+        <!--android:background="@color/black"-->
+        <!--android:layout_width="100dp"-->
+        <!--android:layout_height="100dp">-->
+        <!--<ImageView-->
+            <!--android:id="@+id/iv_pic"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:scaleType="centerCrop"-->
+            <!--android:src="@drawable/defaultpic"-->
+            <!--android:layout_height="match_parent"/>-->
+
+        <!--<ImageButton-->
+            <!--android:id="@+id/btn_delete"-->
+            <!--android:layout_width="20dp"-->
+            <!--android:background="@color/red"-->
+            <!--android:layout_height="20dp"/>-->
+    <!--</RelativeLayout>-->
 </LinearLayout>

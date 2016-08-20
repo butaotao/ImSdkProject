@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 
 import com.dachen.imsdk.entity.event.NewMsgEvent;
 import com.dachen.mdt.R;
-import com.dachen.mdt.activity.order.EditOrderCaseActivity;
+import com.dachen.mdt.activity.order.ChoosePatientActivity;
 import com.dachen.mdt.view.ImOrderListView;
 
 import butterknife.BindView;
@@ -51,7 +51,7 @@ public class OrderFragment extends BaseFragment {
 
     @OnClick(R.id.create_order)
     public void createOrder(){
-        startActivity(new Intent(mParent, EditOrderCaseActivity.class));
+        startActivity(new Intent(mParent, ChoosePatientActivity.class));
     }
 
     public void onEventMainThread(NewMsgEvent event) {

@@ -8,6 +8,7 @@ public class OrderParam {
 	 * 会诊分类
 	 */
 	public String diseaseTypeId;
+	public String topDiseaseId;
 
 	public String firstDiag;
 	/*mdt小组Id*/
@@ -21,5 +22,6 @@ public class OrderParam {
 	
 	/*会诊结束时间*/
 	public Long expectEndTime;
-	
+
+
 }

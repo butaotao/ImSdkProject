@@ -60,6 +60,24 @@
         </activity>
         <activity android:name=".activity.order.ChooseDiseaseTypeActivity">
         </activity>
+        <activity android:name=".activity.order.ChooseCheckResultActivity">
+        </activity>
+        <activity android:name=".activity.order.ChooseCheckTypeActivity">
+        </activity>
+        <activity android:name=".activity.order.EditCheckValueActivity">
+        </activity>
+        <activity android:name=".activity.order.ChoosePatientActivity">
+        </activity>
+        <activity android:name=".activity.order.ChooseSummaryDiseaseActivity">
+        </activity>
+        <activity android:name=".activity.patient.PatientInfoActivity">
+        </activity>
+        <activity android:name=".activity.order.ChooseDiseaseTagActivity">
+        </activity>
+        <activity android:name="com.dachen.imsdk.activities.ChatImgActivity">
+        </activity>
+        <activity android:name="com.dachen.imsdk.activities.AtChatMemberActivity">
+        </activity>
     </application>
 
 </manifest>

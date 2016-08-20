@@ -22,6 +22,7 @@ import com.dachen.common.utils.UIHelper;
 import com.dachen.common.utils.VolleyUtil;
 import com.dachen.imsdk.entity.MoreItem;
 import com.dachen.imsdk.net.ImCommonRequest;
+import com.dachen.imsdk.out.ImMsgHandler;
 import com.dachen.imsdk.utils.ImUtils;
 import com.dachen.mdt.AppConstants;
 import com.dachen.mdt.R;
@@ -32,6 +33,8 @@ import com.dachen.mdt.entity.OrderDetailVO;
 import com.dachen.mdt.entity.OrderStatusResult;
 import com.dachen.mdt.listener.RequestHelperListener;
 import com.dachen.mdt.net.RequestHelper;
+import com.dachen.mdt.tools.MdtImMsgHandler;
+import com.dachen.mdt.util.OrderUtils;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -50,6 +53,7 @@ public class OrderChatActivity extends AppBaseChatActivity {
     protected Button btnExBar;
     protected TextView tvExInfo;
     protected ImageView ivExCheck;
+    private int myStatus=-1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,9 +66,9 @@ public class OrderChatActivity extends AppBaseChatActivity {
             return;
         }
         OrderChatParam param=JSON.parseObject(groupPo.param,OrderChatParam.class);
-        String curUserId= ImUtils.getLoginUserId();
-        if(curUserId.equals(param.creator)||curUserId.equals(param.leader)||groupPo.bizStatus==2)return;
-        fetchInfo(param.orderId);
+//        String curUserId= ImUtils.getLoginUserId();
+        if(groupPo.bizStatus==2)return;
+        fetchStatus(param.orderId);
     }
 
     @Override
@@ -144,14 +148,15 @@ public class OrderChatActivity extends AppBaseChatActivity {
         public void onClick(View v) {
             OrderChatParam param=JSON.parseObject(groupPo.param,OrderChatParam.class);
             if(groupPo.bizStatus==2){
-                // TODO: 2016/8/10 查看报告
                 Intent i=new Intent(mThis,ViewOrderReportActivity.class);
                 i.putExtra(AppConstants.INTENT_ORDER_ID,param.orderId);
                 startActivity(i);
             }else if(groupPo.bizStatus==1){
                 Intent i=new Intent(mThis,ViewOrderSummaryActivity.class);
                 i.putExtra(AppConstants.INTENT_ORDER_ID,param.orderId);
+                i.putExtra(AppConstants.INTENT_DISEASE_TOP_ID,param.topDiseaseId);
                 i.putExtra(AppConstants.INTENT_IS_LEADER,isLeader(param));
+                i.putExtra(AppConstants.INTENT_MY_ORDER_STATUS,myStatus);
                 startActivity(i);
             }
         }
@@ -212,23 +217,25 @@ public class OrderChatActivity extends AppBaseChatActivity {
         ((TextView) v.findViewById(R.id.tv_mdt_num)).setText(vo.mdtNum);
         ((TextView) v.findViewById(R.id.tv_purpose)).setText(vo.target);
         ((TextView) v.findViewById(R.id.tv_first_diagnose)).setText(vo.disease.firstDiag);
-        ((TextView) v.findViewById(R.id.tv_chief_complaint)).setText(vo.disease.desc);
-        ((TextView) v.findViewById(R.id.tv_present_history)).setText(vo.disease.diseaseNow);
-        ((TextView) v.findViewById(R.id.tv_previous_history)).setText(vo.disease.diseaseOld);
-        ((TextView) v.findViewById(R.id.tv_family_history)).setText(vo.disease.diseaseFamily);
-        ((TextView) v.findViewById(R.id.tv_personal_history)).setText(vo.disease.diseaseSelf);
-        ((TextView) v.findViewById(R.id.tv_body_sign)).setText(vo.disease.symptom);
-        ((TextView) v.findViewById(R.id.tv_examine_result)).setText(vo.disease.result);
-        ((TextView) v.findViewById(R.id.tv_treat_process)).setText(vo.disease.checkProcess);
+        ((TextView) v.findViewById(R.id.tv_chief_complaint)).setText(OrderUtils.getText(vo.disease.complain));
+        ((TextView) v.findViewById(R.id.tv_present_history)).setText(OrderUtils.getText(vo.disease.diseaseNow));
+        ((TextView) v.findViewById(R.id.tv_previous_history)).setText(OrderUtils.getText(vo.disease.diseaseOld));
+        ((TextView) v.findViewById(R.id.tv_family_history)).setText(OrderUtils.getText(vo.disease.diseaseFamily));
+        ((TextView) v.findViewById(R.id.tv_personal_history)).setText(OrderUtils.getText(vo.disease.diseaseSelf));
+        ((TextView) v.findViewById(R.id.tv_body_sign)).setText(OrderUtils.getText(vo.disease.symptom));
+        ((TextView) v.findViewById(R.id.tv_examine_result)).setText(OrderUtils.getText(vo.disease.result));
+        ((TextView) v.findViewById(R.id.tv_treat_process)).setText(OrderUtils.getText(vo.disease.checkProcess));
         ((TextView) v.findViewById(R.id.tv_end_time)).setText(TimeUtils.a_format.format(new Date(vo.expectEndTime)) );
     }
 
-    private void fetchInfo(String orderId){
+    private void fetchStatus(String orderId){
         RequestHelperListener listener=new RequestHelperListener() {
             @Override
             public void onSuccess(String dataStr) {
                 OrderStatusResult res= JSON.parseObject(dataStr,OrderStatusResult.class);
-                if(res.status==0){
+                myStatus=res.status;
+                onBusinessData();
+                if(res.status==0&&res.orderDetail!=null){
                     showConfirmPop(res.orderDetail);
                 }
             }
@@ -261,7 +268,13 @@ public class OrderChatActivity extends AppBaseChatActivity {
             long endTs=param.endTime;
             String text="结束时间:"+ TimeUtils.a_format.format(new Date(endTs));
             tvExInfo.setText(text);
-            btnExBar.setText(isLeader(param)?"撰写报告":"撰写小结");
+            if(myStatus==-1){
+                btnExBar.setText("查看会诊意见");
+            }else if(myStatus==2){
+                btnExBar.setText(isLeader(param)?"撰写会诊报告":"查看会诊意见");
+            }else{
+                btnExBar.setText("撰写本人会诊意见");
+            }
         }
     }
     private boolean isLeader( OrderChatParam param){
@@ -273,4 +286,9 @@ public class OrderChatActivity extends AppBaseChatActivity {
         return CHAT_TYPE_GROUP;
     }
 
+    @Override
+    protected ImMsgHandler makeMsgHandler() {
+        return new MdtImMsgHandler(this){
+        };
+    }
 }

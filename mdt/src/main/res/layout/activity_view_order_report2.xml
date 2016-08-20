@@ -83,22 +83,22 @@
                 />
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/ll_category"
-            style="@style/order_report_line"
-            >
+        <!--<LinearLayout-->
+            <!--android:id="@+id/ll_category"-->
+            <!--style="@style/order_report_line"-->
+            <!--&gt;-->
 
-            <TextView
-                style="@style/order_report_line_title"
-                android:text="分组:"
-                />
+            <!--<TextView-->
+                <!--style="@style/order_report_line_title"-->
+                <!--android:text="分组:"-->
+                <!--/>-->
 
-            <TextView
-                android:id="@+id/tv_category"
-                style="@style/order_report_line_content"
-                android:text="考虑XXXXXXX细胞癌"
-                />
-        </LinearLayout>
+            <!--<TextView-->
+                <!--android:id="@+id/tv_category"-->
+                <!--style="@style/order_report_line_content"-->
+                <!--android:text="考虑XXXXXXX细胞癌"-->
+                <!--/>-->
+        <!--</LinearLayout>-->
 
         <LinearLayout
             android:id="@+id/ll_purpose"

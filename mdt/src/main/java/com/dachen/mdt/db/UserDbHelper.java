@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.dachen.mdt.db.po.PatientTypePo;
+import com.dachen.mdt.entity.PatientInfo;
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
@@ -47,6 +48,7 @@ public class UserDbHelper extends OrmLiteSqliteOpenHelper {
     public void onCreate(SQLiteDatabase sqLiteDatabase, ConnectionSource connectionSource) {
         try {
             TableUtils.createTableIfNotExists(connectionSource, PatientTypePo.class);
+            TableUtils.createTableIfNotExists(connectionSource, PatientInfo.class);
         } catch (SQLException e) {
             e.printStackTrace();
         }

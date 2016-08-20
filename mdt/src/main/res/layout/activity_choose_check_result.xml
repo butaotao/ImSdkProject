@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:orientation="vertical"
+    tools:context=".activity.order.ChooseCheckResultActivity">
+
+    <RelativeLayout style="@style/Common_Title_style">
+
+        <Button
+            android:id="@+id/back_btn"
+            style="@style/ActionBar_BackBtn"/>
+
+        <TextView
+            android:id="@+id/title"
+            style="@style/ActionBar_Title"
+            android:text="检查结果"/>
+
+        <ImageView
+            style="@style/title_divider_line"
+            />
+
+        <TextView
+            android:id="@+id/right_btn"
+            style="@style/ActionBar_RightText"
+            android:text="添加"
+            />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/ll_pic"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/white"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:text="图片资料"/>
+
+                    <com.dachen.common.widget.NoScrollerGridView
+                        android:id="@+id/gv_img"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:fadingEdge="none"
+                        android:verticalSpacing="3dp"
+                        android:horizontalSpacing="3dp"
+                        android:fastScrollEnabled="false"
+                        android:focusable="false"
+                        android:numColumns="4"
+                        android:scrollbars="none"
+                        android:smoothScrollbar="true"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_result"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/white"
+                    android:orientation="vertical"/>
+
+                <LinearLayout
+                    android:id="@+id/ll_other"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:padding="10dp"
+                    android:background="@color/white"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableRight="@drawable/arrow_right"
+                        android:text="其他"/>
+
+                    <TextView
+                        android:id="@+id/tv_other"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        />
+
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+
+        <LinearLayout
+            android:id="@+id/ll_empty"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:visibility="gone"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/iv_add"
+                android:layout_width="wrap_content"
+                android:src="@drawable/add_photo"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:layout_marginTop="20dp"
+                android:textColor="#aaa"
+                android:paddingBottom="50dp"
+                android:layout_width="wrap_content"
+                android:text="暂无检查结果,请添加"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</LinearLayout>
