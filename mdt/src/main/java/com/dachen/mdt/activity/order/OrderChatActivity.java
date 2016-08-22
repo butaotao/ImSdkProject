@@ -15,11 +15,12 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
-import com.dachen.common.utils.StringUtils;
 import com.dachen.common.utils.TimeUtils;
 import com.dachen.common.utils.ToastUtil;
 import com.dachen.common.utils.UIHelper;
 import com.dachen.common.utils.VolleyUtil;
+import com.dachen.common.widget.CustomDialog;
+import com.dachen.common.widget.CustomDialog.CustomClickEvent;
 import com.dachen.imsdk.entity.MoreItem;
 import com.dachen.imsdk.net.ImCommonRequest;
 import com.dachen.imsdk.out.ImMsgHandler;
@@ -34,7 +35,7 @@ import com.dachen.mdt.entity.OrderStatusResult;
 import com.dachen.mdt.listener.RequestHelperListener;
 import com.dachen.mdt.net.RequestHelper;
 import com.dachen.mdt.tools.MdtImMsgHandler;
-import com.dachen.mdt.util.OrderUtils;
+import com.dachen.mdt.util.ViewUtils;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -172,7 +173,7 @@ public class OrderChatActivity extends AppBaseChatActivity {
 
     private void showConfirmPop(OrderDetailVO vo) {
         View contentView = LayoutInflater.from(this).inflate(R.layout.order_confirm_window, null);
-        initOrderInfo(contentView,vo);
+        ViewUtils.initOrderInfo(mThis,contentView,vo);
         contentView.findViewById(R.id.btn_cancel).setOnClickListener(orderConfirmClickListener);
         contentView.findViewById(R.id.btn_confirm).setOnClickListener(orderConfirmClickListener);
         mCoverPop = new PopupWindow(contentView, ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT, true);
@@ -184,14 +185,7 @@ public class OrderChatActivity extends AppBaseChatActivity {
         @Override
         public void onClick(View v) {
             OrderChatParam param=JSON.parseObject(groupPo.param,OrderChatParam.class);
-            switch (v.getId()){
-                case R.id.btn_cancel:
-                    confirmOrder(false,param.orderId);
-                    break;
-                case R.id.btn_confirm:
-                    confirmOrder(true,param.orderId);
-                    break;
-            }
+            showConfirmDialog(v.getId()==R.id.btn_confirm,param.orderId);
         }
     };
     private void confirmOrder(final boolean accept, String mOrderId){
@@ -211,21 +205,23 @@ public class OrderChatActivity extends AppBaseChatActivity {
         VolleyUtil.getQueue(mThis).add(req);
     }
 
-    public static void initOrderInfo(View v, OrderDetailVO vo){
-        ((TextView) v.findViewById(R.id.tv_patient_info)).setText(String.format("%s,%s,%s岁",vo.patient.name, StringUtils.getSexStr(vo.patient.sex),vo.patient.age) );
-        ((TextView) v.findViewById(R.id.tv_patient_num)).setText(vo.patient.number);
-        ((TextView) v.findViewById(R.id.tv_mdt_num)).setText(vo.mdtNum);
-        ((TextView) v.findViewById(R.id.tv_purpose)).setText(vo.target);
-        ((TextView) v.findViewById(R.id.tv_first_diagnose)).setText(vo.disease.firstDiag);
-        ((TextView) v.findViewById(R.id.tv_chief_complaint)).setText(OrderUtils.getText(vo.disease.complain));
-        ((TextView) v.findViewById(R.id.tv_present_history)).setText(OrderUtils.getText(vo.disease.diseaseNow));
-        ((TextView) v.findViewById(R.id.tv_previous_history)).setText(OrderUtils.getText(vo.disease.diseaseOld));
-        ((TextView) v.findViewById(R.id.tv_family_history)).setText(OrderUtils.getText(vo.disease.diseaseFamily));
-        ((TextView) v.findViewById(R.id.tv_personal_history)).setText(OrderUtils.getText(vo.disease.diseaseSelf));
-        ((TextView) v.findViewById(R.id.tv_body_sign)).setText(OrderUtils.getText(vo.disease.symptom));
-        ((TextView) v.findViewById(R.id.tv_examine_result)).setText(OrderUtils.getText(vo.disease.result));
-        ((TextView) v.findViewById(R.id.tv_treat_process)).setText(OrderUtils.getText(vo.disease.checkProcess));
-        ((TextView) v.findViewById(R.id.tv_end_time)).setText(TimeUtils.a_format.format(new Date(vo.expectEndTime)) );
+    private void showConfirmDialog(final boolean accept,final String orderId){
+        CustomClickEvent event=new CustomClickEvent() {
+            @Override
+            public void onClick(CustomDialog customDialog) {
+                confirmOrder(accept,orderId);
+                customDialog.dismiss();
+            }
+
+            @Override
+            public void onDismiss(CustomDialog customDialog) {
+                customDialog.dismiss();
+            }
+        };
+        String text="确定"+ (accept?"接受":"拒绝");
+        CustomDialog dialog=new CustomDialog.Builder(mThis,event)
+                .setMessage(text).setPositive("确定").setNegative("取消").create();
+        dialog.show();
     }
 
     private void fetchStatus(String orderId){

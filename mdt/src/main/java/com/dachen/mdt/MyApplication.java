@@ -4,9 +4,11 @@ import android.app.Application;
 import android.graphics.Bitmap.Config;
 import android.os.Environment;
 
+import com.alibaba.fastjson.JSON;
 import com.dachen.imsdk.ImSdk;
 import com.dachen.mdt.entity.DoctorInfo;
 import com.dachen.mdt.util.AppImUtils;
+import com.dachen.mdt.util.SpUtils;
 import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiscCache;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -45,6 +47,13 @@ public class MyApplication extends Application {
         ImSdk.getInstance().initSdk(this,mAppDir,mVoicesDir,mVideosDir,mPicturesDir);
         UrlConstants.changIp("http://192.168.3.7:8101","192.168.3.7:8102");
 //        UrlConstants.changIp("http://120.25.84.65:8101","120.25.84.65:8102");
+        String token= SpUtils.getSp().getString(SpUtils.KEY_USER_TOKEN,null);
+        String docStr=SpUtils.getSp().getString(SpUtils.KEY_USER_INFO,null);
+        if(token!=null){
+            DoctorInfo info= JSON.parseObject(docStr,DoctorInfo.class);
+            mUserInfo=info;
+            ImSdk.getInstance().initUser(token,info.userId,info.name,info.name,info.avatar);
+        }
     }
 
     private void initAppDir() {

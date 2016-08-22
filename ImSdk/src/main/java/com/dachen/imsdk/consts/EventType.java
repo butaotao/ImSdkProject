@@ -53,7 +53,7 @@ public class EventType {
 	public static final int V_CHAT_BUSY =32;// 我忙线中
 	public static final int V_CHAT_CALLER_CANCEL =33;// 发起者取消视频
 	public static final int V_CHAT_ADD_USER =34;// 新增用户
-	public static final int V_CHAT_EXIT =35;// 新增用户
+	public static final int V_CHAT_EXIT =35;//
 
 	public static final int MSG_RETRACT =36;// 撤回消息
 	public static final int VISIT_FLUSH = 37;//协同拜访页面刷新

@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:orientation="vertical"
+    tools:context="com.dachen.mdt.activity.me.SettingActivity">
+    <RelativeLayout style="@style/Common_Title_style">
+
+        <Button
+            android:id="@+id/back_btn"
+            style="@style/ActionBar_BackBtn"/>
+
+        <TextView
+            android:id="@+id/title"
+            style="@style/ActionBar_Title"
+            android:text="设置"/>
+
+        <ImageView
+            style="@style/title_divider_line"
+            />
+    </RelativeLayout>
+
+    <ImageView
+        android:layout_marginTop="10dp"
+        style="@style/divider_line"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/setting_click_bg">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:text="修改密码"
+            android:textColor="#303B3F"
+            android:textSize="15sp"/>
+
+        <ImageView
+            android:id="@+id/about_arrow"
+            style="@style/Arrow_Item_right"
+            android:src="@drawable/arrow_right"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/setting_click_bg">
+
+        <View
+            style="@style/divider_line"
+            android:layout_marginLeft="15dp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:text="通知"
+            android:textColor="#303B3F"
+            android:textSize="15sp"/>
+
+        <ImageView
+            style="@style/Arrow_Item_right"
+            android:src="@drawable/arrow_right"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/setting_click_bg">
+
+        <View
+            style="@style/divider_line"
+            android:layout_marginLeft="15dp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:text="关于"
+            android:textColor="#303B3F"
+            android:textSize="15sp"/>
+
+        <TextView
+            android:id="@+id/tv_version"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="30dp"
+            android:textColor="#aaa"
+            android:textSize="15sp"/>
+        <ImageView
+            style="@style/Arrow_Item_right"
+            android:src="@drawable/arrow_right"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/layout_service_phone"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/setting_click_bg">
+
+        <View
+            style="@style/divider_line"
+            android:layout_marginLeft="15dp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:text="客服电话"
+            android:textColor="#303B3F"
+            android:textSize="15sp"/>
+
+        <ImageView
+            style="@style/Arrow_Item_right"
+            android:src="@drawable/arrow_right"/>
+    </RelativeLayout>
+
+    <ImageView
+        style="@style/divider_line"/>
+    
+    <ImageView
+        android:layout_marginTop="10dp"
+        style="@style/divider_line"/>
+    <Button
+        android:id="@+id/btn_logout"
+        android:layout_width="match_parent"
+        android:background="@color/white"
+        android:text="退出登录"
+        android:textColor="#EB5B58"
+        android:layout_height="50dp"/>
+    <ImageView
+        style="@style/divider_line"/>
+
+</LinearLayout>

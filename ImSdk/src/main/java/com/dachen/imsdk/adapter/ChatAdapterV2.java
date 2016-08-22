@@ -329,6 +329,10 @@ public class ChatAdapterV2 extends MultiItemCommonAdapter<ChatMessagePo> impleme
         holder.setText(R.id.content, mpt.content);
         holder.setText(R.id.footer, mpt.footer);
         Map<String,String> param=getParam(chatMessage);
+        if(param==null){
+            holder.setVisibility(R.id.sex, View.GONE);
+            holder.setVisibility(R.id.age, View.GONE);
+        }
         String sex=param.get("sex");
         holder.setVisibility(R.id.sex, View.VISIBLE);
 //        holder.setTextColor(R.id.age, Color.BLACK);

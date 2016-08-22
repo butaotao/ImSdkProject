@@ -10,14 +10,17 @@ import com.dachen.common.adapter.ViewHolder;
 import com.dachen.mdt.R;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
+import java.util.List;
+
 /**
  * Created by Mcp on 2016/8/11.
  */
 public class ViewImgGridAdapter extends CommonAdapterV2<String> {
 
-    public ViewImgGridAdapter(Context mContext) {
-        super(mContext);
+    public ViewImgGridAdapter(Context mContext, List<String> mData) {
+        super(mContext, mData);
     }
+
     @Override
     public long getItemId(int position) {
         return 0;

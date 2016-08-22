@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
 
+import com.dachen.common.AppManager;
 import com.dachen.imsdk.net.ImPolling;
 import com.dachen.mdt.R;
 import com.dachen.mdt.activity.main.LoginActivity;
@@ -25,6 +26,7 @@ public abstract class BaseActivity extends FragmentActivity implements OnClickLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mThis=this;
+        AppManager.getAppManager().addActivity(this);
     }
 
     public synchronized Dialog getProgressDialog(){
@@ -53,10 +55,16 @@ public abstract class BaseActivity extends FragmentActivity implements OnClickLi
     }
 
     public void onLeftClick(View v) {
-        finish();
+        onBackPressed();
     }
 
     @Override
     public void onClick(View v) {
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        AppManager.getAppManager().removeActivity(this);
     }
 }

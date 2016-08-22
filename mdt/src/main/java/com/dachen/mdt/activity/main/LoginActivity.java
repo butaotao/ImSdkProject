@@ -99,6 +99,7 @@ public class LoginActivity extends BaseActivity {
                 SpUtils.saveUser(token,info);
                 ImSdk.getInstance().initUser(token,info.userId,info.name,info.name,info.avatar);
                 startActivity(new Intent(mThis,MainActivity.class));
+                finish();
             }
             @Override
             public void onError(String msg) {

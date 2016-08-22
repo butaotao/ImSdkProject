@@ -25,6 +25,8 @@ public class UrlConstants {
     public static final String GET_CHECK_TYPE="/mdt/base/getCheckItemType";
     public static final String GET_CHECK_LIST="/mdt/base/getCheckItemList";
     public static final String GET_DISEASE_WITH_TAG="/mdt/base/getDiseaseWithTag";
+    public static final String GET_COMPLICATION_LIST ="/mdt/base/getComplicationsList";
+    public static final String GET_BASIC_DISEASE_LIST ="/mdt/base/getBasicDiseaseList";
 
     public static final String CREATE_ORDER="/mdt/order/createOrder";
     public static final String GET_ORDER="/mdt/order/getOrder";

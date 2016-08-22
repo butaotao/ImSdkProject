@@ -140,7 +140,6 @@ public abstract class ChatActivityV2 extends ImBaseActivity implements MessageRe
     public static final int PAGE_SIZE = 20;
 
     protected String mGroupId;
-    //	protected ChatGroupPo mGroupPo;
     protected List<UserInfo> mUserList;
     protected GroupInfo2Bean.Data mGroupInfo;
     protected String mUserId;

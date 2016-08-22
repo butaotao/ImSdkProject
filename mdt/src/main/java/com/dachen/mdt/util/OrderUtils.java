@@ -2,8 +2,10 @@ package com.dachen.mdt.util;
 
 import android.text.TextUtils;
 
+import com.alibaba.fastjson.JSON;
 import com.dachen.mdt.entity.CheckType;
 import com.dachen.mdt.entity.CheckTypeResult;
+import com.dachen.mdt.entity.MdtOptionResult;
 import com.dachen.mdt.entity.PatientInfo;
 import com.dachen.mdt.entity.TempTextParam;
 
@@ -118,5 +120,11 @@ public class OrderUtils {
             }
         }
         return age;
+    }
+
+    public static String getMdtOptionResultText(String resultStr){
+        MdtOptionResult res= JSON.parseObject(resultStr,MdtOptionResult.class);
+        if(res==null)return null;
+        return res.showText;
     }
 }

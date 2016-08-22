@@ -14,6 +14,7 @@ import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import com.alibaba.fastjson.JSON;
 import com.dachen.common.utils.ToastUtil;
 import com.dachen.common.utils.VolleyUtil;
 import com.dachen.gallery.CustomGalleryActivity;
@@ -30,6 +31,7 @@ import com.dachen.mdt.entity.CheckTypeResult;
 import com.dachen.mdt.entity.DiseaseInfo;
 import com.dachen.mdt.entity.DiseaseType;
 import com.dachen.mdt.entity.MdtGroupInfo;
+import com.dachen.mdt.entity.MdtOptionResult;
 import com.dachen.mdt.entity.OrderParam;
 import com.dachen.mdt.entity.PatientInfo;
 import com.dachen.mdt.entity.TempTextParam;
@@ -68,6 +70,8 @@ public class EditOrderCaseActivity extends BaseActivity {
     private static final int REQ_CODE_PATHOLOGY = 8;
     private static final int REQ_CODE_ID_CARD =9;
     private static final int REQ_CODE_PATIENT_SEX =10;
+    private static final int REQ_CODE_COMPLICATION =11;
+    private static final int REQ_CODE_BASE_DISEASE =12;
     private static Map<Integer, String> TYPE_MAP;
     public static final String KEY_PATIENT="patient";
 
@@ -79,6 +83,9 @@ public class EditOrderCaseActivity extends BaseActivity {
     private UpImgGridAdapter mImageExamineAdapter;
     private UpImgGridAdapter mPathologyAdapter;
     private CheckTypeResult mCheckResult;
+    private MdtOptionResult mPurposeResult;
+    private MdtOptionResult mComplication;
+    private MdtOptionResult mBaseDisease;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -135,7 +142,7 @@ public class EditOrderCaseActivity extends BaseActivity {
             pInfo.number = ViewUtils.checkTextEmpty(holder.tvPatientId);
             ViewUtils.checkTextEmpty(holder.tvMdtGroup);
             ViewUtils.checkTextEmpty(holder.tvDiseaseType);
-            reqParam.target = ViewUtils.checkTextEmpty(holder.tvPurpose);
+            ViewUtils.checkTextEmpty(holder.tvPurpose);
             dInfo.complain = new TempTextParam(ViewUtils.checkTextEmpty(holder.tvChiefComplaint));
             dInfo.diseaseNow =  new TempTextParam( ViewUtils.checkTextEmpty(holder.tvPresentHistory));
             dInfo.diseaseOld =  new TempTextParam(ViewUtils.checkTextEmpty(holder.tvPreviousHistory));
@@ -149,6 +156,7 @@ public class EditOrderCaseActivity extends BaseActivity {
             e.tv.setError(Html.fromHtml("<font color='red'>不能为空!</font>"));
             return;
         }
+        reqParam.target =JSON.toJSONString(mPurposeResult);
         dInfo.result=mCheckResult;
         dInfo.imaging=new TextImgListParam();
         dInfo.imaging.text=holder.etImageExamine.getText().toString();
@@ -208,6 +216,17 @@ public class EditOrderCaseActivity extends BaseActivity {
         Intent i = new Intent(mThis, ChooseDiseaseTypeActivity.class).putExtra(ChooseDiseaseTypeActivity.KEY_START, diseaseType);
         startActivityForResult(i, REQ_CODE_DIS_TYPE);
     }
+
+    @OnClick(R.id.ll_complication)
+    protected void chooseComplication(View v) {
+        Intent i = new Intent(mThis, ChooseComplicationActivity.class).putExtra(AppConstants.INTENT_START_DATA, mComplication);
+        startActivityForResult(i, REQ_CODE_COMPLICATION);
+    }
+    @OnClick(R.id.ll_base_disease)
+    protected void chooseBaseDisease(View v) {
+        Intent i = new Intent(mThis, ChooseBaseDiseaseActivity.class).putExtra(AppConstants.INTENT_START_DATA, mBaseDisease);
+        startActivityForResult(i, REQ_CODE_BASE_DISEASE);
+    }
     @OnClick(R.id.ll_mdt_group)
     protected void chooseMdtGroup(View v) {
         if (diseaseType == null) {
@@ -224,8 +243,7 @@ public class EditOrderCaseActivity extends BaseActivity {
     @OnClick({R.id.ll_purpose}) //, R.id.ll_first_diagnose
     protected void chooseMdtInfo(View v) {
         if (diseaseType == null) {
-            holder.tvDiseaseType.requestFocus();
-            holder.tvDiseaseType.setError(Html.fromHtml("<font color='red'>请先选择病种!</font>"));
+            ViewUtils.setError(holder.tvDiseaseType,"请先选择病种!");
             return;
         }
         TextView tv = commonClickItem(v);
@@ -233,13 +251,13 @@ public class EditOrderCaseActivity extends BaseActivity {
         if (type == null) return;
         Intent i = new Intent(mThis, ChooseMdtInfoActivity.class).putExtra(AppConstants.INTENT_DISEASE_TOP_ID, diseaseType.topDiseaseId)
                 .putExtra(ChooseMdtInfoActivity.KEY_TYPE, type)
-                .putExtra(ChooseMdtInfoActivity.KEY_START_TEXT,tv.getText().toString())
+                .putExtra(AppConstants.INTENT_START_DATA,mPurposeResult)
                 .putExtra(AppConstants.INTENT_VIEW_ID, tv.getId());
         startActivityForResult(i, REQ_CODE_MDT_INFO);
     }
 
     @OnClick({R.id.ll_chief_complaint, R.id.ll_present_history, R.id.ll_previous_history, R.id.ll_family_history, R.id.ll_personal_history
-    ,R.id.ll_treat_process,R.id.ll_body_sign,R.id.ll_patient_name,R.id.ll_patient_phone,R.id.ll_patient_id})
+    ,R.id.ll_treat_process,R.id.ll_body_sign,R.id.ll_patient_name,R.id.ll_patient_phone,R.id.ll_patient_id,R.id.ll_patient_age})
     protected void goInput(View v) {
         TextView tv = commonClickItem(v);
         Intent i = new Intent(mThis, CommonInputActivity.class)
@@ -331,7 +349,9 @@ public class EditOrderCaseActivity extends BaseActivity {
             holder.tvMdtGroup.setText(info.name);
             holder.tvMdtGroup.setError(null);
             mdtGroupId = info.id;
-        } else if (requestCode == REQ_CODE_MDT_INFO || requestCode == REQ_CODE_INPUT) {
+        } else if (requestCode == REQ_CODE_MDT_INFO ) {
+            handleMdtOptionResult(data);
+        } else if (requestCode == REQ_CODE_INPUT) {
             handleTextResult(data);
 //        }else if(requestCode == REQ_CODE_PATIENT_TYPE){
 //            if(resultCode!=RESULT_OK)return;
@@ -380,6 +400,13 @@ public class EditOrderCaseActivity extends BaseActivity {
             holder.tvPatientSex.setText(OrderUtils.getSexStr(sex));
         }else if(requestCode==REQ_CODE_PATIENT_SEX){
             holder.tvPatientSex.setText(data.getStringExtra(AppConstants.INTENT_RESULT));
+        }else if(requestCode==REQ_CODE_COMPLICATION){
+            mComplication= (MdtOptionResult) data.getSerializableExtra(AppConstants.INTENT_RESULT);
+            holder.tvComplication.setText(mComplication.showText);
+//            holder.tvComplication.setText(JSON.toJSONString(mComplication) );
+        }else if(requestCode==REQ_CODE_BASE_DISEASE){
+            mBaseDisease= (MdtOptionResult) data.getSerializableExtra(AppConstants.INTENT_RESULT);
+            holder.tvBaseDisease.setText(mBaseDisease.showText);
         }
     }
 
@@ -390,6 +417,16 @@ public class EditOrderCaseActivity extends BaseActivity {
         TextView tv = ButterKnife.findById(mThis, viewId);
         if (tv != null) {
             tv.setText(res);
+        }
+    }
+    private void handleMdtOptionResult(Intent data) {
+        MdtOptionResult res = (MdtOptionResult) data.getSerializableExtra(AppConstants.INTENT_RESULT);
+        int viewId = data.getIntExtra(AppConstants.INTENT_VIEW_ID, 0);
+        if(viewId==R.id.tv_purpose)
+            mPurposeResult=res;
+        TextView tv = ButterKnife.findById(mThis, viewId);
+        if (tv != null) {
+            tv.setText(res.showText);
         }
     }
 
@@ -457,6 +494,10 @@ public class EditOrderCaseActivity extends BaseActivity {
         EditText etImageExamine;
         @BindView(R.id.et_pathology_examine)
         EditText etPathologyExamine;
+        @BindView(R.id.tv_complication)
+        TextView tvComplication;
+        @BindView(R.id.tv_base_disease)
+        TextView tvBaseDisease;
 
         public LocalViewHolder() {
             ButterKnife.bind(this, EditOrderCaseActivity.this);

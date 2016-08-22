@@ -14,6 +14,7 @@ public class OrderChatParam {
     public String topDiseaseId;
     public int patientAge;
     public int patientSex;
+    public String mdtGroupName;
 //    "patientName":"患者张三",
 //            "leader":"9bdaaa98f29c47b3b4843eeb5d04ec67",
 //            "creator":"60f6c2f46fca487e8331f8d89fe77c8b",

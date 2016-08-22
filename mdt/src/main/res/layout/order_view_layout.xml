@@ -95,6 +95,34 @@
             style="@style/order_confirm_line_content"
             />
     </LinearLayout>
+    <LinearLayout
+        android:id="@+id/ll_base_disease"
+        style="@style/order_confirm_line">
+
+        <TextView
+            style="@style/order_confirm_line_title"
+            android:text="基础疾病"
+            />
+
+        <TextView
+            android:id="@+id/tv_base_disease"
+            style="@style/order_confirm_line_content"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/ll_complication"
+        style="@style/order_confirm_line">
+
+        <TextView
+            style="@style/order_confirm_line_title"
+            android:text="伴随疾病"
+            />
+
+        <TextView
+            android:id="@+id/tv_complication"
+            style="@style/order_confirm_line_content"
+            />
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/ll_chief_complaint"
@@ -237,11 +265,12 @@
             <TextView
                 style="@style/order_confirm_line_title"
                 android:layout_width="wrap_content"
-                android:text="影像学学检查"
+                android:text="影像学检查"
                 />
 
             <com.dachen.common.widget.NoScrollerGridView
                 android:id="@+id/gv_image_examine"
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 xmlns:tools="http://schemas.android.com/tools"
@@ -255,8 +284,46 @@
                 android:scrollbars="none"
                 android:smoothScrollbar="true"/>
             <TextView
-                android:layout_marginTop="10dp"
                 android:id="@+id/tv_image_examine"
+                android:visibility="gone"
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/ll_pathology_examine"
+        style="@style/order_confirm_line">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/order_confirm_line_title"
+                android:layout_width="wrap_content"
+                android:text="病理学检查"
+                />
+
+            <com.dachen.common.widget.NoScrollerGridView
+                android:id="@+id/gv_pathology_examine"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_marginTop="10dp"
+                android:fadingEdge="none"
+                android:fastScrollEnabled="false"
+                android:focusable="false"
+                android:horizontalSpacing="3dp"
+                android:verticalSpacing="3dp"
+                android:numColumns="4"
+                android:scrollbars="none"
+                android:smoothScrollbar="true"/>
+            <TextView
+                android:id="@+id/tv_pathology_examine"
+                android:layout_marginTop="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
         </LinearLayout>

@@ -53,6 +53,7 @@ public class ImOrderAdapter extends CommonAdapterV2<ChatGroupPo>{
         holder.setText(R.id.tv_name,param.patientName);
         holder.setText(R.id.tv_name_info, OrderUtils.getSexStr(param.patientSex)+" "+param.patientAge+"岁");
         holder.setText(R.id.tv_first_diagnose, "初步诊断:"+param.firstDiag );
+        holder.setText(R.id.tv_mdt_group, "MDT小组:"+param.mdtGroupName );
         ImageLoader.getInstance().displayImage(po.gpic, (ImageView) holder.getView(R.id.iv_pic),opts);
         holder.getConvertView().setOnClickListener(new ChatGroupClickListener(po));
         holder.setText(R.id.tv_doc_manager,param.userName);

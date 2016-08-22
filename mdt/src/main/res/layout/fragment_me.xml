@@ -126,7 +126,7 @@
 
 
     <RelativeLayout
-        android:id="@+id/setting_layout"
+        android:id="@+id/layout_setting"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@drawable/setting_click_bg"

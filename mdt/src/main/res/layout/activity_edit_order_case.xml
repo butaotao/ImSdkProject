@@ -249,6 +249,48 @@
                 <ImageView
                     style="@style/divider_line"
                     android:layout_marginLeft="@dimen/edit_case_divider_left"/>
+                <LinearLayout
+                    android:id="@+id/ll_base_disease"
+                    style="@style/edit_order_list_item">
+
+                    <TextView
+                        style="@style/edit_order_item_title"
+                        android:text="基础疾病"
+                        />
+
+                    <TextView
+                        android:id="@+id/tv_base_disease"
+                        style="@style/edit_order_item_content"
+                        />
+
+                    <ImageView
+                        style="@style/edit_order_item_arrow"/>
+                </LinearLayout>
+
+                <ImageView
+                    style="@style/divider_line"
+                    android:layout_marginLeft="@dimen/edit_case_divider_left"/>
+                <LinearLayout
+                    android:id="@+id/ll_complication"
+                    style="@style/edit_order_list_item">
+
+                    <TextView
+                        style="@style/edit_order_item_title"
+                        android:text="伴随疾病"
+                        />
+
+                    <TextView
+                        android:id="@+id/tv_complication"
+                        style="@style/edit_order_item_content"
+                        />
+
+                    <ImageView
+                        style="@style/edit_order_item_arrow"/>
+                </LinearLayout>
+
+                <ImageView
+                    style="@style/divider_line"
+                    android:layout_marginLeft="@dimen/edit_case_divider_left"/>
 
                 <LinearLayout
                     android:id="@+id/ll_mdt_group"

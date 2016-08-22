@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
 import com.dachen.common.utils.ToastUtil;
 import com.dachen.common.utils.VolleyUtil;
 import com.dachen.imsdk.net.ImCommonRequest;
@@ -16,6 +17,7 @@ import com.dachen.mdt.activity.BaseActivity;
 import com.dachen.mdt.activity.main.CommonInputActivity;
 import com.dachen.mdt.entity.DiseaseTag;
 import com.dachen.mdt.entity.DiseaseType;
+import com.dachen.mdt.entity.MdtOptionResult;
 import com.dachen.mdt.exception.TextEmptyException;
 import com.dachen.mdt.listener.RequestHelperListener;
 import com.dachen.mdt.net.RequestHelper;
@@ -59,6 +61,7 @@ public class SubmitSummaryActivity extends BaseActivity {
     private boolean isReport;
     private DiseaseType mType;
     private DiseaseTag mDisTag;
+    private Map<String,MdtOptionResult> resultMap=new HashMap<>();
 //    private String mDisTag;
 
     @Override
@@ -79,20 +82,22 @@ public class SubmitSummaryActivity extends BaseActivity {
         Map<String,Object> reqMap=new HashMap<>();
         reqMap.put("orderId",mOrderId);
         try {
-            reqMap.put("diagSuggest", ViewUtils.checkTextEmpty(tvDiagnoseOpinion));
+            String diagnose= ViewUtils.checkTextEmpty(tvDiagnoseOpinion);
+            if(isReport){
+                diagnose+="-"+ tvDiagnoseTag.getText().toString();
+            }
+            reqMap.put("diagSuggest",diagnose);
         } catch (TextEmptyException e) {
             ViewUtils.setError(e.tv,"不能为空!");
             return;
         }
-        String examOpinion=tvExamineOpinion.getText().toString();
-        if(isReport){
-            examOpinion+="-"+ tvDiagnoseTag.getText().toString();
-        }
         if(mDisTag!=null)
             reqMap.put("tagId", mDisTag.id);
         reqMap.put("diseaseTypeId", mType.id);
-        reqMap.put("checkSuggest", examOpinion);
-        reqMap.put("treatSuggest", tvTreatOpinion.getText().toString());
+        if(resultMap.get("checksuggest")!=null)
+            reqMap.put("checkSuggest", JSON.toJSONString( resultMap.get("checksuggest")) );
+        if(resultMap.get("treatSuggest")!=null)
+            reqMap.put("treatSuggest", JSON.toJSONString( resultMap.get("treatSuggest")) );
         reqMap.put("other", tvOther.getText().toString());
 
         RequestHelperListener listener=new RequestHelperListener() {
@@ -124,7 +129,7 @@ public class SubmitSummaryActivity extends BaseActivity {
         if (type == null) return;
         Intent i = new Intent(mThis, ChooseMdtInfoActivity.class).putExtra(AppConstants.INTENT_DISEASE_TOP_ID, mDisTopId)
                 .putExtra(ChooseMdtInfoActivity.KEY_TYPE, type)
-                .putExtra(ChooseMdtInfoActivity.KEY_START_TEXT,tv.getText().toString())
+                .putExtra(AppConstants.INTENT_START_DATA,resultMap.get(type))
                 .putExtra(AppConstants.INTENT_VIEW_ID, tv.getId());
         startActivityForResult(i, REQ_CODE_MDT_INFO);
     }
@@ -159,7 +164,9 @@ public class SubmitSummaryActivity extends BaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode != RESULT_OK) return;
-        if (requestCode == REQ_CODE_MDT_INFO || requestCode == REQ_CODE_INPUT) {
+        if (requestCode == REQ_CODE_MDT_INFO ) {
+            handleMdtResult(data);
+        }else if(requestCode==REQ_CODE_INPUT){
             handleTextResult(data);
         }else if(requestCode==REQ_CODE_DISEASE){
             mType= (DiseaseType) data.getSerializableExtra(ChooseSummaryDiseaseActivity.KEY_RESULT);
@@ -189,6 +196,16 @@ public class SubmitSummaryActivity extends BaseActivity {
         TextView tv = ButterKnife.findById(mThis, viewId);
         if (tv != null) {
             tv.setText(res);
+        }
+    }
+    private void handleMdtResult(Intent data) {
+        MdtOptionResult res = (MdtOptionResult) data.getSerializableExtra(AppConstants.INTENT_RESULT);
+        String type=data.getStringExtra(ChooseMdtInfoActivity.KEY_TYPE);
+        resultMap.put(type,res);
+        int viewId = data.getIntExtra(AppConstants.INTENT_VIEW_ID, 0);
+        TextView tv = ButterKnife.findById(mThis, viewId);
+        if (tv != null) {
+            tv.setText(res.showText);
         }
     }
 }

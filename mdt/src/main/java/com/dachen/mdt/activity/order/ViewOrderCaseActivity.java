@@ -13,6 +13,7 @@ import com.dachen.mdt.activity.BaseActivity;
 import com.dachen.mdt.entity.OrderDetailVO;
 import com.dachen.mdt.listener.RequestHelperListener;
 import com.dachen.mdt.net.RequestHelper;
+import com.dachen.mdt.util.ViewUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -38,7 +39,7 @@ public class ViewOrderCaseActivity extends BaseActivity {
             @Override
             public void onSuccess(String dataStr) {
                 OrderDetailVO res= JSON.parseObject(dataStr,OrderDetailVO.class);
-                OrderChatActivity.initOrderInfo(vOrderInfo,res);
+                ViewUtils.initOrderInfo(mThis,vOrderInfo,res);
             }
         };
         ImCommonRequest req=new ImCommonRequest(url,map, RequestHelper.makeSucListener(false,listener),RequestHelper.makeErrorListener(listener) );

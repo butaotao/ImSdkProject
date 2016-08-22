@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.dachen.mdt.R;
 import com.dachen.mdt.activity.me.MyInfoActivity;
+import com.dachen.mdt.activity.me.SettingActivity;
 import com.dachen.mdt.entity.DoctorInfo;
 import com.dachen.mdt.entity.event.AvatarChangeEvent;
 import com.dachen.mdt.util.AppCommonUtils;
@@ -57,6 +58,11 @@ public class MeFragment extends BaseFragment {
     @OnClick(R.id.layout_base_info)
     public void goMyInfo(){
         startActivity(new Intent(mParent, MyInfoActivity.class));
+    }
+
+    @OnClick(R.id.layout_setting)
+    public void goSetting(){
+        startActivity(new Intent(mParent, SettingActivity.class));
     }
 
 
