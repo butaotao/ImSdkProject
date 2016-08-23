@@ -1,27 +1,22 @@
 package com.dachen.imsdk.service;
 
-import android.net.http.AndroidHttpClient;
-import android.util.Log;
-
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
+import com.android.volley.Response.ErrorListener;
+import com.android.volley.Response.Listener;
+import com.android.volley.VolleyError;
 import com.dachen.common.json.ResultTemplate;
+import com.dachen.common.utils.VolleyUtil;
 import com.dachen.imsdk.ImSdk;
 import com.dachen.imsdk.db.dao.GroupUserInfoDao;
 import com.dachen.imsdk.db.po.GroupUserPo;
 import com.dachen.imsdk.entity.GroupInfo2Bean;
 import com.dachen.imsdk.entity.GroupUserInfo;
 import com.dachen.imsdk.lisener.UserInfoChangeListener;
+import com.dachen.imsdk.net.ImCommonRequest;
 import com.dachen.imsdk.net.PollingURLs;
 import com.dachen.imsdk.utils.RefTool;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.HttpStatus;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.util.EntityUtils;
-
-import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.util.HashMap;
 import java.util.List;
@@ -72,43 +67,79 @@ public class ImGroupUserInfoManager {
 		return null;
 	}
 
-	private GroupUserPo fetchGroupUserInfo(String groupId,String userId) {
-		AndroidHttpClient client = AndroidHttpClient.newInstance("");
-		HttpPost p = new HttpPost(PollingURLs.groupUserInfo());
-		p.setHeader("access_token", ImSdk.getInstance().accessToken);
-		p.setHeader("content-type", "application/json");
-		Map<String, String> m = new HashMap<String, String>();
-		m.put("gid",groupId);
-		m.put("userId", userId);
-		String paramStr = JSON.toJSONString(m);
-		try {
-			p.setEntity(new StringEntity(paramStr,"UTF-8"));
-//			p.setEntity(new UrlEncodedFormEntity(paramsList));
-			HttpResponse response = client.execute(p);
-			if (response.getStatusLine().getStatusCode() != HttpStatus.SC_OK)
-				return null;
-			String str = EntityUtils.toString(response.getEntity());
-			Log.d(TAG, "get pub info result: "+str);
-			ResultTemplate<List<GroupUserInfo>> resObj = JSON.parseObject(str,
-					new TypeReference<ResultTemplate<List<GroupUserInfo>>>() {
-					});
-			if (resObj.resultCode == 1){
-				List<GroupUserInfo> infoList= resObj.data;
-				if(infoList==null||infoList.size()==0)
-					return null;
-				GroupUserInfo info=infoList.get(0);
-				GroupUserPo result=new GroupUserPo(info.id, info.pic, info.name, info.userType, info.role);
-				return result;
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			client.close();
-		}
-		return null;
-	}
+//	private GroupUserPo fetchGroupUserInfo(String groupId,String userId) {
+//		AndroidHttpClient client = AndroidHttpClient.newInstance("");
+//		HttpPost p = new HttpPost(PollingURLs.groupUserInfo());
+//		p.setHeader("access_token", ImSdk.getInstance().accessToken);
+//		p.setHeader("content-type", "application/json");
+//		Map<String, String> m = new HashMap<String, String>();
+//		m.put("gid",groupId);
+//		m.put("userId", userId);
+//		String paramStr = JSON.toJSONString(m);
+//		try {
+//			p.setEntity(new StringEntity(paramStr,"UTF-8"));
+////			p.setEntity(new UrlEncodedFormEntity(paramsList));
+//			HttpResponse response = client.execute(p);
+//			if (response.getStatusLine().getStatusCode() != HttpStatus.SC_OK)
+//				return null;
+//			String str = EntityUtils.toString(response.getEntity());
+//			Log.d(TAG, "get pub info result: "+str);
+//			ResultTemplate<List<GroupUserInfo>> resObj = JSON.parseObject(str,
+//					new TypeReference<ResultTemplate<List<GroupUserInfo>>>() {
+//					});
+//			if (resObj.resultCode == 1){
+//				List<GroupUserInfo> infoList= resObj.data;
+//				if(infoList==null||infoList.size()==0)
+//					return null;
+//				GroupUserInfo info=infoList.get(0);
+//				GroupUserPo result=new GroupUserPo(info.id, info.pic, info.name, info.userType, info.role);
+//				return result;
+//			}
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		} finally {
+//			client.close();
+//		}
+//		return null;
+//	}
 
-	public void addNewInfo(GroupUserPo info){
+    private void fetchGroupUserInfo(final String groupId, final String userId){
+        Listener<String> listener=new Listener<String>() {
+            @Override
+            public void onResponse(String s) {
+                ResultTemplate<List<GroupUserInfo>> resObj = JSON.parseObject(s,
+                        new TypeReference<ResultTemplate<List<GroupUserInfo>>>() {
+                        });
+                if (resObj.resultCode == 1){
+                    List<GroupUserInfo> infoList= resObj.data;
+                    if(infoList==null||infoList.size()==0){
+                        WORK_STATE.remove(makeKey(groupId,userId));
+                        return;
+                    }
+                    GroupUserInfo info=infoList.get(0);
+                    GroupUserPo result=new GroupUserPo(info.id, info.pic, info.name, info.userType, info.role);
+                    result.groupId=groupId;
+                    addNewInfo(result);
+                    GroupUserInfoDao.saveUser(result);
+                    WORK_STATE.remove(makeKey(groupId,userId));
+                }
+            }
+        };
+        ErrorListener errorListener=new ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+                WORK_STATE.remove(makeKey(groupId,userId));
+            }
+        };
+        Map<String, String> m = new HashMap<String, String>();
+        m.put("gid",groupId);
+        m.put("userId", userId);
+        ImCommonRequest request=new ImCommonRequest(PollingURLs.groupUserInfo(),m,listener,errorListener);
+        VolleyUtil.getQueue(ImSdk.getInstance().context).add(request);
+    }
+
+
+    public void addNewInfo(GroupUserPo info){
 		userMap.put(makeKey(info.groupId,info.userId), info);
 		UserInfoChangeListener l=new RefTool<UserInfoChangeListener>(listenerRef).getRef();
 		if(l!=null){
@@ -132,18 +163,18 @@ public class ImGroupUserInfoManager {
 				return;
 			WORK_STATE.put(makeKey(groupId,userId), true);
 			GroupUserPo info= GroupUserInfoDao.query(groupId, userId);
-//			GroupUserPo info= null;
 			if (info == null) {
-				info=fetchGroupUserInfo(groupId,userId);
-				if(info!=null){
-					info.groupId=groupId;
-					addNewInfo(info);
-					GroupUserInfoDao.saveUser(info);
-				}
+//				info=fetchGroupUserInfo(groupId,userId);
+//				if(info!=null){
+//					info.groupId=groupId;
+//					addNewInfo(info);
+//					GroupUserInfoDao.saveUser(info);
+//				}
+                fetchGroupUserInfo(groupId,userId);
 			}else{
 				addNewInfo(info);
-			}
-			WORK_STATE.remove(makeKey(groupId,userId));
+                WORK_STATE.remove(makeKey(groupId,userId));
+            }
 		}
 	}
 }

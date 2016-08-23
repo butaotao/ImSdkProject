@@ -36,15 +36,6 @@ public class SendEventRequest extends ImCommonRequest {
         Logger.d(TAG, "event send req=" + m);
         return m;
     }
-
-    //    @Override
-//    public Map<String, String> getHeaders() throws AuthFailureError {
-//        Map<String, String> m = new HashMap<String, String>();
-//        m.put("access_token", UserSp.getInstance(DApplication.getInstance()).getAccessToken(""));
-//        m.put("content-type", "application/json");
-//        return m;
-//    }
-//
 //    @Override
 //    public byte[] getBody() throws AuthFailureError {
 //        Map<String, Object> m = new HashMap<String, Object>();

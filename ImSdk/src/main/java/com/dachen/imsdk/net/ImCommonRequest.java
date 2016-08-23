@@ -46,6 +46,14 @@ public class ImCommonRequest extends StringRequest {
         return result;
     }
 
+//    @Override
+//    protected Map<String, String> getParams() throws AuthFailureError {
+//        Map<String,? extends Object> params=reqMap;
+//        if(params==null)
+//            params=getReqMap();
+//        return VolleyUtil.makeParam(params);
+//    }
+
     protected Map<String,? extends Object> getReqMap(){
         return new HashMap<>();
     }
@@ -94,7 +102,12 @@ public class ImCommonRequest extends StringRequest {
         }
         String token=accessToken==null? ImSdk.getInstance().accessToken:accessToken;
         headers.put("access-token", token);
-        headers.put("content-type", "application/json");
+//        headers.put("content-type", "application/json");
         return headers;
+    }
+
+    @Override
+    public String getBodyContentType() {
+        return "application/json";
     }
 }
