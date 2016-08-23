@@ -29,6 +29,7 @@ public class UrlConstants {
     public static final String GET_BASIC_DISEASE_LIST ="/mdt/base/getBasicDiseaseList";
 
     public static final String CREATE_ORDER="/mdt/order/createOrder";
+    public static final String UPDATE_ORDER="/mdt/order/updateOrder";
     public static final String GET_ORDER="/mdt/order/getOrder";
     public static final String ADD_EXPERTS="/mdt/order/addExperts";
     public static final String DEL_EXPERT="/mdt/order/delExpert";

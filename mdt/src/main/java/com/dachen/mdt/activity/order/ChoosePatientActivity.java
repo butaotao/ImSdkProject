@@ -39,11 +39,12 @@ public class ChoosePatientActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_patient);
 
-       initView();
+        initView();
         fetchInfo();
     }
-    private void initView(){
-        View vHeader= LayoutInflater.from(this).inflate(R.layout.choose_patient_header,null);
+
+    private void initView() {
+        View vHeader = LayoutInflater.from(this).inflate(R.layout.choose_patient_header, null);
         vHeader.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -51,52 +52,54 @@ public class ChoosePatientActivity extends BaseActivity {
             }
         });
 
-        mListView= (ListView) findViewById(R.id.list_view);
+        mListView = (ListView) findViewById(R.id.list_view);
         mListView.addHeaderView(vHeader);
-        mAdapter=new PatientAdapter(mThis);
+        mAdapter = new PatientAdapter(mThis);
         mListView.setAdapter(mAdapter);
         mListView.setOnItemClickListener(itemClick);
     }
 
-    private OnItemClickListener itemClick=new OnItemClickListener() {
+    private OnItemClickListener itemClick = new OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            position-=mListView.getHeaderViewsCount();
+            position -= mListView.getHeaderViewsCount();
             goStartOrder(mAdapter.getItem(position));
         }
     };
-    private void goStartOrder(PatientInfo info){
-        Intent i=new Intent(mThis,EditOrderCaseActivity.class);
-        i.putExtra(EditOrderCaseActivity.KEY_PATIENT,info);
+
+    private void goStartOrder(PatientInfo info) {
+        Intent i = new Intent(mThis, EditOrderCaseActivity.class);
+        i.putExtra(EditOrderCaseActivity.KEY_PATIENT, info);
         startActivity(i);
         finish();
     }
 
-    private void fetchInfo(){
-        RequestHelperListener listener=new RequestHelperListener() {
+    private void fetchInfo() {
+        RequestHelperListener listener = new RequestHelperListener() {
             @Override
             public void onSuccess(String dataStr) {
                 getProgressDialog().dismiss();
-                PatientListResult result=JSON.parseObject(dataStr,PatientListResult.class);
+                PatientListResult result = JSON.parseObject(dataStr, PatientListResult.class);
 //                List<PatientInfo> list= JSON.parseArray(dataStr,PatientInfo.class);
                 mAdapter.update(result.result);
             }
+
             @Override
             public void onError(String msg) {
-                ToastUtil.showToast(mThis,msg);
+                ToastUtil.showToast(mThis, msg);
                 getProgressDialog().dismiss();
             }
         };
 //        String url= UrlConstants.getUrl(UrlConstants.GET_ALL_PATIENTS);
-        String url= UrlConstants.getUrl(UrlConstants.GET_TAG_PATIENTS);
+        String url = UrlConstants.getUrl(UrlConstants.GET_TAG_PATIENTS);
         Map<String, Object> reqMap = new HashMap<>();
-        ImCommonRequest request=new ImCommonRequest(url,reqMap, RequestHelper.makeSucListener(false,listener),RequestHelper.makeErrorListener(listener));
+        ImCommonRequest request = new ImCommonRequest(url, reqMap, RequestHelper.makeSucListener(false, listener), RequestHelper.makeErrorListener(listener));
         VolleyUtil.getQueue(mThis).add(request);
         getProgressDialog().show();
     }
 
 
-    private class PatientAdapter extends CommonAdapterV2<PatientInfo>{
+    private class PatientAdapter extends CommonAdapterV2<PatientInfo> {
 
         public PatientAdapter(Context mContext) {
             super(mContext);
@@ -109,9 +112,9 @@ public class ChoosePatientActivity extends BaseActivity {
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            ViewHolder holder=ViewHolder.get(mContext,convertView,parent,R.layout.choose_patient_item,position);
-            PatientInfo info=getItem(position);
-            holder.setText(R.id.tv_name,info.name);
+            ViewHolder holder = ViewHolder.get(mContext, convertView, parent, R.layout.choose_patient_item, position);
+            PatientInfo info = getItem(position);
+            holder.setText(R.id.tv_name, info.name);
             holder.setText(R.id.tv_info, OrderUtils.getPatientInfoStr(info));
             return holder.getConvertView();
         }

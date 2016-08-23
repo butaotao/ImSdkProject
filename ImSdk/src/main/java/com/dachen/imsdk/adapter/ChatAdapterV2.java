@@ -1587,10 +1587,10 @@ public class ChatAdapterV2 extends MultiItemCommonAdapter<ChatMessagePo> impleme
         if(data.type==MessageType.file&&hasDownload){
             items.add(MsgMenuAdapter.ITEM_DOWNLOAD);
         }
-        if(msgHandler.menuHasRetract()&&data.isMySend() &&data.type!=MessageType.voice)
+        if(msgHandler.menuHasRetract()&&data.isMySend())
             items.add(MsgMenuAdapter.ITEM_RETRACT);
         items.add(MsgMenuAdapter.ITEM_DELETE);
-        if(msgHandler.menuHasForward()&& data.type!=MessageType.newmpt18 && data.msgId!=null)
+        if(msgHandler.menuHasForward()&& data.type!=MessageType.newmpt18 && data.msgId!=null  &&data.type!=MessageType.voice)
             items.add(MsgMenuAdapter.ITEM_FORWARD);
         ListView lv = (ListView) v.findViewById(R.id.list_view);
         lv.setAdapter(new MsgMenuAdapter(data,mContext,items,this,dialog));

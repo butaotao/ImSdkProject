@@ -95,6 +95,7 @@
             style="@style/order_confirm_line_content"
             />
     </LinearLayout>
+
     <LinearLayout
         android:id="@+id/ll_base_disease"
         style="@style/order_confirm_line">
@@ -109,6 +110,7 @@
             style="@style/order_confirm_line_content"
             />
     </LinearLayout>
+
     <LinearLayout
         android:id="@+id/ll_complication"
         style="@style/order_confirm_line">
@@ -246,10 +248,58 @@
             android:text="检查结果"
             />
 
-        <TextView
-            android:id="@+id/tv_examine_result"
-            style="@style/order_confirm_line_content"
-            />
+        <!--<TextView-->
+        <!--android:id="@+id/tv_examine_result"-->
+        <!--style="@style/order_confirm_line_content"-->
+        <!--/>-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.dachen.common.widget.NoScrollerGridView
+                android:id="@+id/gv_check_result"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fadingEdge="none"
+                android:fastScrollEnabled="false"
+                android:focusable="false"
+                android:horizontalSpacing="3dp"
+                android:numColumns="4"
+                android:scrollbars="none"
+                android:smoothScrollbar="true"
+                android:verticalSpacing="3dp"/>
+
+            <LinearLayout
+                android:id="@+id/ll_result"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"/>
+
+            <LinearLayout
+                android:id="@+id/ll_other"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="其他"
+                    />
+                <TextView
+                    android:id="@+id/tv_other"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:text="其他"
+                    />
+
+            </LinearLayout>
+
+        </LinearLayout>
 
     </LinearLayout>
 
@@ -270,28 +320,30 @@
 
             <com.dachen.common.widget.NoScrollerGridView
                 android:id="@+id/gv_image_examine"
-                android:visibility="gone"
+                xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                xmlns:tools="http://schemas.android.com/tools"
                 android:layout_marginTop="10dp"
                 android:fadingEdge="none"
                 android:fastScrollEnabled="false"
                 android:focusable="false"
                 android:horizontalSpacing="3dp"
-                android:verticalSpacing="3dp"
                 android:numColumns="4"
                 android:scrollbars="none"
-                android:smoothScrollbar="true"/>
+                android:smoothScrollbar="true"
+                android:verticalSpacing="3dp"
+                android:visibility="gone"/>
+
             <TextView
                 android:id="@+id/tv_image_examine"
-                android:visibility="gone"
-                android:layout_marginTop="10dp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:visibility="gone"/>
         </LinearLayout>
 
     </LinearLayout>
+
     <LinearLayout
         android:id="@+id/ll_pathology_examine"
         style="@style/order_confirm_line">
@@ -309,23 +361,24 @@
 
             <com.dachen.common.widget.NoScrollerGridView
                 android:id="@+id/gv_pathology_examine"
+                xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                xmlns:tools="http://schemas.android.com/tools"
                 android:layout_marginTop="10dp"
                 android:fadingEdge="none"
                 android:fastScrollEnabled="false"
                 android:focusable="false"
                 android:horizontalSpacing="3dp"
-                android:verticalSpacing="3dp"
                 android:numColumns="4"
                 android:scrollbars="none"
-                android:smoothScrollbar="true"/>
+                android:smoothScrollbar="true"
+                android:verticalSpacing="3dp"/>
+
             <TextView
                 android:id="@+id/tv_pathology_examine"
-                android:layout_marginTop="10dp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"/>
         </LinearLayout>
 
     </LinearLayout>

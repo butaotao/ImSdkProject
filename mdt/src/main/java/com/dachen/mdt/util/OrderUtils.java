@@ -6,6 +6,7 @@ import com.alibaba.fastjson.JSON;
 import com.dachen.mdt.entity.CheckType;
 import com.dachen.mdt.entity.CheckTypeResult;
 import com.dachen.mdt.entity.MdtOptionResult;
+import com.dachen.mdt.entity.MdtOptionResult.MdtOptionItem;
 import com.dachen.mdt.entity.PatientInfo;
 import com.dachen.mdt.entity.TempTextParam;
 
@@ -13,6 +14,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 import java.util.regex.Pattern;
 
 /**
@@ -39,6 +41,7 @@ public class OrderUtils {
         if(res.pathList!=null&&res.pathList.size()>0){
             text.append(res.pathList.size()+"张图片").append(",");
         }
+        AppCommonUtils.deleteLastChar(text);
         return text.toString();
     }
 
@@ -89,7 +92,7 @@ public class OrderUtils {
     }
     public static Date getBirthFromId(String idNum){
         String dateStr=idNum.substring(6,14);
-        SimpleDateFormat format=new SimpleDateFormat("yyyyMMdd");
+        SimpleDateFormat format=new SimpleDateFormat("yyyyMMdd", Locale.US);
         try {
             return format.parse(dateStr);
         } catch (ParseException e) {
@@ -126,5 +129,20 @@ public class OrderUtils {
         MdtOptionResult res= JSON.parseObject(resultStr,MdtOptionResult.class);
         if(res==null)return null;
         return res.showText;
+    }
+
+    public static String getMdtOptionResultDetail(String resultStr){
+        MdtOptionResult res= JSON.parseObject(resultStr,MdtOptionResult.class);
+        if(res==null||res.array==null)return null;
+        StringBuilder builder=new StringBuilder();
+        for(MdtOptionItem item: res.array){
+            if(item.supportText){
+                builder.append(item.name).append(":").append(item.value).append(",");
+            }else{
+                builder.append(item.name).append(",");
+            }
+        }
+        AppCommonUtils.deleteLastChar(builder);
+        return builder.toString();
     }
 }

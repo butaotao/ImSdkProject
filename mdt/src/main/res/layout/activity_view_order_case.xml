@@ -18,10 +18,9 @@
             style="@style/ActionBar_Title"
             android:text="会诊病例"/>
 
-        <TextView
+        <Button
             android:id="@+id/right_btn"
             style="@style/ActionBar_RightText"
-            android:visibility="gone"
             android:text="编辑"
             />
         <ImageView

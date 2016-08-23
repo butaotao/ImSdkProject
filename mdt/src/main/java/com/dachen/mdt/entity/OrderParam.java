@@ -16,7 +16,9 @@ public class OrderParam {
 
 	/*会诊目的*/
 	public String target;
-	
+	public String concomitant;
+	public String basicDisease;
+
 	/*病情资料*/
 	public DiseaseInfo disease;
 	

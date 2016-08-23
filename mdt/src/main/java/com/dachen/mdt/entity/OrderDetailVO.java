@@ -1,6 +1,8 @@
 package com.dachen.mdt.entity;
 
-public class OrderDetailVO {
+import java.io.Serializable;
+
+public class OrderDetailVO implements Serializable {
 	public String orderId;
 	public String firstDiag;
 	public String basicDisease;
@@ -17,8 +19,8 @@ public class OrderDetailVO {
 	public String userName;//主管医生姓名
 	/*会诊分类*/
 	public String diseaseTypeId;
-	public String diseaseType;
-	
+	public String topDiseaseId;
+
 	/*mdt小组*/
 	public String mdtGroupId;
 	public String mdtGroupName;

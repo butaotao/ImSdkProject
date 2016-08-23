@@ -39,7 +39,6 @@ public class IMRecordController implements View.OnTouchListener, RecordStateList
 	/**
 	 * 判断是否在上滑
 	 * 
-	 * @param x
 	 * @param y
 	 * @return
 	 */

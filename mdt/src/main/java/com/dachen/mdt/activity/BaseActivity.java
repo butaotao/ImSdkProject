@@ -57,6 +57,8 @@ public abstract class BaseActivity extends FragmentActivity implements OnClickLi
     public void onLeftClick(View v) {
         onBackPressed();
     }
+    public void onRightClick(View v) {
+    }
 
     @Override
     public void onClick(View v) {
@@ -67,4 +69,5 @@ public abstract class BaseActivity extends FragmentActivity implements OnClickLi
         super.onDestroy();
         AppManager.getAppManager().removeActivity(this);
     }
+
 }

@@ -14,4 +14,13 @@ public class DiseaseType implements Serializable{
     public int level;
     public ArrayList<DiseaseType> children;
     public ArrayList<DiseaseTag> tagList;
+
+    public DiseaseType() {
+    }
+
+    public DiseaseType(String id, String name, String topDiseaseId) {
+        this.id = id;
+        this.name = name;
+        this.topDiseaseId = topDiseaseId;
+    }
 }

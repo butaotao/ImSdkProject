@@ -51,6 +51,7 @@ public class OrderChatActivity extends AppBaseChatActivity {
     protected PopupWindow mPopWindow;
     protected PopupWindow mCoverPop;
     protected View mHeader;
+    protected View mHeaderExtra;
     protected Button btnExBar;
     protected TextView tvExInfo;
     protected ImageView ivExCheck;
@@ -63,7 +64,7 @@ public class OrderChatActivity extends AppBaseChatActivity {
     }
     private void initView(){
         if(TextUtils.isEmpty(groupPo.param)){
-            mHeader.setVisibility(View.GONE);
+            mHeaderExtra.setVisibility(View.GONE);
             return;
         }
         OrderChatParam param=JSON.parseObject(groupPo.param,OrderChatParam.class);
@@ -80,6 +81,7 @@ public class OrderChatActivity extends AppBaseChatActivity {
     @Override
     protected void onHeaderLayoutLoaded(View view) {
         mHeader=view.findViewById(R.id.header_container);
+        mHeaderExtra=view.findViewById(R.id.layout_header_extra);
         btnExBar= (Button) view.findViewById(R.id.btn_ex);
         tvExInfo= (TextView) view.findViewById(R.id.tv_info);
         ivExCheck= (ImageView) view.findViewById(R.id.iv_check);
@@ -250,11 +252,11 @@ public class OrderChatActivity extends AppBaseChatActivity {
     @Override
     protected void onBusinessData() {
         if(TextUtils.isEmpty(groupPo.param)){
-            mHeader.setVisibility(View.GONE);
+            mHeaderExtra.setVisibility(View.GONE);
             return;
         }
         OrderChatParam param=JSON.parseObject(groupPo.param,OrderChatParam.class);
-        mHeader.setVisibility(View.VISIBLE);
+        mHeaderExtra.setVisibility(View.VISIBLE);
         if(groupPo.bizStatus==2){
             tvExInfo.setText("本次会诊已完成");
             ivExCheck.setVisibility(View.VISIBLE);

@@ -168,6 +168,7 @@ public abstract class BaseMdtOptionActivity extends BaseActivity {
         String id=item.id;
         if (!isMulti) {
             chosenMap.clear();
+            startData.array.clear();
         }
         chosenMap.put(id,item);
         startData.array.add(item);

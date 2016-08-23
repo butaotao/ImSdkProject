@@ -46,8 +46,8 @@ public class LoginActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
-        etPhone.setText("18620366451");
-        etPwd.setText("123456");
+        etPhone.setText(SpUtils.getSp().getString(SpUtils.KEY_LAST_LOGIN_PHONE,null));
+//        etPwd.setText("123456");
     }
 
     @OnClick(R.id.login_btn)
@@ -96,6 +96,7 @@ public class LoginActivity extends BaseActivity {
                 getProgressDialog().dismiss();
                 DoctorInfo info=JSON.parseObject(dataStr,DoctorInfo.class);
                 MyApplication.getInstance().mUserInfo=info;
+                SpUtils.edit().putString(SpUtils.KEY_LAST_LOGIN_PHONE,etPhone.getText().toString()).apply();
                 SpUtils.saveUser(token,info);
                 ImSdk.getInstance().initUser(token,info.userId,info.name,info.name,info.avatar);
                 startActivity(new Intent(mThis,MainActivity.class));

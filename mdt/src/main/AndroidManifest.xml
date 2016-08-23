@@ -10,6 +10,13 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.VIBRATE"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <!-- 录音录像的权限 -->
+    <uses-permission android:name="android.permission.RECORD_VIDEO"/>
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+
+    <uses-feature android:name="android.hardware.camera"/>
+    <uses-feature android:name="android.hardware.camera.autofocus"/>
+    <uses-feature android:name="android.hardware.microphone"/>
 
     <application
         android:name=".MyApplication"
@@ -87,6 +94,10 @@
         <activity android:name=".activity.order.ChooseComplicationActivity">
         </activity>
         <activity android:name=".activity.order.ChooseBaseDiseaseActivity">
+        </activity>
+        <activity android:name=".activity.me.AboutActivity">
+        </activity>
+        <activity android:name=".activity.me.ModifyPwdActivity">
         </activity>
     </application>
 

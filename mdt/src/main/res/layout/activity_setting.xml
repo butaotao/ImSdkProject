@@ -28,6 +28,7 @@
         style="@style/divider_line"/>
 
     <RelativeLayout
+        android:id="@+id/layout_modify_pwd"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@drawable/setting_click_bg">
@@ -73,6 +74,7 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/layout_about"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@drawable/setting_click_bg">

@@ -515,6 +515,8 @@ public abstract class ChatActivityV2 extends ImBaseActivity implements MessageRe
 
     @Override
     public void finish() {
+        if(mChatBottomView.inRecordVoice)
+            return;
         groupDao.clearNotifyInfo(mGroupId);
         super.finish();
     }

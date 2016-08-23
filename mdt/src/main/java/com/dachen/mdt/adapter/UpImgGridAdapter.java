@@ -20,6 +20,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.io.File;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -71,6 +72,14 @@ public class UpImgGridAdapter extends CommonAdapterV2<UpImgGridItem> {
         mData.add(item);
 //        notifyDataSetChanged();
         return item;
+    }
+    public void addPicUrlList(List<String> urlList){
+        if(urlList==null)return;
+        for(String url:urlList){
+            UpImgGridItem item=new UpImgGridItem();
+            item.url=url;
+            mData.add(item);
+        }
     }
 
     @Override

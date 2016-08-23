@@ -1,5 +1,6 @@
 package com.dachen.mdt.activity.me;
 
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
@@ -20,6 +21,8 @@ public class SettingActivity extends BaseActivity {
 
         showVersion();
         findViewById(R.id.btn_logout).setOnClickListener(this);
+        findViewById(R.id.layout_modify_pwd).setOnClickListener(this);
+        findViewById(R.id.layout_about).setOnClickListener(this);
     }
 
     @Override
@@ -27,6 +30,12 @@ public class SettingActivity extends BaseActivity {
         switch (v.getId()){
             case R.id.btn_logout:
                 AppCommonUtils.logout();
+                break;
+            case R.id.layout_modify_pwd:
+                startActivity(new Intent(mThis,ModifyPwdActivity.class));
+                break;
+            case R.id.layout_about:
+                startActivity(new Intent(mThis,AboutActivity.class));
                 break;
         }
     }

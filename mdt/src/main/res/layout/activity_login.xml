@@ -30,7 +30,7 @@
             style="@style/IMLineEditText"
             android:layout_marginLeft="18dp"
             android:layout_marginRight="18dp"
-            android:background="@drawable/inputbox"
+            android:background="@drawable/mdt_password_inputbox"
             android:hint="@string/please_input_phone_number"
             android:inputType="phone"/>
 

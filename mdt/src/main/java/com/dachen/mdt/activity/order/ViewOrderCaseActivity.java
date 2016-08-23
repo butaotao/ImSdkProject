@@ -1,5 +1,6 @@
 package com.dachen.mdt.activity.order;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -22,6 +23,7 @@ public class ViewOrderCaseActivity extends BaseActivity {
 
     private View vOrderInfo;
     private String mOrderId;
+    private OrderDetailVO mOrder;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,11 +40,20 @@ public class ViewOrderCaseActivity extends BaseActivity {
         RequestHelperListener listener=new RequestHelperListener() {
             @Override
             public void onSuccess(String dataStr) {
-                OrderDetailVO res= JSON.parseObject(dataStr,OrderDetailVO.class);
-                ViewUtils.initOrderInfo(mThis,vOrderInfo,res);
+                mOrder= JSON.parseObject(dataStr,OrderDetailVO.class);
+                ViewUtils.initOrderInfo(mThis,vOrderInfo,mOrder);
             }
         };
         ImCommonRequest req=new ImCommonRequest(url,map, RequestHelper.makeSucListener(false,listener),RequestHelper.makeErrorListener(listener) );
         VolleyUtil.getQueue(mThis).add(req);
+    }
+
+    @Override
+    public void onRightClick(View v) {
+        if(mOrder==null)return;
+        Intent i=new Intent(mThis,EditOrderCaseActivity.class);
+        i.putExtra(EditOrderCaseActivity.KEY_ORDER,mOrder);
+        startActivity(i);
+        finish();
     }
 }

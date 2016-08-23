@@ -108,6 +108,7 @@
         <item name="android:textColor">@color/white</item>
         <item name="android:layout_alignParentRight">true</item>
         <item name="android:singleLine">true</item>
+        <item name="android:onClick">onRightClick</item>
     </style>
     <style name="ActionBar_RightImg">
         <item name="android:layout_width">54dp</item>

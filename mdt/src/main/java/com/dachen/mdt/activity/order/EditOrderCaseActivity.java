@@ -15,8 +15,11 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.alibaba.fastjson.JSON;
+import com.dachen.common.utils.TimeUtils;
 import com.dachen.common.utils.ToastUtil;
 import com.dachen.common.utils.VolleyUtil;
+import com.dachen.common.widget.CustomDialog;
+import com.dachen.common.widget.CustomDialog.CustomClickEvent;
 import com.dachen.gallery.CustomGalleryActivity;
 import com.dachen.gallery.GalleryAction;
 import com.dachen.mdt.AppConstants;
@@ -32,6 +35,7 @@ import com.dachen.mdt.entity.DiseaseInfo;
 import com.dachen.mdt.entity.DiseaseType;
 import com.dachen.mdt.entity.MdtGroupInfo;
 import com.dachen.mdt.entity.MdtOptionResult;
+import com.dachen.mdt.entity.OrderDetailVO;
 import com.dachen.mdt.entity.OrderParam;
 import com.dachen.mdt.entity.PatientInfo;
 import com.dachen.mdt.entity.TempTextParam;
@@ -50,7 +54,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 
 import butterknife.BindView;
@@ -73,19 +76,24 @@ public class EditOrderCaseActivity extends BaseActivity {
     private static final int REQ_CODE_COMPLICATION =11;
     private static final int REQ_CODE_BASE_DISEASE =12;
     private static Map<Integer, String> TYPE_MAP;
+
     public static final String KEY_PATIENT="patient";
+    public static final String KEY_ORDER="order";
 
     private PatientInfo mPatient;
     private LocalViewHolder holder;
-    private String mdtGroupId;
-    private DiseaseType diseaseType;
-    private long mEndTime;
     private UpImgGridAdapter mImageExamineAdapter;
     private UpImgGridAdapter mPathologyAdapter;
     private CheckTypeResult mCheckResult;
+
+    private long mEndTime;
+    private String mdtGroupId;
+    private DiseaseType diseaseType;
     private MdtOptionResult mPurposeResult;
     private MdtOptionResult mComplication;
     private MdtOptionResult mBaseDisease;
+
+    private OrderDetailVO mOldOrder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,6 +106,10 @@ public class EditOrderCaseActivity extends BaseActivity {
 
     private void initView() {
         mPatient= (PatientInfo) getIntent().getSerializableExtra(KEY_PATIENT);
+        mOldOrder= (OrderDetailVO) getIntent().getSerializableExtra(KEY_ORDER);
+        if(mOldOrder!=null){
+            mPatient=mOldOrder.patient;
+        }
         if(mPatient==null)
             mPatient=new PatientInfo();
         else{
@@ -112,6 +124,39 @@ public class EditOrderCaseActivity extends BaseActivity {
         holder.gvImageExamine.setAdapter(mImageExamineAdapter);
         mPathologyAdapter =new UpImgGridAdapter(mThis);
         holder.gvPathologyExamine.setAdapter(mPathologyAdapter);
+        initOldOrder();
+    }
+    private void initOldOrder(){
+        if(mOldOrder==null)return;
+        diseaseType=new DiseaseType(mOldOrder.diseaseTypeId,mOldOrder.firstDiag,mOldOrder.topDiseaseId);
+        holder.tvDiseaseType.setText(diseaseType.name);
+        mBaseDisease=JSON.parseObject(mOldOrder.basicDisease,MdtOptionResult.class);
+        holder.tvBaseDisease.setText(mBaseDisease.showText);
+        mComplication=JSON.parseObject(mOldOrder.concomitant,MdtOptionResult.class);
+        holder.tvComplication.setText(mComplication.showText);
+        mdtGroupId=mOldOrder.mdtGroupId;
+        holder.tvMdtGroup.setText(mOldOrder.mdtGroupName);
+        mPurposeResult= JSON.parseObject(mOldOrder.target,MdtOptionResult.class);
+        holder.tvPurpose.setText(mPurposeResult.showText);
+        mEndTime=mOldOrder.expectEndTime;
+        holder.tvEndTime.setText(TimeUtils.a_format.format(new Date(mOldOrder.expectEndTime)));
+
+        holder.tvChiefComplaint.setText(mOldOrder.disease.complain.text);
+        holder.tvPresentHistory.setText(mOldOrder.disease.diseaseNow.text);
+        holder.tvPreviousHistory.setText(mOldOrder.disease.diseaseOld.text);
+        holder.tvFamilyHistory.setText(mOldOrder.disease.diseaseFamily.text);
+        holder.tvPersonalHistory.setText(mOldOrder.disease.diseaseSelf.text);
+        holder.tvBodySign.setText(mOldOrder.disease.symptom.text);
+        holder.tvTreatProcess.setText(mOldOrder.disease.checkProcess.text);
+        mCheckResult=mOldOrder.disease.result;
+        holder.tvExamineResult.setText(OrderUtils.getText(mCheckResult));
+
+        holder.etImageExamine.setText(mOldOrder.disease.imaging.text);
+        mImageExamineAdapter.addPicUrlList(mOldOrder.disease.imaging.pathList);
+        mImageExamineAdapter.notifyDataSetChanged();
+        holder.etPathologyExamine.setText(mOldOrder.disease.pathology.text);
+        mPathologyAdapter.addPicUrlList(mOldOrder.disease.pathology.pathList);
+        mPathologyAdapter.notifyDataSetChanged();
     }
 
     @OnClick(R.id.right_btn)
@@ -157,6 +202,8 @@ public class EditOrderCaseActivity extends BaseActivity {
             return;
         }
         reqParam.target =JSON.toJSONString(mPurposeResult);
+        reqParam.basicDisease=JSON.toJSONString(mBaseDisease);
+        reqParam.concomitant=JSON.toJSONString(mComplication);
         dInfo.result=mCheckResult;
         dInfo.imaging=new TextImgListParam();
         dInfo.imaging.text=holder.etImageExamine.getText().toString();
@@ -185,17 +232,21 @@ public class EditOrderCaseActivity extends BaseActivity {
         dInfo.pathology.pathList=pathologyList;
 
         reqParam.expectEndTime=mEndTime;
-        reqParam.diseaseTypeId=diseaseType.topDiseaseId;
+        reqParam.diseaseTypeId=diseaseType.id;
         reqParam.firstDiag=diseaseType.name;
         reqParam.mdtGroupId=mdtGroupId;
         reqParam.patient=pInfo;
         reqParam.disease=dInfo;
-
+        String url= UrlConstants.getUrl(UrlConstants.CREATE_ORDER);
+        if(mOldOrder!=null){
+            reqParam.orderId=mOldOrder.orderId;
+            url=UrlConstants.getUrl(UrlConstants.UPDATE_ORDER);
+        }
         RequestHelperListener listener=new RequestHelperListener() {
             @Override
             public void onSuccess(String dataStr) {
                 getProgressDialog().dismiss();
-                ToastUtil.showToast(mThis,"创建成功");
+                ToastUtil.showToast(mThis,"提交成功");
                 finish();
             }
             @Override
@@ -204,7 +255,6 @@ public class EditOrderCaseActivity extends BaseActivity {
                 getProgressDialog().dismiss();
             }
         };
-        String url= UrlConstants.getUrl(UrlConstants.CREATE_ORDER);
         ImObjectRequest request=new ImObjectRequest(url,reqParam, RequestHelper.makeSucListener(true,listener),RequestHelper.makeErrorListener(listener));
         VolleyUtil.getQueue(mThis).add(request);
         getProgressDialog().show();
@@ -326,7 +376,7 @@ public class EditOrderCaseActivity extends BaseActivity {
                         timePicker.getCurrentMinute());
 
                 mEndTime = calendar.getTimeInMillis();
-                SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd hh:mm", Locale.US);
+                SimpleDateFormat format=TimeUtils.a_format;
                 holder.tvEndTime.setText(format.format(calendar.getTime()));
                 dialog.dismiss();
             }});
@@ -443,6 +493,30 @@ public class EditOrderCaseActivity extends BaseActivity {
         if(item.isAdd){
             CustomGalleryActivity.openUi(mThis,true,reqCode,8-adapter.getData().size());
         }
+    }
+
+    @Override
+    public void onLeftClick(View v) {
+        alertQuitEdit();
+    }
+
+    private void alertQuitEdit(){
+        CustomClickEvent event=new CustomClickEvent() {
+            @Override
+            public void onClick(CustomDialog customDialog) {
+                finish();
+                customDialog.dismiss();
+            }
+
+            @Override
+            public void onDismiss(CustomDialog customDialog) {
+                customDialog.dismiss();
+            }
+        };
+        String text="确定要放弃编辑?";
+        CustomDialog dialog=new CustomDialog.Builder(mThis,event)
+                .setMessage(text).setPositive("确定").setNegative("继续编辑").create();
+        dialog.show();
     }
 
     public class LocalViewHolder {

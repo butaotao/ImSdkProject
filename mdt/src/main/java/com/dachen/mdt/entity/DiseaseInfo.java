@@ -1,6 +1,8 @@
 package com.dachen.mdt.entity;
 
-public class DiseaseInfo {
+import java.io.Serializable;
+
+public class DiseaseInfo implements Serializable{
 	/*初步诊断*/
 	public String firstDiag;
 	/*主诉*/
