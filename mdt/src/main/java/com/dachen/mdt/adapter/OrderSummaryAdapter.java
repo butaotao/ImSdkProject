@@ -11,6 +11,7 @@ import com.dachen.common.adapter.ViewHolder;
 import com.dachen.mdt.R;
 import com.dachen.mdt.entity.SummaryInfo;
 import com.dachen.mdt.entity.SummaryResult;
+import com.dachen.mdt.util.OrderUtils;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.List;
@@ -42,9 +43,9 @@ public class OrderSummaryAdapter extends CommonAdapterV2<SummaryResult> {
             holder.setVisibility(R.id.ll_report_info, View.GONE);
         }else{
             int lineCount=0;
-            lineCount+=handleLine(holder,R.id.ll_diagnose_opinion,R.id.tv_diagnose_opinion,info.diagSuggest);
-            lineCount+=handleLine(holder,R.id.ll_examine_opinion,R.id.tv_examine_opinion,info.checkSuggest);
-            lineCount+=handleLine(holder,R.id.ll_treat_opinion,R.id.tv_treat_opinion,info.treatSuggest);
+            lineCount+=handleLine(holder,R.id.ll_diagnose_opinion,R.id.tv_diagnose_opinion, OrderUtils.getMdtOptionResultText(info.diagSuggest));
+            lineCount+=handleLine(holder,R.id.ll_examine_opinion,R.id.tv_examine_opinion,OrderUtils.getMdtOptionResultText(info.checkSuggest));
+            lineCount+=handleLine(holder,R.id.ll_treat_opinion,R.id.tv_treat_opinion,OrderUtils.getMdtOptionResultText(info.treatSuggest));
             lineCount+=handleLine(holder,R.id.ll_other,R.id.tv_other,info.other);
             int lineVis=lineCount==0? View.GONE:View.VISIBLE;
             int noFillVis=lineCount!=0? View.GONE:View.VISIBLE;

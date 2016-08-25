@@ -1,4 +1,4 @@
-package com.dachen.mdt.activity.order;
+package com.dachen.mdt.activity.order.summary;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.alibaba.fastjson.JSON;
 import com.dachen.common.utils.ToastUtil;
 import com.dachen.common.utils.VolleyUtil;
 import com.dachen.imsdk.net.ImCommonRequest;
@@ -15,12 +14,15 @@ import com.dachen.mdt.R;
 import com.dachen.mdt.UrlConstants;
 import com.dachen.mdt.activity.BaseActivity;
 import com.dachen.mdt.activity.main.CommonInputActivity;
+import com.dachen.mdt.activity.order.ChooseMdtInfoActivity;
+import com.dachen.mdt.activity.order.EditOrderCaseActivity;
 import com.dachen.mdt.entity.DiseaseTag;
-import com.dachen.mdt.entity.DiseaseType;
 import com.dachen.mdt.entity.MdtOptionResult;
+import com.dachen.mdt.entity.MdtOptionResult.MdtOptionItem;
 import com.dachen.mdt.exception.TextEmptyException;
 import com.dachen.mdt.listener.RequestHelperListener;
 import com.dachen.mdt.net.RequestHelper;
+import com.dachen.mdt.util.OrderUtils;
 import com.dachen.mdt.util.ViewUtils;
 
 import java.util.ArrayList;
@@ -59,7 +61,7 @@ public class SubmitSummaryActivity extends BaseActivity {
     private String mDisTopId;
     private String mOrderId;
     private boolean isReport;
-    private DiseaseType mType;
+    private MdtOptionResult mTypeResult;
     private DiseaseTag mDisTag;
     private Map<String,MdtOptionResult> resultMap=new HashMap<>();
 //    private String mDisTag;
@@ -82,22 +84,21 @@ public class SubmitSummaryActivity extends BaseActivity {
         Map<String,Object> reqMap=new HashMap<>();
         reqMap.put("orderId",mOrderId);
         try {
-            String diagnose= ViewUtils.checkTextEmpty(tvDiagnoseOpinion);
-            if(isReport){
-                diagnose+="-"+ tvDiagnoseTag.getText().toString();
-            }
-            reqMap.put("diagSuggest",diagnose);
+            ViewUtils.checkTextEmpty(tvDiagnoseOpinion);
         } catch (TextEmptyException e) {
             ViewUtils.setError(e.tv,"不能为空!");
             return;
         }
         if(mDisTag!=null)
             reqMap.put("tagId", mDisTag.id);
-        reqMap.put("diseaseTypeId", mType.id);
+        MdtOptionItem type=OrderUtils.getMdtSingleOption(mTypeResult);
+        if(type!=null)
+            reqMap.put("diseaseTypeId", type.id);
+        reqMap.put("diagSuggest",  mTypeResult);
         if(resultMap.get("checksuggest")!=null)
-            reqMap.put("checkSuggest", JSON.toJSONString( resultMap.get("checksuggest")) );
+            reqMap.put("checkSuggest",   resultMap.get("checksuggest") );
         if(resultMap.get("treatSuggest")!=null)
-            reqMap.put("treatSuggest", JSON.toJSONString( resultMap.get("treatSuggest")) );
+            reqMap.put("treatSuggest",  resultMap.get("treatSuggest") );
         reqMap.put("other", tvOther.getText().toString());
 
         RequestHelperListener listener=new RequestHelperListener() {
@@ -127,7 +128,8 @@ public class SubmitSummaryActivity extends BaseActivity {
         TextView tv = (TextView) ((ViewGroup) v).getChildAt(1);
         String type = EditOrderCaseActivity.getTypeMap().get(v.getId());
         if (type == null) return;
-        Intent i = new Intent(mThis, ChooseMdtInfoActivity.class).putExtra(AppConstants.INTENT_DISEASE_TOP_ID, mDisTopId)
+        Intent i = new Intent(mThis, MdtInfoPreviewActivity.class)
+                .putExtra(AppConstants.INTENT_DISEASE_TOP_ID, mDisTopId)
                 .putExtra(ChooseMdtInfoActivity.KEY_TYPE, type)
                 .putExtra(AppConstants.INTENT_START_DATA,resultMap.get(type))
                 .putExtra(AppConstants.INTENT_VIEW_ID, tv.getId());
@@ -135,20 +137,23 @@ public class SubmitSummaryActivity extends BaseActivity {
     }
     @OnClick(R.id.ll_diagnose_opinion)
     protected void chooseDiagnoseOpinion(View v) {
+        tvDiagnoseOpinion.clearFocus();
+        tvDiagnoseOpinion.setError(null);
         Intent i = new Intent(mThis, ChooseSummaryDiseaseActivity.class)
-                .putExtra(ChooseSummaryDiseaseActivity.KEY_START, mType)
+                .putExtra(AppConstants.INTENT_START_DATA, mTypeResult)
                 .putExtra(AppConstants.INTENT_DISEASE_TOP_ID, mDisTopId);
         startActivityForResult(i, REQ_CODE_DISEASE);
     }
     @OnClick(R.id.ll_diagnose_tag)
     protected void chooseDiseaseTag(View v) {
         ArrayList<String> list=new ArrayList<>();
-        for(DiseaseTag tag:mType.tagList){
+        MdtOptionItem type= OrderUtils.getMdtSingleOption(mTypeResult);
+        for(DiseaseTag tag: type.tagList){
             list.add(tag.name);
         }
         Intent i = new Intent(mThis, ChooseDiseaseTagActivity.class)
                 .putExtra(AppConstants.INTENT_START_DATA, mDisTag)
-                .putExtra(ChooseDiseaseTagActivity.KEY_TYPE,mType);
+                .putExtra(ChooseDiseaseTagActivity.KEY_TYPE, mTypeResult);
         startActivityForResult(i, REQ_CODE_DISEASE_TAG);
     }
 
@@ -169,8 +174,8 @@ public class SubmitSummaryActivity extends BaseActivity {
         }else if(requestCode==REQ_CODE_INPUT){
             handleTextResult(data);
         }else if(requestCode==REQ_CODE_DISEASE){
-            mType= (DiseaseType) data.getSerializableExtra(ChooseSummaryDiseaseActivity.KEY_RESULT);
-            tvDiagnoseOpinion.setText(mType.name);
+            mTypeResult = (MdtOptionResult) data.getSerializableExtra(AppConstants.INTENT_RESULT);
+            tvDiagnoseOpinion.setText(mTypeResult.showText);
             refreshTagForDisease();
         }else if(requestCode==REQ_CODE_DISEASE_TAG){
             mDisTag= (DiseaseTag) data.getSerializableExtra(AppConstants.INTENT_RESULT);
@@ -182,7 +187,8 @@ public class SubmitSummaryActivity extends BaseActivity {
 //        String tag=mDisTag;
         mDisTag=null;
         tvDiagnoseTag.setText(null);
-        if(!isReport ||mType==null||mType.tagList==null||mType.tagList.size()==0){
+        MdtOptionItem type=OrderUtils.getMdtSingleOption(mTypeResult);
+        if(!isReport || type ==null|| type.tagList==null|| type.tagList.size()==0){
             layoutDiagnoseTag.setVisibility(View.GONE);
             return;
         }

@@ -13,6 +13,7 @@ public class CheckItem implements Serializable{
     public String dataType;
     public String value;
     public Region region;
+    public FilterParam param;
 
 //    "id":"检查项Id",
 //            "name":"中文名"，
@@ -24,5 +25,8 @@ public class CheckItem implements Serializable{
     public static class Region implements Serializable{
         public Integer min;
         public Integer max;
+    }
+    public static class FilterParam implements Serializable{
+        public int sex;
     }
 }

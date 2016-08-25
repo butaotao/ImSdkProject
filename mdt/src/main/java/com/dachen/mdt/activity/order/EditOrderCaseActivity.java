@@ -14,7 +14,6 @@ import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
-import com.alibaba.fastjson.JSON;
 import com.dachen.common.utils.TimeUtils;
 import com.dachen.common.utils.ToastUtil;
 import com.dachen.common.utils.VolleyUtil;
@@ -32,7 +31,7 @@ import com.dachen.mdt.adapter.UpImgGridAdapter;
 import com.dachen.mdt.adapter.UpImgGridAdapter.UpImgGridItem;
 import com.dachen.mdt.entity.CheckTypeResult;
 import com.dachen.mdt.entity.DiseaseInfo;
-import com.dachen.mdt.entity.DiseaseType;
+import com.dachen.mdt.entity.ImageInfo;
 import com.dachen.mdt.entity.MdtGroupInfo;
 import com.dachen.mdt.entity.MdtOptionResult;
 import com.dachen.mdt.entity.OrderDetailVO;
@@ -88,7 +87,7 @@ public class EditOrderCaseActivity extends BaseActivity {
 
     private long mEndTime;
     private String mdtGroupId;
-    private DiseaseType diseaseType;
+    private MdtOptionResult diseaseType;
     private MdtOptionResult mPurposeResult;
     private MdtOptionResult mComplication;
     private MdtOptionResult mBaseDisease;
@@ -128,15 +127,15 @@ public class EditOrderCaseActivity extends BaseActivity {
     }
     private void initOldOrder(){
         if(mOldOrder==null)return;
-        diseaseType=new DiseaseType(mOldOrder.diseaseTypeId,mOldOrder.firstDiag,mOldOrder.topDiseaseId);
-        holder.tvDiseaseType.setText(diseaseType.name);
-        mBaseDisease=JSON.parseObject(mOldOrder.basicDisease,MdtOptionResult.class);
+        diseaseType=mOldOrder.firstDiag;
+        holder.tvDiseaseType.setText(OrderUtils.getMdtOptionResultText(diseaseType));
+        mBaseDisease=mOldOrder.basicDisease ;
         holder.tvBaseDisease.setText(mBaseDisease.showText);
-        mComplication=JSON.parseObject(mOldOrder.concomitant,MdtOptionResult.class);
+        mComplication=mOldOrder.concomitant;
         holder.tvComplication.setText(mComplication.showText);
         mdtGroupId=mOldOrder.mdtGroupId;
         holder.tvMdtGroup.setText(mOldOrder.mdtGroupName);
-        mPurposeResult= JSON.parseObject(mOldOrder.target,MdtOptionResult.class);
+        mPurposeResult= mOldOrder.target;
         holder.tvPurpose.setText(mPurposeResult.showText);
         mEndTime=mOldOrder.expectEndTime;
         holder.tvEndTime.setText(TimeUtils.a_format.format(new Date(mOldOrder.expectEndTime)));
@@ -152,10 +151,10 @@ public class EditOrderCaseActivity extends BaseActivity {
         holder.tvExamineResult.setText(OrderUtils.getText(mCheckResult));
 
         holder.etImageExamine.setText(mOldOrder.disease.imaging.text);
-        mImageExamineAdapter.addPicUrlList(mOldOrder.disease.imaging.pathList);
+        mImageExamineAdapter.addPicUrlList(mOldOrder.disease.imaging.imageList);
         mImageExamineAdapter.notifyDataSetChanged();
         holder.etPathologyExamine.setText(mOldOrder.disease.pathology.text);
-        mPathologyAdapter.addPicUrlList(mOldOrder.disease.pathology.pathList);
+        mPathologyAdapter.addPicUrlList(mOldOrder.disease.pathology.imageList);
         mPathologyAdapter.notifyDataSetChanged();
     }
 
@@ -189,10 +188,7 @@ public class EditOrderCaseActivity extends BaseActivity {
             ViewUtils.checkTextEmpty(holder.tvDiseaseType);
             ViewUtils.checkTextEmpty(holder.tvPurpose);
             dInfo.complain = new TempTextParam(ViewUtils.checkTextEmpty(holder.tvChiefComplaint));
-            dInfo.diseaseNow =  new TempTextParam( ViewUtils.checkTextEmpty(holder.tvPresentHistory));
-            dInfo.diseaseOld =  new TempTextParam(ViewUtils.checkTextEmpty(holder.tvPreviousHistory));
-            dInfo.diseaseFamily =  new TempTextParam(ViewUtils.checkTextEmpty(holder.tvFamilyHistory));
-            dInfo.diseaseSelf =  new TempTextParam(ViewUtils.checkTextEmpty(holder.tvPersonalHistory));
+
             dInfo.symptom =  new TempTextParam(ViewUtils.checkTextEmpty(holder.tvBodySign) );
             dInfo.checkProcess =  new TempTextParam(ViewUtils.checkTextEmpty(holder.tvTreatProcess));
         } catch (TextEmptyException e) {
@@ -201,39 +197,46 @@ public class EditOrderCaseActivity extends BaseActivity {
             e.tv.setError(Html.fromHtml("<font color='red'>不能为空!</font>"));
             return;
         }
-        reqParam.target =JSON.toJSONString(mPurposeResult);
-        reqParam.basicDisease=JSON.toJSONString(mBaseDisease);
-        reqParam.concomitant=JSON.toJSONString(mComplication);
+        dInfo.diseaseNow =  new TempTextParam( ViewUtils.getText(holder.tvPresentHistory));
+        dInfo.diseaseOld =  new TempTextParam(ViewUtils.getText(holder.tvPreviousHistory));
+        dInfo.diseaseFamily =  new TempTextParam(ViewUtils.getText(holder.tvFamilyHistory));
+        dInfo.diseaseSelf =  new TempTextParam(ViewUtils.getText(holder.tvPersonalHistory));
+        reqParam.target =mPurposeResult;
+        reqParam.basicDisease=mBaseDisease;
+        reqParam.concomitant=mComplication;
         dInfo.result=mCheckResult;
         dInfo.imaging=new TextImgListParam();
         dInfo.imaging.text=holder.etImageExamine.getText().toString();
-        ArrayList<String> imgList=new ArrayList<>();
+        ArrayList<ImageInfo> imgList=new ArrayList<>();
         for(UpImgGridItem item:mImageExamineAdapter.getData()){
             String url=item.url;
             if(TextUtils.isEmpty(url)){
                 ToastUtil.showToast(mThis,"还有图片未成功上传");
                 return;
             }
-            imgList.add(url);
+            imgList.add(ImageInfo.fromUpImg(item));
         }
-        dInfo.imaging.pathList=imgList;
+        dInfo.imaging.imageList=imgList;
 
         dInfo.pathology=new TextImgListParam();
         dInfo.pathology.text=holder.etPathologyExamine.getText().toString();
-        ArrayList<String> pathologyList=new ArrayList<>();
+        ArrayList<ImageInfo> pathologyList=new ArrayList<>();
         for(UpImgGridItem item:mPathologyAdapter.getData()){
-            String url=item.url;
-            if(TextUtils.isEmpty(url)){
+            if(TextUtils.isEmpty(item.url)){
                 ToastUtil.showToast(mThis,"还有图片未成功上传");
                 return;
             }
-            pathologyList.add(url);
+            pathologyList.add(ImageInfo.fromUpImg(item));
         }
-        dInfo.pathology.pathList=pathologyList;
+        dInfo.pathology.imageList=pathologyList;
 
         reqParam.expectEndTime=mEndTime;
-        reqParam.diseaseTypeId=diseaseType.id;
-        reqParam.firstDiag=diseaseType.name;
+        if(diseaseType.array==null||diseaseType.array.size()==0){
+            ToastUtil.showToast(mThis,"初步诊断有误请重新选择");
+            return;
+        }
+        reqParam.diseaseTypeId=diseaseType.array.get(0).id;
+        reqParam.firstDiag=diseaseType;
         reqParam.mdtGroupId=mdtGroupId;
         reqParam.patient=pInfo;
         reqParam.disease=dInfo;
@@ -263,7 +266,7 @@ public class EditOrderCaseActivity extends BaseActivity {
     @OnClick(R.id.ll_disease_type)
     protected void chooseDisType(View v) {
         TextView tv = commonClickItem(v);
-        Intent i = new Intent(mThis, ChooseDiseaseTypeActivity.class).putExtra(ChooseDiseaseTypeActivity.KEY_START, diseaseType);
+        Intent i = new Intent(mThis, ChooseDiseaseTypeActivity.class).putExtra(AppConstants.INTENT_START_DATA, diseaseType);
         startActivityForResult(i, REQ_CODE_DIS_TYPE);
     }
 
@@ -286,7 +289,7 @@ public class EditOrderCaseActivity extends BaseActivity {
         }
         TextView tv = commonClickItem(v);
         Intent i = new Intent(mThis, ChooseMdtActivity.class).putExtra(AppConstants.INTENT_MDT_GROUP_ID, mdtGroupId)
-                .putExtra(AppConstants.INTENT_DISEASE_TOP_ID,diseaseType.topDiseaseId);
+                .putExtra(AppConstants.INTENT_DISEASE_TOP_ID,diseaseType.array.get(0).topDiseaseId);
         startActivityForResult(i, REQ_CODE_MDT_GROUP);
     }
 
@@ -299,7 +302,7 @@ public class EditOrderCaseActivity extends BaseActivity {
         TextView tv = commonClickItem(v);
         String type = getTypeMap().get(v.getId());
         if (type == null) return;
-        Intent i = new Intent(mThis, ChooseMdtInfoActivity.class).putExtra(AppConstants.INTENT_DISEASE_TOP_ID, diseaseType.topDiseaseId)
+        Intent i = new Intent(mThis, ChooseMdtInfoActivity.class).putExtra(AppConstants.INTENT_DISEASE_TOP_ID, diseaseType.array.get(0).topDiseaseId)
                 .putExtra(ChooseMdtInfoActivity.KEY_TYPE, type)
                 .putExtra(AppConstants.INTENT_START_DATA,mPurposeResult)
                 .putExtra(AppConstants.INTENT_VIEW_ID, tv.getId());
@@ -410,8 +413,10 @@ public class EditOrderCaseActivity extends BaseActivity {
 //            mPatientTypeId=info.id;
 //            holder.tvCategory.setText(info.name);
         }else if(requestCode==REQ_CODE_DIS_TYPE){
-            diseaseType= (DiseaseType) data.getSerializableExtra(ChooseDiseaseTypeActivity.KEY_RESULT);
-            holder.tvDiseaseType.setText(diseaseType.name);
+            MdtOptionResult res= (MdtOptionResult) data.getSerializableExtra(AppConstants.INTENT_RESULT);
+            if(res.array==null||res.array.size()==0)return;
+            diseaseType=res;
+            holder.tvDiseaseType.setText(OrderUtils.getMdtOptionResultText(diseaseType));
         }else if(requestCode==REQ_CODE_CHECK_RESULT){
             mCheckResult= (CheckTypeResult) data.getSerializableExtra(ChooseCheckResultActivity.KEY_RESULT);
             holder.tvExamineResult.setText(OrderUtils.getText(mCheckResult));

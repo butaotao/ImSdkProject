@@ -16,6 +16,7 @@ import com.dachen.imsdk.net.UploadEngine7Niu;
 import com.dachen.imsdk.net.UploadEngine7Niu.UploadObserver7Niu;
 import com.dachen.mdt.R;
 import com.dachen.mdt.adapter.UpImgGridAdapter.UpImgGridItem;
+import com.dachen.mdt.entity.ImageInfo;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.io.File;
@@ -66,19 +67,20 @@ public class UpImgGridAdapter extends CommonAdapterV2<UpImgGridItem> {
         return item;
     }
 
-    public UpImgGridItem addPicUrl(String url){
+    public UpImgGridItem addPicUrl(ImageInfo img){
         UpImgGridItem item=new UpImgGridItem();
-        item.url=url;
+        item.url=img.path;
+        item.userId=img.userId;
+        item.userName=img.userName;
+        item.time= img.time;
         mData.add(item);
 //        notifyDataSetChanged();
         return item;
     }
-    public void addPicUrlList(List<String> urlList){
-        if(urlList==null)return;
-        for(String url:urlList){
-            UpImgGridItem item=new UpImgGridItem();
-            item.url=url;
-            mData.add(item);
+    public void addPicUrlList(List<ImageInfo> imgList){
+        if(imgList==null)return;
+        for(ImageInfo info:imgList){
+            addPicUrl(info);
         }
     }
 
@@ -176,8 +178,11 @@ public class UpImgGridAdapter extends CommonAdapterV2<UpImgGridItem> {
         public boolean isAdd;
         public String localPath;
         public String url;
+        public String userId;
+        public String userName;
         public String key;
         public float percent;
+        public long time;
     }
     public static class UpImgGridCallback{
         public void onDeleteItem(UpImgGridItem item){

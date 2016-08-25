@@ -6,7 +6,7 @@
     android:background="@color/background"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".activity.order.ViewOrderSummaryActivity">
+    tools:context=".activity.order.summary.ViewOrderSummaryActivity">
 
     <RelativeLayout style="@style/Common_Title_style">
 

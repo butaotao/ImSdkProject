@@ -41,7 +41,7 @@
         </activity>
         <activity android:name=".activity.me.MyInfoActivity">
         </activity>
-        <activity android:name=".activity.order.SubmitSummaryActivity">
+        <activity android:name=".activity.order.summary.SubmitSummaryActivity">
         </activity>
         <activity
             android:name=".activity.main.CommonInputActivity"
@@ -49,7 +49,7 @@
         </activity>
         <activity android:name=".activity.main.ChooseTextActivity">
         </activity>
-        <activity android:name=".activity.order.ViewOrderSummaryActivity">
+        <activity android:name=".activity.order.summary.ViewOrderSummaryActivity">
         </activity>
         <activity android:name=".activity.order.OrderChatActivity">
         </activity>
@@ -77,11 +77,11 @@
         </activity>
         <activity android:name=".activity.order.ChoosePatientActivity">
         </activity>
-        <activity android:name=".activity.order.ChooseSummaryDiseaseActivity">
+        <activity android:name=".activity.order.summary.ChooseSummaryDiseaseActivity">
         </activity>
         <activity android:name=".activity.patient.PatientInfoActivity">
         </activity>
-        <activity android:name=".activity.order.ChooseDiseaseTagActivity">
+        <activity android:name=".activity.order.summary.ChooseDiseaseTagActivity">
         </activity>
         <activity android:name="com.dachen.imsdk.activities.ChatImgActivity">
         </activity>
@@ -98,6 +98,10 @@
         <activity android:name=".activity.me.AboutActivity">
         </activity>
         <activity android:name=".activity.me.ModifyPwdActivity">
+        </activity>
+        <activity android:name=".activity.order.BaseMdtDragSortActivity">
+        </activity>
+        <activity android:name=".activity.order.summary.MdtInfoPreviewActivity">
         </activity>
     </application>
 

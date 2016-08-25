@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.dachen.imsdk.R;
 import com.dachen.mdt.activity.BaseActivity;
+import com.dachen.mdt.entity.ImageInfo;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -32,7 +33,7 @@ public class ViewImgActivity extends BaseActivity {
     public static final String INTENT_TARGET_INDEX="targetIndex";
     public static final String INTENT_PIC_LIST="pic_list";
     private ViewPager mPager;
-    private ArrayList<String> picList;
+    private ArrayList<ImageInfo> picList;
     private ImgAdapter mAdapter;
     private View vHeader;
     private TextView tvTitle;
@@ -47,7 +48,7 @@ public class ViewImgActivity extends BaseActivity {
         vHeader.setOnClickListener(this);
         tvTitle= (TextView) findViewById(R.id.title);
         findViewById(R.id.back_btn).setOnClickListener(this);
-        picList=getIntent().getStringArrayListExtra(INTENT_PIC_LIST);
+        picList= (ArrayList<ImageInfo>) getIntent().getSerializableExtra(INTENT_PIC_LIST);
         if(picList==null){
             picList=new ArrayList<>();
         }
@@ -106,13 +107,13 @@ public class ViewImgActivity extends BaseActivity {
         }
     }
     public static class ChatImgFragment extends Fragment {
-        private String url;
+        private ImageInfo pic;
         private ViewImgActivity mParent;
 
-        public static ChatImgFragment newInstance(String url){
+        public static ChatImgFragment newInstance(ImageInfo pic){
             ChatImgFragment frag=new ChatImgFragment();
             Bundle args=new Bundle();
-            args.putString("msg",url);
+            args.putSerializable("msg",pic);
             frag.setArguments(args);
             return frag;
         }
@@ -120,7 +121,7 @@ public class ViewImgActivity extends BaseActivity {
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
-            url =  getArguments().getString("msg");
+            pic = (ImageInfo) getArguments().getSerializable("msg");
             mParent= (ViewImgActivity) getActivity();
         }
 
@@ -134,12 +135,12 @@ public class ViewImgActivity extends BaseActivity {
                     mParent.toggleHeader();
                 }
             });
-            ImageLoader.getInstance().displayImage(url, v, new DisplayImageOptions.Builder().build());
+            ImageLoader.getInstance().displayImage(pic.path, v, new DisplayImageOptions.Builder().build());
             return v;
         }
     }
 
-    public static void OpenUi(Activity act,ArrayList<String> urlList, int index){
+    public static void OpenUi(Activity act, ArrayList<ImageInfo> urlList, int index){
         Intent i=new Intent(act,ViewImgActivity.class);
         i.putExtra(INTENT_PIC_LIST,urlList).putExtra(INTENT_TARGET_INDEX,index);
         act.startActivity(i);

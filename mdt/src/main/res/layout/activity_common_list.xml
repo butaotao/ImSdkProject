@@ -23,7 +23,7 @@
             style="@style/title_divider_line"
             />
 
-        <TextView
+        <Button
             android:id="@+id/right_btn"
             style="@style/ActionBar_RightText"
             android:text="确定"

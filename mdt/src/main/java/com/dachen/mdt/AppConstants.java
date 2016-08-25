@@ -13,6 +13,7 @@ public class AppConstants {
     public static final String INTENT_VIEW_ID="viewId";
     public static final String INTENT_IS_LEADER="isLeader";
     public static final String INTENT_MY_ORDER_STATUS="myOrderStatus";
+    public static final String INTENT_GENDER="gender";
 
     public static final String IMG_SMALL_SUFFIX="-small1";
 

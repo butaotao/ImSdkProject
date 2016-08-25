@@ -29,15 +29,16 @@ public class ChooseMdtInfoActivity extends BaseMdtOptionActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if("target".equals(mType) ){
-            isMulti=false;
-        }
+
     }
 
     @Override
     protected void initData() {
         mDiseaseTypeId = getIntent().getStringExtra(AppConstants.INTENT_DISEASE_TOP_ID);
         mType = getIntent().getStringExtra(KEY_TYPE);
+        if("target".equals(mType) ){
+            isMulti=false;
+        }
     }
 
     @Override

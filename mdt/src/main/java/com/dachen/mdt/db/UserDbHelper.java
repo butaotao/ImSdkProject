@@ -18,7 +18,7 @@ import java.util.Map;
  */
 public class UserDbHelper extends OrmLiteSqliteOpenHelper {
     private static final String TAG = "UserDbHelper";
-    private static final int VERSION = 1;
+    private static final int VERSION = 2;
     private static final String DB_NAME_PREFIX = "mdt_";
     public String userId;
     private static UserDbHelper instance;
@@ -55,7 +55,9 @@ public class UserDbHelper extends OrmLiteSqliteOpenHelper {
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase sqLiteDatabase, ConnectionSource connectionSource, int i, int i1) {
-
+    public void onUpgrade(SQLiteDatabase db, ConnectionSource connectionSource, int oldVersion, int newVersion) {
+        if(oldVersion<2){
+            db.execSQL("alter table PatientInfo add column isMyApply integer");
+        }
     }
 }

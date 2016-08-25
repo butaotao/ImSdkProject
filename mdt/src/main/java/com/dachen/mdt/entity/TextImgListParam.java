@@ -8,5 +8,5 @@ import java.util.ArrayList;
  */
 public class TextImgListParam implements Serializable{
     public String text;
-    public ArrayList<String> pathList;
+    public ArrayList<ImageInfo> imageList;
 }

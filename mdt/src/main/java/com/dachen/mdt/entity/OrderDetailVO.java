@@ -4,9 +4,9 @@ import java.io.Serializable;
 
 public class OrderDetailVO implements Serializable {
 	public String orderId;
-	public String firstDiag;
-	public String basicDisease;
-	public String concomitant;
+	public MdtOptionResult firstDiag;
+	public MdtOptionResult basicDisease;
+	public MdtOptionResult concomitant;
 
 	/*患者信息*/
 	public PatientInfo patient;
@@ -26,7 +26,7 @@ public class OrderDetailVO implements Serializable {
 	public String mdtGroupName;
 	
 	/*会诊目的*/
-	public String target;
+	public MdtOptionResult target;
 	
 //	public MDTReportInfo report;
 	

@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import com.dachen.common.adapter.CommonAdapterV2;
 import com.dachen.common.adapter.ViewHolder;
 import com.dachen.mdt.R;
+import com.dachen.mdt.entity.ImageInfo;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.List;
@@ -15,9 +16,9 @@ import java.util.List;
 /**
  * Created by Mcp on 2016/8/11.
  */
-public class ViewImgGridAdapter extends CommonAdapterV2<String> {
+public class ViewImgGridAdapter extends CommonAdapterV2<ImageInfo> {
 
-    public ViewImgGridAdapter(Context mContext, List<String> mData) {
+    public ViewImgGridAdapter(Context mContext, List<ImageInfo> mData) {
         super(mContext, mData);
     }
 
@@ -31,7 +32,7 @@ public class ViewImgGridAdapter extends CommonAdapterV2<String> {
         ViewHolder holder = ViewHolder.get(mContext,convertView,parent, R.layout.up_img_grid_item,position);
         holder.setVisibility(R.id.btn_delete, View.GONE);
         holder.setVisibility(R.id.tv_state, View.GONE);
-        String url=getItem(position);
+        String url=getItem(position).path;
         ImageLoader.getInstance().displayImage(url, (ImageView) holder.getView(R.id.iv_pic));
         return holder.getConvertView();
     }

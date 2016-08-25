@@ -25,6 +25,7 @@ import com.dachen.common.adapter.ViewHolder;
 import com.dachen.common.utils.ToastUtil;
 import com.dachen.common.utils.VolleyUtil;
 import com.dachen.imsdk.net.ImCommonRequest;
+import com.dachen.mdt.AppConstants;
 import com.dachen.mdt.R;
 import com.dachen.mdt.UrlConstants;
 import com.dachen.mdt.activity.BaseActivity;
@@ -53,6 +54,7 @@ public class EditCheckValueActivity extends BaseActivity implements OnClickListe
     private EditValueAdapter mAdapter;
     private Dialog mDialog;
     private View dialogView;
+    private int mGender;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +63,7 @@ public class EditCheckValueActivity extends BaseActivity implements OnClickListe
 
         mType= (CheckType) getIntent().getSerializableExtra(KEY_TYPE);
         mData= (ArrayList<CheckType>) getIntent().getSerializableExtra(KEY_DATA);
+        mGender=getIntent().getIntExtra(AppConstants.INTENT_GENDER,0);
 
         mAdapter=new EditValueAdapter(mThis);
         mListView= (ListView) findViewById(R.id.list_view);
@@ -109,7 +112,7 @@ public class EditCheckValueActivity extends BaseActivity implements OnClickListe
             public void onSuccess(String dataStr) {
                 getProgressDialog().dismiss();
                 List<CheckItem> list= JSON.parseArray(dataStr,CheckItem.class);
-                mAdapter.update(list);
+                mAdapter.update(filterList(list));
             }
             @Override
             public void onError(String msg) {
@@ -123,6 +126,20 @@ public class EditCheckValueActivity extends BaseActivity implements OnClickListe
         ImCommonRequest request=new ImCommonRequest(url,reqMap, RequestHelper.makeSucListener(false,listener),RequestHelper.makeErrorListener(listener));
         VolleyUtil.getQueue(mThis).add(request);
         getProgressDialog().show();
+    }
+    private List<CheckItem> filterList(List<CheckItem> list){
+        if(mGender==0)
+            return list;
+        List<CheckItem> resList=new ArrayList<>();
+        for(CheckItem item:list){
+            if(item.param==null||item.param.sex==0){
+                resList.add(item);
+                continue;
+            }
+            if(item.param.sex==mGender)
+                resList.add(item);
+        }
+        return resList;
     }
 
     @Override

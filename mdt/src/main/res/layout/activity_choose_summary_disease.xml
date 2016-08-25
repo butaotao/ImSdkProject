@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".activity.order.ChooseSummaryDiseaseActivity">
+    tools:context=".activity.order.summary.ChooseSummaryDiseaseActivity">
 
     <RelativeLayout style="@style/Common_Title_style">
 

@@ -10,14 +10,14 @@ public class OrderParam {
 	public String diseaseTypeId;
 	public String topDiseaseId;
 
-	public String firstDiag;
+	public MdtOptionResult firstDiag;
 	/*mdt小组Id*/
 	public String mdtGroupId;
 
 	/*会诊目的*/
-	public String target;
-	public String concomitant;
-	public String basicDisease;
+	public MdtOptionResult target;
+	public MdtOptionResult concomitant;
+	public MdtOptionResult basicDisease;
 
 	/*病情资料*/
 	public DiseaseInfo disease;

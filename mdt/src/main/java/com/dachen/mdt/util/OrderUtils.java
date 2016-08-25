@@ -38,8 +38,8 @@ public class OrderUtils {
         if(!TextUtils.isEmpty(res.text)){
             text.append("其他").append(",");
         }
-        if(res.pathList!=null&&res.pathList.size()>0){
-            text.append(res.pathList.size()+"张图片").append(",");
+        if(res.imageList !=null&&res.imageList.size()>0){
+            text.append(res.imageList.size()+"张图片").append(",");
         }
         AppCommonUtils.deleteLastChar(text);
         return text.toString();
@@ -130,19 +130,35 @@ public class OrderUtils {
         if(res==null)return null;
         return res.showText;
     }
+    public static String getMdtOptionResultText(MdtOptionResult res){
+        if(res==null)return null;
+        return res.showText;
+    }
 
-    public static String getMdtOptionResultDetail(String resultStr){
-        MdtOptionResult res= JSON.parseObject(resultStr,MdtOptionResult.class);
+    public static String getMdtOptionResultDetail(MdtOptionResult res){
         if(res==null||res.array==null)return null;
         StringBuilder builder=new StringBuilder();
         for(MdtOptionItem item: res.array){
-            if(item.supportText){
-                builder.append(item.name).append(":").append(item.value).append(",");
-            }else{
-                builder.append(item.name).append(",");
-            }
+//            if(item.supportText){
+//                builder.append(item.name).append(":").append(item.value).append(",");
+//            }else{
+            builder.append(item.name).append(",");
+//            }
         }
         AppCommonUtils.deleteLastChar(builder);
         return builder.toString();
+    }
+
+    public static MdtOptionItem getMdtSingleOption(MdtOptionResult res){
+        if(res==null)return null;
+        if(res.array==null||res.array.size()==0)return null;
+        return res.array.get(0);
+    }
+
+    public static boolean isMdtResultEmpty(MdtOptionResult res){
+        if(res==null)return true;
+        if(res.array!=null&&res.array.size()>0)return false;
+        if(!TextUtils.isEmpty(res.text) )return false;
+        return true;
     }
 }

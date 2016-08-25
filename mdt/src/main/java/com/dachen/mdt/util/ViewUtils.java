@@ -38,6 +38,9 @@ public class ViewUtils {
         }
         return res;
     }
+    public static String getText(TextView tv)  {
+        return tv.getText().toString();
+    }
 
     public static void setError(TextView tv, String err) {
         tv.requestFocus();
@@ -52,7 +55,7 @@ public class ViewUtils {
         ((TextView) v.findViewById(R.id.tv_purpose)).setText(OrderUtils.getMdtOptionResultText(vo.target) );
         ((TextView) v.findViewById(R.id.tv_base_disease)).setText(OrderUtils.getMdtOptionResultText(vo.basicDisease) );
         ((TextView) v.findViewById(R.id.tv_complication)).setText(OrderUtils.getMdtOptionResultText(vo.concomitant) );
-        ((TextView) v.findViewById(R.id.tv_first_diagnose)).setText(vo.firstDiag);
+        ((TextView) v.findViewById(R.id.tv_first_diagnose)).setText( OrderUtils.getMdtOptionResultText(vo.firstDiag) );
         ((TextView) v.findViewById(R.id.tv_chief_complaint)).setText(OrderUtils.getText(vo.disease.complain));
         ((TextView) v.findViewById(R.id.tv_present_history)).setText(OrderUtils.getText(vo.disease.diseaseNow));
         ((TextView) v.findViewById(R.id.tv_previous_history)).setText(OrderUtils.getText(vo.disease.diseaseOld));
@@ -83,11 +86,11 @@ public class ViewUtils {
             llResult.addView(tView);
         }
         GridView gvResult=holder.getView(R.id.gv_check_result);
-        gvResult.setAdapter(new ViewImgGridAdapter(act,res.pathList));
+        gvResult.setAdapter(new ViewImgGridAdapter(act,res.imageList));
         gvResult.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ViewImgActivity.OpenUi(act,res.pathList,position);
+                ViewImgActivity.OpenUi(act,res.imageList,position);
             }
         });
     }
@@ -98,15 +101,15 @@ public class ViewUtils {
             holder.setVisibility(tvId, View.VISIBLE);
             holder.setText(tvId,param.text);
         }
-        if(param.pathList!=null&&param.pathList.size()>0){
+        if(param.imageList!=null&&param.imageList.size()>0){
             holder.setVisibility(gvId,View.VISIBLE);
             GridView gvImg=holder.getView(gvId);
-            ViewImgGridAdapter adapter=new ViewImgGridAdapter(act,param.pathList);
+            ViewImgGridAdapter adapter=new ViewImgGridAdapter(act,param.imageList);
             gvImg.setAdapter(adapter);
             gvImg.setOnItemClickListener(new OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    ViewImgActivity.OpenUi(act,param.pathList,position);
+                    ViewImgActivity.OpenUi(act,param.imageList,position);
                 }
             });
 

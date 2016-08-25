@@ -33,4 +33,6 @@ public class PatientInfo implements Serializable{
     public String tagID;
     @DatabaseField
     public String diseaseTypeID;
+    @DatabaseField
+    public int isMyApply;
 }

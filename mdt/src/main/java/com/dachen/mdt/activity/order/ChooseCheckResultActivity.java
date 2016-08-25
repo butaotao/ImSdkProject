@@ -26,6 +26,7 @@ import com.dachen.mdt.adapter.UpImgGridAdapter;
 import com.dachen.mdt.adapter.UpImgGridAdapter.UpImgGridItem;
 import com.dachen.mdt.entity.CheckType;
 import com.dachen.mdt.entity.CheckTypeResult;
+import com.dachen.mdt.entity.ImageInfo;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -73,10 +74,9 @@ public class ChooseCheckResultActivity extends BaseActivity implements OnClickLi
             mResult=new CheckTypeResult();
         if(mResult.typeList==null)
             mResult.typeList=new ArrayList<>();
-        if(mResult.pathList==null)
-            mResult.pathList=new ArrayList<>();
-        for(String url:mResult.pathList)
-            mImgAdapter.addPicUrl(url);
+        if(mResult.imageList ==null)
+            mResult.imageList =new ArrayList<>();
+        mImgAdapter.addPicUrlList(mResult.imageList);
         mImgAdapter.notifyDataSetChanged();
         refreshImg();
         refreshResult(mResult);
@@ -169,14 +169,14 @@ public class ChooseCheckResultActivity extends BaseActivity implements OnClickLi
 
     @Override
     public void onLeftClick(View v) {
-        mResult.pathList.clear();
+        mResult.imageList.clear();
         for(UpImgGridItem item:mImgAdapter.getData()){
             String url=item.url;
             if(TextUtils.isEmpty(url)){
                 ToastUtil.showToast(mThis,"还有图片未成功上传");
                 return;
             }
-            mResult.pathList.add(url);
+            mResult.imageList.add(ImageInfo.fromUpImg(item));
         }
         Intent i=new Intent().putExtra(KEY_RESULT,mResult);
         setResult(RESULT_OK,i);

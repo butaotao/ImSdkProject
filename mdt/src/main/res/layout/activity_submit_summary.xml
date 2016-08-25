@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
-    tools:context="com.dachen.mdt.activity.order.SubmitSummaryActivity">
+    tools:context=".activity.order.summary.SubmitSummaryActivity">
 
     <RelativeLayout style="@style/Common_Title_style">
 

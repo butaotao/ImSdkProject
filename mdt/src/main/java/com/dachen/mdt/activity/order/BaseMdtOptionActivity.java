@@ -8,15 +8,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ListView;
-import android.widget.TextView;
+import android.widget.EditText;
 
 import com.dachen.common.adapter.CommonAdapterV2;
 import com.dachen.common.adapter.ViewHolder;
 import com.dachen.mdt.AppConstants;
 import com.dachen.mdt.R;
-import com.dachen.mdt.activity.BaseActivity;
 import com.dachen.mdt.activity.main.CommonInputActivity;
+import com.dachen.mdt.activity.main.CommonListActivity;
 import com.dachen.mdt.entity.MdtOptionResult;
 import com.dachen.mdt.entity.MdtOptionResult.MdtOptionItem;
 import com.dachen.mdt.util.AppCommonUtils;
@@ -28,41 +27,43 @@ import java.util.Map;
 /**
  * Created by Mcp on 2016/8/22.
  */
-public abstract class BaseMdtOptionActivity extends BaseActivity {
+public abstract class BaseMdtOptionActivity extends CommonListActivity {
 
     public static final String KEY_PARENT = "keyParent";
-    public static final String KEY_ID_LIST = "idList";
 
     public static final int REQ_CODE_NEXT = 1;
     public static final int REQ_CODE_INPUT = 2;
 
-    protected ListView mListView;
-    protected TextView tvTitle;
+    protected View mFooterView;
+    protected EditText etFooter;
 
     protected ChooseAdapter mAdapter;
     protected MdtOptionItem mParent;
     protected boolean isMulti = true;
 //    protected HashSet<String> chosenIdList;
     protected HashMap<String,MdtOptionItem> chosenMap;
-    protected MdtOptionResult startData;
+    protected MdtOptionResult currentData;
     protected Map<String, String> cacheDataMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_common_list);
 
         initData();
-        tvTitle = (TextView) findViewById(R.id.title);
-        mListView = (ListView) findViewById(R.id.list_view);
-        findViewById(R.id.right_btn).setOnClickListener(this);
+        mParent = (MdtOptionItem) getIntent().getSerializableExtra(KEY_PARENT);
 
-        startData = (MdtOptionResult) getIntent().getSerializableExtra(AppConstants.INTENT_START_DATA);
-        initStartDataMap();
+        mFooterView=getLayoutInflater().inflate(R.layout.choose_text_edit_footer,null);
+        etFooter= (EditText) mFooterView.findViewById(R.id.edit_text);
         mAdapter = makeAdapter();
+        if (hasFooterEdit())
+            mListView.addFooterView(mFooterView);
         mListView.setAdapter(mAdapter);
         mListView.setOnItemClickListener(itemClick);
-        mParent = (MdtOptionItem) getIntent().getSerializableExtra(KEY_PARENT);
+
+        currentData = (MdtOptionResult) getIntent().getSerializableExtra(AppConstants.INTENT_START_DATA);
+        initStartDataMap();
+
+
         if (needFetchInfo())
             fetchInfo();
     }
@@ -78,35 +79,38 @@ public abstract class BaseMdtOptionActivity extends BaseActivity {
     }
 
     @Override
-    public void onClick(View v) {
-        if (v.getId() == R.id.right_btn) {
-            clickRight();
-        }
+    public void onRightClick(View v) {
+        clickRight();
     }
-
-    protected abstract void fetchInfo();
-
     protected void clickRight(){
         MdtOptionResult res =makeResultData();
         Intent i=makeResultIntent();
         setResult(RESULT_OK,i.putExtra(AppConstants.INTENT_RESULT,res));
         finish();
     }
+
+    protected boolean hasFooterEdit(){
+        return true;
+    }
+
+    protected abstract void fetchInfo();
+
+
     protected Intent makeResultIntent(){
         return new Intent().putExtra(AppConstants.INTENT_VIEW_ID, getIntent().getIntExtra(AppConstants.INTENT_VIEW_ID, 0));
     }
     protected MdtOptionResult makeResultData(){
         StringBuilder builder = new StringBuilder();
-        for (MdtOptionItem item:startData.array) {
-//        for (int i=0;i<startData.array.size();i++) {
-//            MdtOptionItem item =startData.array.get(i);
+        for (MdtOptionItem item: currentData.array) {
+//        for (int i=0;i<currentData.array.size();i++) {
+//            MdtOptionItem item =currentData.array.get(i);
 //            if(item.supportText){
 //                String value=cacheDataMap.get(item.id);
 //                if(TextUtils.isEmpty(value))continue;
 //                item.value=value;
 //            }
 //            res.array.add(item);
-            builder.append(item.name).append(",");
+            builder.append(item.name).append("\n");
         }
 
 //        for (MdtOptionItem item : mAdapter.getData()) {
@@ -115,9 +119,14 @@ public abstract class BaseMdtOptionActivity extends BaseActivity {
 //                builder.append(item.name).append(",");
 //            }
 //        }
+        String other=etFooter.getText().toString();
+        currentData.text=other;
+        if(!TextUtils.isEmpty(other)){
+            builder.append(other).append("\n");
+        }
         AppCommonUtils.deleteLastChar(builder);
-        startData.showText = builder.toString();
-        return startData;
+        currentData.showText = builder.toString();
+        return currentData;
     }
 
     protected ChooseAdapter makeAdapter() {
@@ -128,16 +137,16 @@ public abstract class BaseMdtOptionActivity extends BaseActivity {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             MdtOptionItem item = mAdapter.getItem(position);
-            if (item.supportText) {
-                Intent i = new Intent(mThis, CommonInputActivity.class);
-                String text=null;
-                if(cacheDataMap.get(item.id)!=null)
-                    text=cacheDataMap.get(item.id);
-                i.putExtra(CommonInputActivity.KEY_DATA_ID, item.id).putExtra(CommonInputActivity.KEY_TEXT, text);
-                startActivityForResult(i, REQ_CODE_INPUT);
-                return;
-            }
-            if(item.children!=null &&getChildClass()!=null){
+//            if (item.supportText) {
+//                Intent i = new Intent(mThis, CommonInputActivity.class);
+//                String text=null;
+//                if(cacheDataMap.get(item.id)!=null)
+//                    text=cacheDataMap.get(item.id);
+//                i.putExtra(CommonInputActivity.KEY_DATA_ID, item.id).putExtra(CommonInputActivity.KEY_TEXT, text);
+//                startActivityForResult(i, REQ_CODE_INPUT);
+//                return;
+//            }
+            if(item.children!=null && getChildClass()!=null){
                 Intent i=new Intent(mThis, getChildClass());
                 i.putExtra(AppConstants.INTENT_START_DATA,makeResultData());
                 i.putExtra(KEY_PARENT,item);
@@ -157,8 +166,8 @@ public abstract class BaseMdtOptionActivity extends BaseActivity {
     private void toggleSelected(MdtOptionItem item) {
         String id=item.id;
         if (chosenMap.containsKey(id)){
+            currentData.array.remove(chosenMap.get(id));
             chosenMap.remove(id);
-            startData.array.remove(chosenMap.get(id));
         }
         else
             setSelected(item);
@@ -168,10 +177,10 @@ public abstract class BaseMdtOptionActivity extends BaseActivity {
         String id=item.id;
         if (!isMulti) {
             chosenMap.clear();
-            startData.array.clear();
+            currentData.array.clear();
         }
         chosenMap.put(id,item);
-        startData.array.add(item);
+        currentData.array.add(item);
     }
 
 
@@ -179,24 +188,30 @@ public abstract class BaseMdtOptionActivity extends BaseActivity {
 //        chosenIdList = new HashSet<>();
         chosenMap=new HashMap<>();
         cacheDataMap=new HashMap<>();
-        if(startData==null){
-            startData=new MdtOptionResult();
-            startData.array=new ArrayList<>();
+        if(currentData ==null){
+            currentData =new MdtOptionResult();
+            currentData.array=new ArrayList<>();
         }
-        for (MdtOptionItem item : startData.array) {
+        for (MdtOptionItem item : currentData.array) {
             chosenMap.put(item.id,item);
-            if(item.supportText)
-                cacheDataMap.put(item.id, item.value);
+//            if(item.supportText)
+//                cacheDataMap.put(item.id, item.value);
         }
+        etFooter.setText(currentData.text);
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode != RESULT_OK) return;
         if (requestCode == REQ_CODE_NEXT) {
-            startData = (MdtOptionResult) data.getSerializableExtra(AppConstants.INTENT_RESULT);
+            currentData = (MdtOptionResult) data.getSerializableExtra(AppConstants.INTENT_RESULT);
             initStartDataMap();
+            if(!isMulti){
+                clickRight();
+                return;
+            }
             mAdapter.notifyDataSetChanged();
-        } else if (requestCode == REQ_CODE_INPUT) {
+        }
+        else if (requestCode == REQ_CODE_INPUT) {
             String id = data.getStringExtra(CommonInputActivity.KEY_DATA_ID);
             String text = data.getStringExtra(AppConstants.INTENT_TEXT_RESULT);
             if (TextUtils.isEmpty(id)) return;

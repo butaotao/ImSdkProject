@@ -1,4 +1,4 @@
-package com.dachen.mdt.activity.order;
+package com.dachen.mdt.activity.order.summary;
 
 import android.content.Intent;
 import android.os.Bundle;
