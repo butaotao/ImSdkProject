@@ -89,6 +89,7 @@ public class ChatGroupPo implements Serializable {
         public long treatBeginTime;
         public int recordStatus;
         public String remarks;
+        public String userName;
 
         public String patientName;
         public String patientAge;
