@@ -137,6 +137,9 @@ public class PollingURLs {
 	public static String clearGroupMsg(){
 		return IM_BASE_URL + "im/convers/delGroupRecord.action";
 	}
+	public static String topChatGroup(){
+		return IM_BASE_URL + "im/convers/groupTop.action";
+	}
 	/**
 	 * 改变Ip,内网外网切换
 	 */

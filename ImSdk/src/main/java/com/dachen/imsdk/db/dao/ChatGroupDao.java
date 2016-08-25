@@ -79,6 +79,7 @@ public class ChatGroupDao {
             }
             if (andNum > 0)
                 where.and(andNum);
+            b.orderBy(ChatGroupPo._top,false);
             b.orderBy(ChatGroupPo._updateStamp, false);
             return b.query();
         } catch (SQLException e) {
@@ -88,18 +89,7 @@ public class ChatGroupDao {
     }
 
     public List<ChatGroupPo> queryInBizType(Object[] bizTypes) {
-        try {
-            QueryBuilder<ChatGroupPo, String> b = mDao.queryBuilder();
-
-            if (bizTypes != null && bizTypes.length > 0) {
-                b.where().in(ChatGroupPo._bizType, bizTypes);
-            }
-            b.orderBy(ChatGroupPo._updateStamp, false);
-            return b.query();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return new ArrayList<ChatGroupPo>();
+        return queryInType(bizTypes,null);
     }
 
     /**
@@ -131,6 +121,7 @@ public class ChatGroupDao {
             }
             if (andNum > 0)
                 where.and(andNum);
+            b.orderBy(ChatGroupPo._top,false);
             b.orderBy(ChatGroupPo._updateStamp, false);
             return b.query();
         } catch (SQLException e) {
@@ -179,6 +170,7 @@ public class ChatGroupDao {
             else{
                 b.setWhere(null);
             }
+            b.orderBy(ChatGroupPo._top,false);
             b.orderBy(ChatGroupPo._updateStamp, ascending);
             return b.query();
         } catch (SQLException e) {
@@ -377,6 +369,16 @@ public class ChatGroupDao {
         try {
             b.where().eq(ChatGroupPo._groupId, groupId);
             b.updateColumnValue(ChatGroupPo._lastMsgContent, content);
+            b.update();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    public void setTopFlag(String groupId,int flag){
+        UpdateBuilder<ChatGroupPo, String> b = mDao.updateBuilder();
+        try {
+            b.where().eq(ChatGroupPo._groupId, groupId);
+            b.updateColumnValue(ChatGroupPo._top, flag);
             b.update();
         } catch (SQLException e) {
             e.printStackTrace();

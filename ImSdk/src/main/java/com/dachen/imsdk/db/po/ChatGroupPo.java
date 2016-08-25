@@ -62,6 +62,9 @@ public class ChatGroupPo implements Serializable {
     @DatabaseField
     public String notifyParam;
     public static final String _notifyParam = "notifyParam";
+    @DatabaseField
+    public int top;
+    public static final String _top = "top";
 
     public String doctorGroupName;  //医生集团名称
     public String departmentsName;  //科室名称

@@ -18,7 +18,7 @@ import java.util.Map;
 public class ImDbHelper extends OrmLiteSqliteOpenHelper {
 
 	private static final String TAG="ImDbHelper";
-	private static final int VERSION = 6;
+	private static final int VERSION = 7;
 	private static final String DB_NAME_PREFIX = "im_";
 	public String userId;
 	private static ImDbHelper instance;
@@ -92,6 +92,9 @@ public class ImDbHelper extends OrmLiteSqliteOpenHelper {
 			}
 			if(oldVersion<6){
                 db.execSQL("alter table ChatGroup add column notifyParam varchar");
+			}
+			if(oldVersion<7){
+                db.execSQL("alter table ChatGroup add column top integer");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
