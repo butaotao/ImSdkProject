@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
 import com.dachen.common.adapter.CommonAdapterV2;
@@ -19,6 +20,7 @@ import com.dachen.mdt.entity.PatientInfo;
 import com.dachen.mdt.entity.PatientOrderHistory;
 import com.dachen.mdt.listener.RequestHelperListener;
 import com.dachen.mdt.net.RequestHelper;
+import com.dachen.mdt.util.OrderUtils;
 
 import java.util.HashMap;
 import java.util.List;
@@ -28,6 +30,8 @@ public class PatientInfoActivity extends BaseActivity {
     public static final String KEY_PATIENT="patient";
 
     private ListView mListView;
+    private TextView tvName;
+    private TextView tvInfo;
     private PatientInfo mPatient;
     private PatientOrderAdapter mAdapter;
     @Override
@@ -36,10 +40,14 @@ public class PatientInfoActivity extends BaseActivity {
         setContentView(R.layout.activity_patient_info);
         mPatient= (PatientInfo) getIntent().getSerializableExtra(KEY_PATIENT);
 
+        tvName= (TextView) findViewById(R.id.tv_name);
+        tvInfo= (TextView) findViewById(R.id.tv_info);
         mListView= (ListView) findViewById(R.id.list_view);
         mAdapter=new PatientOrderAdapter(mThis);
         mListView.setAdapter(mAdapter);
         fetchInfo();
+        tvName.setText(mPatient.name);
+        tvInfo.setText(OrderUtils.getPatientInfoStr(mPatient));
     }
 
     private void fetchInfo(){

@@ -16,7 +16,7 @@ import com.dachen.mdt.AppConstants;
 import com.dachen.mdt.R;
 import com.dachen.mdt.activity.BaseActivity;
 import com.dachen.mdt.entity.DiseaseTag;
-import com.dachen.mdt.entity.DiseaseType;
+import com.dachen.mdt.entity.MdtOptionResult.MdtOptionItem;
 
 import java.util.List;
 
@@ -41,7 +41,7 @@ public class ChooseDiseaseTagActivity extends BaseActivity {
         setContentView(R.layout.activity_common_list);
         ButterKnife.bind(this);
         tvTitle.setText("分期");
-        DiseaseType type= (DiseaseType) getIntent().getSerializableExtra(KEY_TYPE);
+        MdtOptionItem type= (MdtOptionItem) getIntent().getSerializableExtra(KEY_TYPE);
         mTag= (DiseaseTag) getIntent().getSerializableExtra(AppConstants.INTENT_START_DATA);
         mAdapter=new ChooseTagAdapter(this,type.tagList);
         mListView.setAdapter(mAdapter);

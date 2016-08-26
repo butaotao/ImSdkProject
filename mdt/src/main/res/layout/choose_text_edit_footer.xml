@@ -24,7 +24,9 @@
 
         <EditText
             android:id="@+id/edit_text"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
+            android:paddingLeft="3dp"
+            android:paddingRight="3dp"
             android:hint="请输入备注信息"
             android:layout_height="wrap_content"/>
 

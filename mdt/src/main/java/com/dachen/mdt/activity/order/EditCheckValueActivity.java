@@ -40,7 +40,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class EditCheckValueActivity extends BaseActivity implements OnClickListener{
+public class EditCheckValueActivity extends BaseActivity {
 
     public static final String KEY_DATA="data";
     public static final String KEY_TYPE="type";
@@ -72,6 +72,7 @@ public class EditCheckValueActivity extends BaseActivity implements OnClickListe
         tvTitle= (TextView) findViewById(R.id.title);
         tvTitle.setText(mType.name);
         findViewById(R.id.right_btn).setOnClickListener(this);
+        findViewById(R.id.right_btn_2).setOnClickListener(this);
         initValues();
         fetchInfo();
     }
@@ -99,9 +100,12 @@ public class EditCheckValueActivity extends BaseActivity implements OnClickListe
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.right_btn:
+            case R.id.right_btn_2:
                 mValueMap.clear();
                 mAdapter.notifyDataSetChanged();
+                break;
+            case R.id.right_btn:
+                confirm();
                 break;
         }
     }
@@ -142,8 +146,7 @@ public class EditCheckValueActivity extends BaseActivity implements OnClickListe
         return resList;
     }
 
-    @Override
-    public void onLeftClick(View v) {
+    public void confirm() {
         ArrayList<CheckItem> resList=new ArrayList<>();
         for(CheckItem item:mAdapter.getData()){
             String value=mValueMap.get(item.id);

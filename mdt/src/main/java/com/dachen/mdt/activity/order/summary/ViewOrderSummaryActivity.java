@@ -2,6 +2,8 @@ package com.dachen.mdt.activity.order.summary;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -9,6 +11,7 @@ import com.alibaba.fastjson.JSON;
 import com.dachen.common.utils.ToastUtil;
 import com.dachen.common.utils.VolleyUtil;
 import com.dachen.imsdk.net.ImCommonRequest;
+import com.dachen.imsdk.utils.ImUtils;
 import com.dachen.mdt.AppConstants;
 import com.dachen.mdt.R;
 import com.dachen.mdt.UrlConstants;
@@ -26,6 +29,7 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnItemClick;
 
 public class ViewOrderSummaryActivity extends BaseActivity {
     private static final int REQ_CODE_EDIT=1;
@@ -66,6 +70,18 @@ public class ViewOrderSummaryActivity extends BaseActivity {
         boolean isReport= isLeader&&myStatus==2;
         i.putExtra(SubmitSummaryActivity.KEY_IS_REPORT,isReport);
         startActivityForResult(i,REQ_CODE_EDIT);
+    }
+
+    @OnItemClick(R.id.list_view)
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        SummaryResult item=mAdapter.getItem(position);
+        if(ImUtils.getLoginUserId().equals(item.userId)){
+            Intent i=new Intent(mThis,SubmitSummaryActivity.class);
+            i.putExtra(AppConstants.INTENT_ORDER_ID,mOrderId);
+            i.putExtra(AppConstants.INTENT_DISEASE_TOP_ID,getIntent().getStringExtra(AppConstants.INTENT_DISEASE_TOP_ID));
+            i.putExtra(AppConstants.INTENT_START_DATA,item.summary);
+            startActivityForResult(i,REQ_CODE_EDIT);
+        }
     }
 
     private void fetchOrderReport(){

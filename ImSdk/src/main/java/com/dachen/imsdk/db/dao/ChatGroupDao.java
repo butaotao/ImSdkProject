@@ -79,6 +79,9 @@ public class ChatGroupDao {
             }
             if (andNum > 0)
                 where.and(andNum);
+            else{
+                b.setWhere(null);
+            }
             b.orderBy(ChatGroupPo._top,false);
             b.orderBy(ChatGroupPo._updateStamp, false);
             return b.query();

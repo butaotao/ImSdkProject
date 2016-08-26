@@ -14,6 +14,7 @@ public class AppConstants {
     public static final String INTENT_IS_LEADER="isLeader";
     public static final String INTENT_MY_ORDER_STATUS="myOrderStatus";
     public static final String INTENT_GENDER="gender";
+    public static final String INTENT_TITLE="title";
 
     public static final String IMG_SMALL_SUFFIX="-small1";
 

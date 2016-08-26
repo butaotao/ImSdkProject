@@ -16,6 +16,7 @@ import com.dachen.mdt.activity.BaseActivity;
 import com.dachen.mdt.entity.MDTReportVO;
 import com.dachen.mdt.listener.RequestHelperListener;
 import com.dachen.mdt.net.RequestHelper;
+import com.dachen.mdt.util.OrderUtils;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -66,11 +67,11 @@ public class ViewOrderReportActivity extends BaseActivity {
         holder.setText(R.id.tv_doc_manager,item.userName);
         holder.setText(R.id.tv_patient_info,item.patient.name);
         holder.setText(R.id.tv_mdt_group,item.mdtGroupName);
-        holder.setText(R.id.tv_purpose,item.target);
-        holder.setText(R.id.tv_first_diagnose,item.firstDiag);
-        holder.setText(R.id.tv_diagnose_opinion,item.diagSuggest);
-        holder.setText(R.id.tv_examine_opinion,item.checkSuggest);
-        holder.setText(R.id.tv_treat_opinion,item.treatSuggest);
+        holder.setText(R.id.tv_purpose, OrderUtils.getMdtOptionResultText(item.target ));
+        holder.setText(R.id.tv_first_diagnose, OrderUtils.getMdtOptionResultText(item.firstDiag));
+        holder.setText(R.id.tv_diagnose_opinion, OrderUtils.getMdtOptionResultText(item.diagSuggest));
+        holder.setText(R.id.tv_examine_opinion, OrderUtils.getMdtOptionResultText(item.checkSuggest));
+        holder.setText(R.id.tv_treat_opinion, OrderUtils.getMdtOptionResultText(item.treatSuggest));
         holder.setText(R.id.tv_other,item.other);
         holder.setText(R.id.tv_end_time, TimeUtils.a_format.format(new Date(item.realEndTime)));
 

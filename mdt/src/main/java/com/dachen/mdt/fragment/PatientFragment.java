@@ -86,7 +86,13 @@ public class PatientFragment extends BaseFragment {
         protected void onPostExecute(List<PatientInfo> list) {
             Map<String,PatientTagGroup> map=new HashMap<>();
             List<PatientTagGroup> dataList=new ArrayList<>();
+            PatientTagGroup myGroup=new PatientTagGroup();
+            myGroup.tagName="我发起的病例";
+            dataList.add(myGroup);
             for(PatientInfo info:list){
+                if(info.isMyApply==1){
+                    myGroup.patientList.add(info);
+                }
                 PatientTagGroup group=map.get(info.tagName);
                 if(group==null){
                     group=new PatientTagGroup();

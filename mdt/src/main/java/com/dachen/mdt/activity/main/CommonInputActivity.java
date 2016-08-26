@@ -16,7 +16,6 @@ import butterknife.OnClick;
 
 public class CommonInputActivity extends BaseActivity {
 
-    public static final String KEY_TITLE = "title";
     public static final String KEY_TEXT = "text";
     public static final String KEY_DATA_ID = "dataId";
 
@@ -31,7 +30,7 @@ public class CommonInputActivity extends BaseActivity {
         setContentView(R.layout.activity_common_input);
         ButterKnife.bind(this);
         et.setText(getIntent().getStringExtra(KEY_TEXT));
-        String title = getIntent().getStringExtra(KEY_TITLE);
+        String title = getIntent().getStringExtra(AppConstants.INTENT_TITLE);
         if (!TextUtils.isEmpty(title)) {
             mTitle.setText(title);
         }

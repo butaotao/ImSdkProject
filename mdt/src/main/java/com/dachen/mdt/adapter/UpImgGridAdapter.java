@@ -14,9 +14,11 @@ import com.dachen.common.toolbox.QiniuUploadTask;
 import com.dachen.common.utils.QiNiuUtils;
 import com.dachen.imsdk.net.UploadEngine7Niu;
 import com.dachen.imsdk.net.UploadEngine7Niu.UploadObserver7Niu;
+import com.dachen.imsdk.utils.ImUtils;
 import com.dachen.mdt.R;
 import com.dachen.mdt.adapter.UpImgGridAdapter.UpImgGridItem;
 import com.dachen.mdt.entity.ImageInfo;
+import com.dachen.mdt.util.AppCommonUtils;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.io.File;
@@ -60,6 +62,8 @@ public class UpImgGridAdapter extends CommonAdapterV2<UpImgGridItem> {
     public UpImgGridItem addLocalPic(String path,boolean uploadNow){
         UpImgGridItem item=new UpImgGridItem();
         item.localPath=path;
+        item.userId= ImUtils.getLoginUserId();
+        item.userName= AppCommonUtils.getLoginUser().name;
         mData.add(item);
         if(uploadNow)
             startUpload(item);
@@ -117,6 +121,7 @@ public class UpImgGridAdapter extends CommonAdapterV2<UpImgGridItem> {
             public void onUploadSuccess(String url) {
                 item.percent=100;
                 item.url=url;
+                item.time=System.currentTimeMillis();
                 mTaskMap.remove(item);
                 notifyDataSetChanged();
             }

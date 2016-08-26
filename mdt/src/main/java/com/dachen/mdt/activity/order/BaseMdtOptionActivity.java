@@ -51,6 +51,8 @@ public abstract class BaseMdtOptionActivity extends CommonListActivity {
 
         initData();
         mParent = (MdtOptionItem) getIntent().getSerializableExtra(KEY_PARENT);
+        currentData = (MdtOptionResult) getIntent().getSerializableExtra(AppConstants.INTENT_START_DATA);
+        initStartDataMap();
 
         mFooterView=getLayoutInflater().inflate(R.layout.choose_text_edit_footer,null);
         etFooter= (EditText) mFooterView.findViewById(R.id.edit_text);
@@ -59,10 +61,7 @@ public abstract class BaseMdtOptionActivity extends CommonListActivity {
             mListView.addFooterView(mFooterView);
         mListView.setAdapter(mAdapter);
         mListView.setOnItemClickListener(itemClick);
-
-        currentData = (MdtOptionResult) getIntent().getSerializableExtra(AppConstants.INTENT_START_DATA);
-        initStartDataMap();
-
+        etFooter.setText(currentData.text);
 
         if (needFetchInfo())
             fetchInfo();
@@ -197,18 +196,19 @@ public abstract class BaseMdtOptionActivity extends CommonListActivity {
 //            if(item.supportText)
 //                cacheDataMap.put(item.id, item.value);
         }
-        etFooter.setText(currentData.text);
+
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode != RESULT_OK) return;
         if (requestCode == REQ_CODE_NEXT) {
             currentData = (MdtOptionResult) data.getSerializableExtra(AppConstants.INTENT_RESULT);
-            initStartDataMap();
+            etFooter.setText(currentData.text);
             if(!isMulti){
                 clickRight();
                 return;
             }
+            initStartDataMap();
             mAdapter.notifyDataSetChanged();
         }
         else if (requestCode == REQ_CODE_INPUT) {

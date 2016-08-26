@@ -1,6 +1,5 @@
 package com.dachen.mdt.activity.order;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -39,6 +38,7 @@ public class ChooseCheckResultActivity extends BaseActivity implements OnClickLi
     private static final int REQ_CODE_ADD=1;
     private static final int REQ_CODE_IMG=2;
     private static final int REQ_CODE_OTHER=3;
+    private static final int REQ_CODE_EDIT_TYPE=4;
 
     private Map<String ,View> mResultViewMap=new HashMap<>();
     protected LinearLayout llPic,llResult,llOther,llEmpty;
@@ -68,6 +68,7 @@ public class ChooseCheckResultActivity extends BaseActivity implements OnClickLi
         mImgGrid.setAdapter(mImgAdapter);
         findViewById(R.id.right_btn).setOnClickListener(this);
         findViewById(R.id.iv_add).setOnClickListener(this);
+        llOther.setOnClickListener(this);
 
         mResult= (CheckTypeResult) getIntent().getSerializableExtra(KEY_START);
         if(mResult==null)
@@ -90,6 +91,8 @@ public class ChooseCheckResultActivity extends BaseActivity implements OnClickLi
                     .setCancelButtonTitle("取消")
                     .setOtherButtonTitles("添加图片", "添加检查结果","其他")
                     .setCancelableOnTouchOutside(true).setListener(sheetListener).show();
+        }else if(v.getId()==R.id.ll_other){
+            goOtherEdit();
         }
     }
 
@@ -105,11 +108,14 @@ public class ChooseCheckResultActivity extends BaseActivity implements OnClickLi
             }else if(index==0){
                 CustomGalleryActivity.openUi(mThis,true,REQ_CODE_IMG);
             }else if(index==2){
-                Intent i = new Intent(mThis, CommonInputActivity.class).putExtra(CommonInputActivity.KEY_TEXT, mResult.text);
-                startActivityForResult(i,REQ_CODE_OTHER);
+                goOtherEdit();
             }
         }
     };
+    private void goOtherEdit(){
+        Intent i = new Intent(mThis, CommonInputActivity.class).putExtra(CommonInputActivity.KEY_TEXT, mResult.text);
+        startActivityForResult(i,REQ_CODE_OTHER);
+    }
 
     private View getResultView(String typeId){
         View v=mResultViewMap.get(typeId);
@@ -136,10 +142,19 @@ public class ChooseCheckResultActivity extends BaseActivity implements OnClickLi
         }
         llResult.setVisibility(View.VISIBLE);
         llResult.removeAllViews();
-        for(CheckType type:res.typeList){
+        for(final CheckType type:res.typeList){
             if(type.itemList==null||type.itemList.size()==0)
                 continue;
             View v=getResultView(type.id);
+            v.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent i = new Intent(mThis, EditCheckValueActivity.class)
+                            .putExtra(EditCheckValueActivity.KEY_DATA, mResult.typeList)
+                            .putExtra(EditCheckValueActivity.KEY_TYPE, type);
+                    startActivityForResult(i,REQ_CODE_EDIT_TYPE);
+                }
+            });
             ViewHolder holder=ViewHolder.get(mThis,v);
             holder.setText(R.id.tv_name,type.name);
             ListView lv=holder.getView(R.id.list_view);
@@ -185,14 +200,13 @@ public class ChooseCheckResultActivity extends BaseActivity implements OnClickLi
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(resultCode!=RESULT_OK)return;
         if(requestCode==REQ_CODE_ADD){
-            if(resultCode!=RESULT_OK)return;
 //            ArrayList<CheckType> typeList= (ArrayList<CheckType>) data.getSerializableExtra(ChooseCheckTypeActivity.KEY_RESULT);
             mResult= (CheckTypeResult) data.getSerializableExtra(ChooseCheckTypeActivity.KEY_RESULT);
             refreshResult(mResult);
             checkEmpty();
         }else if(requestCode==REQ_CODE_IMG){
-            if (resultCode != Activity.RESULT_OK) return;
             String[] all_path = data.getStringArrayExtra(GalleryAction.INTENT_ALL_PATH);
             if (all_path == null) return;
             for (String path : all_path) {
@@ -202,9 +216,12 @@ public class ChooseCheckResultActivity extends BaseActivity implements OnClickLi
             refreshImg();
             checkEmpty();
         }else if(requestCode==REQ_CODE_OTHER ){
-            if(resultCode!=RESULT_OK)return;
             mResult.text=data.getStringExtra(AppConstants.INTENT_TEXT_RESULT);
             refreshOther(mResult.text);
+        }else if(requestCode==REQ_CODE_EDIT_TYPE ){
+            mResult.typeList= (ArrayList<CheckType>) data.getSerializableExtra(EditCheckValueActivity.KEY_RESULT);
+            refreshResult(mResult);
+            checkEmpty();
         }
     }
 

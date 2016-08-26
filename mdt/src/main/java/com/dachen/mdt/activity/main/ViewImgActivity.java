@@ -14,13 +14,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.dachen.imsdk.R;
+import com.dachen.common.utils.TimeUtils;
+import com.dachen.mdt.R;
 import com.dachen.mdt.activity.BaseActivity;
 import com.dachen.mdt.entity.ImageInfo;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 import uk.co.senab.photoview.PhotoView;
 import uk.co.senab.photoview.PhotoViewAttacher.OnViewTapListener;
@@ -37,16 +40,18 @@ public class ViewImgActivity extends BaseActivity {
     private ImgAdapter mAdapter;
     private View vHeader;
     private TextView tvTitle;
+    private TextView tvInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_chat_img);
+        setContentView(R.layout.activity_view_img);
         int targetIndex=   getIntent().getIntExtra(INTENT_TARGET_INDEX,0);
         mPager= (ViewPager) findViewById(R.id.view_pager);
         vHeader =findViewById(R.id.header);
         vHeader.setOnClickListener(this);
         tvTitle= (TextView) findViewById(R.id.title);
+        tvInfo= (TextView) findViewById(R.id.tv_info);
         findViewById(R.id.back_btn).setOnClickListener(this);
         picList= (ArrayList<ImageInfo>) getIntent().getSerializableExtra(INTENT_PIC_LIST);
         if(picList==null){
@@ -81,6 +86,10 @@ public class ViewImgActivity extends BaseActivity {
     private void changeTitle(int index){
         String str=(index+1)+"/"+picList.size();
         tvTitle.setText(str);
+        if(index>=picList.size())return;
+        ImageInfo info=picList.get(index);
+        String infoStr=String.format(Locale.CHINA,"上传者:%s  上传时间:%s",info.userName, TimeUtils.a_format.format(new Date(info.time)) );
+        tvInfo.setText(infoStr);
     }
 
     @Override

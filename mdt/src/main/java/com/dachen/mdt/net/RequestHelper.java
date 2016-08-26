@@ -15,17 +15,6 @@ import com.dachen.mdt.listener.RequestHelperListener;
  */
 public class RequestHelper {
 
-//    public static void request(String url, Map<String,Object> reqMap, final boolean resultCanEmpty, final RequestHelperListener mListener){
-//        ErrorListener errorListener=new ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError volleyError) {
-//                mListener.onError("请求失败");
-//            }
-//        };
-//        ImCommonRequest req=new ImCommonRequest(url,reqMap,makeSucListener(resultCanEmpty,mListener),errorListener);
-//        VolleyUtil.getQueue(MyApplication.getInstance()).add(req);
-//    }
-
     public static Listener<String> makeSucListener(final boolean resultCanEmpty, final RequestHelperListener mListener){
         return new Listener<String>() {
             @Override

@@ -314,6 +314,7 @@ public class EditOrderCaseActivity extends BaseActivity {
     protected void goInput(View v) {
         TextView tv = commonClickItem(v);
         Intent i = new Intent(mThis, CommonInputActivity.class)
+                .putExtra(AppConstants.INTENT_TITLE,getTitleStr(v))
                 .putExtra(CommonInputActivity.KEY_TEXT, tv.getText().toString())
                 .putExtra(AppConstants.INTENT_VIEW_ID, tv.getId());
         startActivityForResult(i, REQ_CODE_INPUT);
@@ -325,6 +326,7 @@ public class EditOrderCaseActivity extends BaseActivity {
             return;
         TextView tv = commonClickItem(v);
         Intent i = new Intent(mThis, CommonInputActivity.class)
+                .putExtra(AppConstants.INTENT_TITLE,getTitleStr(v))
                 .putExtra(CommonInputActivity.KEY_TEXT, tv.getText().toString());
         startActivityForResult(i, REQ_CODE_ID_CARD);
     }
@@ -342,7 +344,8 @@ public class EditOrderCaseActivity extends BaseActivity {
         ArrayList<String> list= new ArrayList<>();
         list.addAll(Arrays.asList("男","女") );
         Intent i = new Intent(mThis, ChooseTextActivity.class).putExtra(ChooseTextActivity.KEY_LIST,list)
-                .putExtra(ChooseTextActivity.KEY_SELECTED,tv.getText().toString());
+                .putExtra(ChooseTextActivity.KEY_SELECTED,tv.getText().toString())
+                .putExtra(AppConstants.INTENT_TITLE,getTitleStr(v));
         startActivityForResult(i, REQ_CODE_PATIENT_SEX);
     }
 
@@ -391,6 +394,10 @@ public class EditOrderCaseActivity extends BaseActivity {
         tv.clearFocus();
         tv.setError(null);
         return tv;
+    }
+    private String getTitleStr(View v){
+        TextView tv = (TextView) ((ViewGroup) v).getChildAt(0);
+        return tv.getText().toString();
     }
 
     @Override

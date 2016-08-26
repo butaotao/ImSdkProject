@@ -26,6 +26,12 @@
         <TextView
             android:id="@+id/right_btn"
             style="@style/ActionBar_RightText"
+            android:text="确定"
+            />
+        <TextView
+            android:id="@+id/right_btn_2"
+            android:layout_toLeftOf="@+id/right_btn"
+            style="@style/ActionBar_Button"
             android:text="清空"
             />
     </RelativeLayout>

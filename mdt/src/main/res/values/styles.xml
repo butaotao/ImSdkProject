@@ -98,16 +98,18 @@
         <item name="android:text">@string/back_text</item>
         <item name="android:singleLine">true</item>
     </style>
-    <style name="ActionBar_RightText">
+    <style name="ActionBar_Button">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:minWidth">54dp</item>
         <item name="android:layout_height">match_parent</item>
         <item name="android:gravity">center</item>
-        <item name="android:background">@drawable/selector_btn_back</item>
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/white</item>
-        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:background">@drawable/selector_btn_back</item>
         <item name="android:singleLine">true</item>
+    </style>
+    <style name="ActionBar_RightText" parent="ActionBar_Button">
+        <item name="android:layout_alignParentRight">true</item>
         <item name="android:onClick">onRightClick</item>
     </style>
     <style name="ActionBar_RightImg">
@@ -163,6 +165,12 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:gravity">center_vertical</item>
     </style>
+    <style name="edit_order_item_content_must" parent="edit_order_item_content" >
+        <item name="android:hint">*未输入</item>
+    </style>
+    <style name="edit_order_item_content_must_select" parent="edit_order_item_content" >
+        <item name="android:hint">*请选择</item>
+    </style>
     <style name="edit_order_item_arrow">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:src">@drawable/arrow_right</item>
@@ -172,7 +180,6 @@
     <style name="order_report_line">
         <item name="android:orientation">horizontal</item>
         <item name="android:layout_width">match_parent</item>
-        <item name="android:gravity">center_vertical</item>
         <item name="android:paddingLeft">10dp</item>
         <item name="android:paddingRight">10dp</item>
         <item name="android:layout_height">wrap_content</item>

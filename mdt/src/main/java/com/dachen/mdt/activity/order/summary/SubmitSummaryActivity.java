@@ -19,6 +19,7 @@ import com.dachen.mdt.activity.order.EditOrderCaseActivity;
 import com.dachen.mdt.entity.DiseaseTag;
 import com.dachen.mdt.entity.MdtOptionResult;
 import com.dachen.mdt.entity.MdtOptionResult.MdtOptionItem;
+import com.dachen.mdt.entity.SummaryInfo;
 import com.dachen.mdt.exception.TextEmptyException;
 import com.dachen.mdt.listener.RequestHelperListener;
 import com.dachen.mdt.net.RequestHelper;
@@ -76,7 +77,22 @@ public class SubmitSummaryActivity extends BaseActivity {
         mOrderId =getIntent().getStringExtra(AppConstants.INTENT_ORDER_ID);
         isReport =getIntent().getBooleanExtra(KEY_IS_REPORT,false);
         tvTitle.setText(isReport ?"填写报告":"填写小结");
+        initEdit();
         refreshTagForDisease();
+    }
+    private void initEdit(){
+        SummaryInfo info= (SummaryInfo) getIntent().getSerializableExtra(AppConstants.INTENT_START_DATA);
+        if(info==null)return;
+        mTypeResult=info.diagSuggest;
+        resultMap.put("checksuggest",info.checkSuggest);
+        resultMap.put("treatsuggest",info.treatSuggest);
+        tvDiagnoseOpinion.setText(OrderUtils.getMdtOptionResultText(info.diagSuggest));
+        tvExamineOpinion.setText(OrderUtils.getMdtOptionResultText(info.checkSuggest));
+        tvTreatOpinion.setText(OrderUtils.getMdtOptionResultText(info.treatSuggest));
+        mDisTag=info.tag;
+        if(mDisTag!=null)
+            tvDiagnoseTag.setText(mDisTag.name);
+        tvOther.setText(info.other);
     }
 
     @OnClick(R.id.right_btn)
@@ -97,8 +113,8 @@ public class SubmitSummaryActivity extends BaseActivity {
         reqMap.put("diagSuggest",  mTypeResult);
         if(resultMap.get("checksuggest")!=null)
             reqMap.put("checkSuggest",   resultMap.get("checksuggest") );
-        if(resultMap.get("treatSuggest")!=null)
-            reqMap.put("treatSuggest",  resultMap.get("treatSuggest") );
+        if(resultMap.get("treatsuggest")!=null)
+            reqMap.put("treatSuggest",  resultMap.get("treatsuggest") );
         reqMap.put("other", tvOther.getText().toString());
 
         RequestHelperListener listener=new RequestHelperListener() {
@@ -153,7 +169,7 @@ public class SubmitSummaryActivity extends BaseActivity {
         }
         Intent i = new Intent(mThis, ChooseDiseaseTagActivity.class)
                 .putExtra(AppConstants.INTENT_START_DATA, mDisTag)
-                .putExtra(ChooseDiseaseTagActivity.KEY_TYPE, mTypeResult);
+                .putExtra(ChooseDiseaseTagActivity.KEY_TYPE, type);
         startActivityForResult(i, REQ_CODE_DISEASE_TAG);
     }
 

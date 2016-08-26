@@ -8,12 +8,10 @@ import android.text.TextUtils;
 import com.alibaba.fastjson.JSON;
 import com.dachen.imsdk.ImSdk;
 import com.dachen.imsdk.R;
-import com.dachen.imsdk.archive.entity.ArchiveItem;
 import com.dachen.imsdk.consts.MessageType;
 import com.dachen.imsdk.db.dao.ChatMessageDao;
 import com.dachen.imsdk.db.po.ChatGroupPo;
 import com.dachen.imsdk.db.po.ChatMessagePo;
-import com.dachen.imsdk.entity.ChatMessageV2;
 import com.dachen.imsdk.entity.GroupInfo2Bean.Data.UserInfo;
 import com.dachen.imsdk.entity.ImgTextMsgV2;
 import com.dachen.imsdk.entity.event.CloseChatEvent;
@@ -63,12 +61,12 @@ public class ImUtils {
             mAvatarRoundImageOptions = new DisplayImageOptions.Builder()
                     .bitmapConfig(Bitmap.Config.RGB_565)
                     .cacheInMemory(true)
-                    .cacheOnDisc(true)
+                    .cacheOnDisk(true)
                     .resetViewBeforeLoading(true)
                     .displayer(new RoundedBitmapDisplayer(10))
-                    .showImageForEmptyUri(R.drawable.ic_default_head)
-                    .showImageOnFail(R.drawable.ic_default_head)
-                    .showImageOnLoading(R.drawable.ic_default_head)
+                    .showImageForEmptyUri(R.drawable.avatar_normal)
+                    .showImageOnFail(R.drawable.avatar_normal)
+                    .showImageOnLoading(R.drawable.avatar_normal)
                     .build();
         }
         return mAvatarRoundImageOptions;
@@ -108,7 +106,7 @@ public class ImUtils {
             mAvatarNormalImageOptions = new DisplayImageOptions.Builder()
                     .bitmapConfig(Config.RGB_565)
                     .cacheInMemory(true)
-                    .cacheOnDisc(true)
+                    .cacheOnDisk(true)
                     .resetViewBeforeLoading(true)
                     .showImageForEmptyUri(R.drawable.ic_default_head)
                     .showImageOnFail(R.drawable.ic_default_head)

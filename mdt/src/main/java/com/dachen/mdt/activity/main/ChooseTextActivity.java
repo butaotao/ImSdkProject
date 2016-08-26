@@ -2,9 +2,11 @@ package com.dachen.mdt.activity.main;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.dachen.mdt.AppConstants;
 import com.dachen.mdt.R;
@@ -20,6 +22,7 @@ public class ChooseTextActivity extends BaseActivity implements OnClickListener{
 
     private ChooseTextAdapter mAdapter;
     protected ListView mListView;
+    private TextView mTitle;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +33,12 @@ public class ChooseTextActivity extends BaseActivity implements OnClickListener{
         mListView= (ListView) findViewById(R.id.list_view);
         mListView.setAdapter(mAdapter);
         findViewById(R.id.right_btn).setOnClickListener(this);
+
+        mTitle= (TextView) findViewById(R.id.title);
+        String title = getIntent().getStringExtra(AppConstants.INTENT_TITLE);
+        if (!TextUtils.isEmpty(title)) {
+            mTitle.setText(title);
+        }
     }
 
     @Override

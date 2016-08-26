@@ -41,7 +41,6 @@
             android:id="@+id/tv_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="23"
             android:textColor="#171717"
             android:textSize="16sp"/>
 
@@ -51,7 +50,7 @@
             android:layout_marginLeft="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="12sp"/>
+            android:textSize="13sp"/>
     </LinearLayout>
 
     <TextView
