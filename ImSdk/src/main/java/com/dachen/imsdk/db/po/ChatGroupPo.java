@@ -65,6 +65,9 @@ public class ChatGroupPo implements Serializable {
     @DatabaseField
     public int top;
     public static final String _top = "top";
+    @DatabaseField
+    public String meeting;
+    public static final String _meeting = "meeting";
 
     public String doctorGroupName;  //医生集团名称
     public String departmentsName;  //科室名称
@@ -111,6 +114,9 @@ public class ChatGroupPo implements Serializable {
         //@功能
         public int notify_type;
         public int notify_count;
+    }
+    public static class ChatGroupMeetingParam {
+
     }
 
     public int getNotityState() {
