@@ -17,6 +17,11 @@ import java.util.List;
  * Created by Mcp on 2016/8/11.
  */
 public class ViewImgGridAdapter extends CommonAdapterV2<ImageInfo> {
+    private String smallSuffix;
+
+    public void setSmallSuffix(String smallSuffix) {
+        this.smallSuffix = smallSuffix;
+    }
 
     public ViewImgGridAdapter(Context mContext, List<ImageInfo> mData) {
         super(mContext, mData);
@@ -33,6 +38,8 @@ public class ViewImgGridAdapter extends CommonAdapterV2<ImageInfo> {
         holder.setVisibility(R.id.btn_delete, View.GONE);
         holder.setVisibility(R.id.tv_state, View.GONE);
         String url=getItem(position).path;
+        if(smallSuffix!=null)
+            url+=smallSuffix;
         ImageLoader.getInstance().displayImage(url, (ImageView) holder.getView(R.id.iv_pic));
         return holder.getConvertView();
     }

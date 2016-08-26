@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.dachen.common.adapter.ViewHolder;
 import com.dachen.common.utils.StringUtils;
 import com.dachen.common.utils.TimeUtils;
+import com.dachen.mdt.AppConstants;
 import com.dachen.mdt.R;
 import com.dachen.mdt.activity.main.ViewImgActivity;
 import com.dachen.mdt.adapter.OrderViewResultLineAdapter;
@@ -86,7 +87,9 @@ public class ViewUtils {
             llResult.addView(tView);
         }
         GridView gvResult=holder.getView(R.id.gv_check_result);
-        gvResult.setAdapter(new ViewImgGridAdapter(act,res.imageList));
+        ViewImgGridAdapter adapter=new ViewImgGridAdapter(act,res.imageList);
+        adapter.setSmallSuffix(AppConstants.IMG_SMALL_SUFFIX);
+        gvResult.setAdapter(adapter);
         gvResult.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -105,6 +108,7 @@ public class ViewUtils {
             holder.setVisibility(gvId,View.VISIBLE);
             GridView gvImg=holder.getView(gvId);
             ViewImgGridAdapter adapter=new ViewImgGridAdapter(act,param.imageList);
+            adapter.setSmallSuffix(AppConstants.IMG_SMALL_SUFFIX);
             gvImg.setAdapter(adapter);
             gvImg.setOnItemClickListener(new OnItemClickListener() {
                 @Override

@@ -18,10 +18,10 @@ import com.dachen.mdt.activity.main.CommonInputActivity;
 import com.dachen.mdt.activity.main.CommonListActivity;
 import com.dachen.mdt.entity.MdtOptionResult;
 import com.dachen.mdt.entity.MdtOptionResult.MdtOptionItem;
-import com.dachen.mdt.util.AppCommonUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 
 /**
@@ -40,7 +40,7 @@ public abstract class BaseMdtOptionActivity extends CommonListActivity {
     protected ChooseAdapter mAdapter;
     protected MdtOptionItem mParent;
     protected boolean isMulti = true;
-//    protected HashSet<String> chosenIdList;
+    protected HashSet<String> withChildrenList;
     protected HashMap<String,MdtOptionItem> chosenMap;
     protected MdtOptionResult currentData;
     protected Map<String, String> cacheDataMap;
@@ -99,32 +99,33 @@ public abstract class BaseMdtOptionActivity extends CommonListActivity {
         return new Intent().putExtra(AppConstants.INTENT_VIEW_ID, getIntent().getIntExtra(AppConstants.INTENT_VIEW_ID, 0));
     }
     protected MdtOptionResult makeResultData(){
-        StringBuilder builder = new StringBuilder();
-        for (MdtOptionItem item: currentData.array) {
-//        for (int i=0;i<currentData.array.size();i++) {
-//            MdtOptionItem item =currentData.array.get(i);
-//            if(item.supportText){
-//                String value=cacheDataMap.get(item.id);
-//                if(TextUtils.isEmpty(value))continue;
-//                item.value=value;
-//            }
-//            res.array.add(item);
-            builder.append(item.name).append("\n");
-        }
-
-//        for (MdtOptionItem item : mAdapter.getData()) {
-//            if (chosenIdList.contains(item.id)) {
-//                list.add(item);
-//                builder.append(item.name).append(",");
-//            }
-//        }
         String other=etFooter.getText().toString();
         currentData.text=other;
-        if(!TextUtils.isEmpty(other)){
-            builder.append(other).append("\n");
-        }
-        AppCommonUtils.deleteLastChar(builder);
-        currentData.showText = builder.toString();
+        currentData.makeShowText();
+//        StringBuilder builder = new StringBuilder();
+//        for (MdtOptionItem item: currentData.array) {
+////        for (int i=0;i<currentData.array.size();i++) {
+////            MdtOptionItem item =currentData.array.get(i);
+////            if(item.supportText){
+////                String value=cacheDataMap.get(item.id);
+////                if(TextUtils.isEmpty(value))continue;
+////                item.value=value;
+////            }
+////            res.array.add(item);
+//            builder.append(item.name).append("\n");
+//        }
+//
+////        for (MdtOptionItem item : mAdapter.getData()) {
+////            if (chosenIdList.contains(item.id)) {
+////                list.add(item);
+////                builder.append(item.name).append(",");
+////            }
+////        }
+//        if(!TextUtils.isEmpty(other)){
+//            builder.append(other).append("\n");
+//        }
+//        AppCommonUtils.deleteLastChar(builder);
+//        currentData.showText = builder.toString();
         return currentData;
     }
 
@@ -184,7 +185,7 @@ public abstract class BaseMdtOptionActivity extends CommonListActivity {
 
 
     protected void initStartDataMap() {
-//        chosenIdList = new HashSet<>();
+        withChildrenList= new HashSet<>();
         chosenMap=new HashMap<>();
         cacheDataMap=new HashMap<>();
         if(currentData ==null){
@@ -193,6 +194,8 @@ public abstract class BaseMdtOptionActivity extends CommonListActivity {
         }
         for (MdtOptionItem item : currentData.array) {
             chosenMap.put(item.id,item);
+            if(!TextUtils.isEmpty(item.parentId))
+                withChildrenList.add(item.parentId);
 //            if(item.supportText)
 //                cacheDataMap.put(item.id, item.value);
         }
@@ -253,7 +256,7 @@ public abstract class BaseMdtOptionActivity extends CommonListActivity {
             holder.setVisibility(R.id.iv_arrow, arrowVis);
             holder.setText(R.id.text_view, text);
             int vis = View.INVISIBLE;
-            if (chosenMap.containsKey(info.id)) {
+            if (chosenMap.containsKey(info.id)||withChildrenList.contains(info.id)) {
                 vis = View.VISIBLE;
             }
             holder.setVisibility(R.id.iv_check, vis);

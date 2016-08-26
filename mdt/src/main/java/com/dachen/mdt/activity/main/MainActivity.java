@@ -8,12 +8,14 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.View.OnClickListener;
 
+import com.dachen.imsdk.utils.PushUtils;
 import com.dachen.mdt.R;
 import com.dachen.mdt.activity.BaseActivity;
 import com.dachen.mdt.fragment.MeFragment;
 import com.dachen.mdt.fragment.OrderFragment;
 import com.dachen.mdt.fragment.PatientFragment;
 import com.dachen.mdt.listener.DefaultPageChangeListener;
+import com.dachen.mdt.util.SpUtils;
 
 public class MainActivity extends BaseActivity {
 
@@ -49,6 +51,7 @@ public class MainActivity extends BaseActivity {
             });
         }
         selectTab(0);
+        PushUtils.registerDevice(0, SpUtils.getSp().getString(SpUtils.KEY_XIAOMI_TOKEN,""),null);
     }
 
     private void selectTab(int selIndex){

@@ -18,6 +18,7 @@ public class SpUtils {
     public static final String KEY_USER_ID="user_id";;
     public static final String KEY_USER_INFO="userInfo";
     public static final String KEY_LAST_LOGIN_PHONE="lastLoginPhone";
+    public static final String KEY_XIAOMI_TOKEN="xiaomiTOken";
 
     public static SharedPreferences getSp(){
         return MyApplication.getInstance().getSharedPreferences(SP_NAME, Context.MODE_PRIVATE);

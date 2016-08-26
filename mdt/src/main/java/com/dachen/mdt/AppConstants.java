@@ -18,6 +18,7 @@ public class AppConstants {
 
     public static final String IMG_SMALL_SUFFIX="-small1";
 
+    //存在imsp  common
     public static final String SP_KEY_PATIENT_TS="patientTs";
 
 }

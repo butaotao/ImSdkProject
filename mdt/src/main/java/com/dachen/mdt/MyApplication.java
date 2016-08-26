@@ -1,12 +1,18 @@
 package com.dachen.mdt;
 
+import android.app.ActivityManager;
+import android.app.ActivityManager.RunningAppProcessInfo;
 import android.app.Application;
+import android.content.Context;
 import android.graphics.Bitmap.Config;
 import android.os.Environment;
+import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
+import com.dachen.common.utils.Logger;
 import com.dachen.imsdk.ImSdk;
 import com.dachen.mdt.entity.DoctorInfo;
+import com.dachen.mdt.push.MIPushApplication;
 import com.dachen.mdt.util.AppImUtils;
 import com.dachen.mdt.util.SpUtils;
 import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiscCache;
@@ -15,15 +21,18 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
+import com.xiaomi.channel.commonutils.logger.LoggerInterface;
+import com.xiaomi.mipush.sdk.MiPushClient;
 
 import java.io.File;
+import java.util.List;
 
 /**
  * Created by Mcp on 2016/8/4.
  */
 public class MyApplication extends Application {
     private static MyApplication instance;
-
+    private static final String TAG = MyApplication.class.getSimpleName();
     public DoctorInfo mUserInfo;
 
     public String mAppDir = Environment.getExternalStorageDirectory() + "/Android/data/com.dachen.dgroupdoctor";
@@ -53,6 +62,15 @@ public class MyApplication extends Application {
             DoctorInfo info= JSON.parseObject(docStr,DoctorInfo.class);
             mUserInfo=info;
             ImSdk.getInstance().initUser(token,info.userId,info.name,info.name,info.avatar);
+        }
+
+        if(shouldInit()){
+            MiPushClient.registerPush(this, MIPushApplication.getID(), MIPushApplication.getKey());
+        }
+        if (Logger.isDebug()) {
+            openXIAOMILog();  //打开小米debug日志
+        } else {
+            closeXIAOMILog(); //关闭小米debug日志
         }
     }
 
@@ -131,5 +149,45 @@ public class MyApplication extends Application {
         ImageLoader.getInstance().init(config);
 //		Picasso p=new Picasso.Builder(this).loggingEnabled(true).build();
 //		Picasso.setSingletonInstance(p);
+    }
+
+    private boolean shouldInit() {
+        ActivityManager am = ((ActivityManager) getSystemService(Context.ACTIVITY_SERVICE));
+        List<RunningAppProcessInfo> processInfos = am.getRunningAppProcesses();
+        String mainProcessName = getPackageName();
+        int myPid = android.os.Process.myPid();
+        for (RunningAppProcessInfo info : processInfos) {
+            if (info.pid == myPid && mainProcessName.equals(info.processName)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 小米推送日志
+     */
+    public void openXIAOMILog() {
+        LoggerInterface newLogger = new LoggerInterface() {
+            @Override
+            public void setTag(String tag) {
+                // ignore
+            }
+
+            @Override
+            public void log(String content, Throwable t) {
+                Log.d(TAG, content, t);
+            }
+
+            @Override
+            public void log(String content) {
+                Log.d(TAG, content);
+            }
+        };
+        com.xiaomi.mipush.sdk.Logger.setLogger(this, newLogger);
+    }
+
+    public void closeXIAOMILog() {
+        com.xiaomi.mipush.sdk.Logger.disablePushFileLog(getInstance());
     }
 }

@@ -5,6 +5,7 @@ import android.content.Intent;
 
 import com.dachen.common.AppManager;
 import com.dachen.imsdk.ImSdk;
+import com.dachen.imsdk.utils.PushUtils;
 import com.dachen.mdt.MyApplication;
 import com.dachen.mdt.activity.main.LoginActivity;
 import com.dachen.mdt.entity.DoctorInfo;
@@ -22,6 +23,7 @@ public class AppCommonUtils {
     }
 
     public static void logout(){
+        PushUtils.removeDevice(SpUtils.getSp().getString(SpUtils.KEY_XIAOMI_TOKEN,""));
         ImSdk.getInstance().logout();
         SpUtils.clearUser();
         MyApplication.getInstance().mUserInfo=null;

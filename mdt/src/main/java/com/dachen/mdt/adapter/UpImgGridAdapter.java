@@ -30,6 +30,7 @@ import java.util.Map;
  * Created by Mcp on 2016/8/11.
  */
 public class UpImgGridAdapter extends CommonAdapterV2<UpImgGridItem> {
+    private String smallSuffix;
     private int maxNum = 8;
     private UpImgGridItem mAddItem;
     private boolean showAdd=true;
@@ -45,6 +46,10 @@ public class UpImgGridAdapter extends CommonAdapterV2<UpImgGridItem> {
 
     public void setMaxNum(int maxNum) {
         this.maxNum = maxNum;
+    }
+
+    public void setSmallSuffix(String smallSuffix) {
+        this.smallSuffix = smallSuffix;
     }
 
     @Override
@@ -158,9 +163,12 @@ public class UpImgGridAdapter extends CommonAdapterV2<UpImgGridItem> {
                     holder.setText(R.id.tv_state,"上传中");
                 }
             }
-            if(TextUtils.isEmpty(item.url)){
+            if(!TextUtils.isEmpty(item.localPath)){
                 ImageLoader.getInstance().displayImage( Uri.fromFile(new File(item.localPath)).toString(), (ImageView) holder.getView(R.id.iv_pic));
             }else{
+                String url=item.url;
+                if(smallSuffix!=null)
+                    url+=smallSuffix;
                 ImageLoader.getInstance().displayImage(item.url, (ImageView) holder.getView(R.id.iv_pic));
             }
             holder.setOnClickListener(R.id.btn_delete, new OnClickListener() {

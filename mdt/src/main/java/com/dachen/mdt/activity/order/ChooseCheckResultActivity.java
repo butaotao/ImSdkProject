@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -65,6 +67,7 @@ public class ChooseCheckResultActivity extends BaseActivity implements OnClickLi
         mImgGrid= (GridView) findViewById(R.id.gv_img);
         mImgAdapter=new UpImgGridAdapter(this);
         mImgAdapter.setShowAdd(false);
+        mImgAdapter.setSmallSuffix(AppConstants.IMG_SMALL_SUFFIX);
         mImgGrid.setAdapter(mImgAdapter);
         findViewById(R.id.right_btn).setOnClickListener(this);
         findViewById(R.id.iv_add).setOnClickListener(this);
@@ -149,18 +152,27 @@ public class ChooseCheckResultActivity extends BaseActivity implements OnClickLi
             v.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent i = new Intent(mThis, EditCheckValueActivity.class)
-                            .putExtra(EditCheckValueActivity.KEY_DATA, mResult.typeList)
-                            .putExtra(EditCheckValueActivity.KEY_TYPE, type);
-                    startActivityForResult(i,REQ_CODE_EDIT_TYPE);
+                    goEditType(type);
                 }
             });
             ViewHolder holder=ViewHolder.get(mThis,v);
             holder.setText(R.id.tv_name,type.name);
             ListView lv=holder.getView(R.id.list_view);
+            lv.setOnItemClickListener(new OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    goEditType(type);
+                }
+            });
             lv.setAdapter(new CheckResultItemLineAdapter(mThis,type.itemList));
             llResult.addView(v);
         }
+    }
+    private void goEditType(CheckType type){
+        Intent i = new Intent(mThis, EditCheckValueActivity.class)
+                .putExtra(EditCheckValueActivity.KEY_DATA, mResult.typeList)
+                .putExtra(EditCheckValueActivity.KEY_TYPE, type);
+        startActivityForResult(i,REQ_CODE_EDIT_TYPE);
     }
 
     private void refreshImg(){

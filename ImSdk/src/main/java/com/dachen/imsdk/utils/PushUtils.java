@@ -33,7 +33,7 @@ public class PushUtils {
         }
         map.put("deviceToken",deviceToken);
         map.put("deviceVer",appType);
-        ImCommonRequest request=new ImCommonRequest(PollingURLs.registerDevice(),map,VolleyUtil.getEmptyListener(),null);
+        ImCommonRequest request=new ImCommonRequest(PollingURLs.registerDevice(),map,VolleyUtil.getEmptyListener("registerDevice"),null);
         RequestQueue queue = VolleyUtil.getQueue(ImSdk.getInstance().context);
         queue.add(request);
     }

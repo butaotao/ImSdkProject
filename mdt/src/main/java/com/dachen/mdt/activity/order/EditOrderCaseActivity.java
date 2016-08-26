@@ -123,6 +123,8 @@ public class EditOrderCaseActivity extends BaseActivity {
         holder.gvImageExamine.setAdapter(mImageExamineAdapter);
         mPathologyAdapter =new UpImgGridAdapter(mThis);
         holder.gvPathologyExamine.setAdapter(mPathologyAdapter);
+        mImageExamineAdapter.setSmallSuffix(AppConstants.IMG_SMALL_SUFFIX);
+        mPathologyAdapter.setSmallSuffix(AppConstants.IMG_SMALL_SUFFIX);
         initOldOrder();
     }
     private void initOldOrder(){

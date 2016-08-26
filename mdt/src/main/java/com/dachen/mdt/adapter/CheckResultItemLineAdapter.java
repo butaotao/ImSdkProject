@@ -35,4 +35,5 @@ public class CheckResultItemLineAdapter extends CommonAdapterV2<CheckItem> {
         holder.setText(R.id.tv_unit,item.unit);
         return holder.getConvertView();
     }
+
 }
