@@ -45,6 +45,8 @@ public class GroupInfo2Bean {
 			public String pic; // 图片地址
 			public int userType; // 用户类型
 			public int role;
+			public int volume;//语音通话音量
+			public int phoneOnline;//语音是否在线
 
 		}
 	}
