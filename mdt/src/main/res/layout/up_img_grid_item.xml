@@ -19,7 +19,7 @@
             android:src="@drawable/defaultpic"
             android:layout_height="match_parent"/>
 
-        <ImageButton
+        <ImageView
             android:id="@+id/btn_delete"
             android:layout_width="25dp"
             android:background="@null"

@@ -22,6 +22,7 @@ import com.dachen.mdt.AppConstants;
 import com.dachen.mdt.R;
 import com.dachen.mdt.activity.BaseActivity;
 import com.dachen.mdt.activity.main.CommonInputActivity;
+import com.dachen.mdt.activity.main.ViewImgActivity;
 import com.dachen.mdt.adapter.CheckResultItemLineAdapter;
 import com.dachen.mdt.adapter.UpImgGridAdapter;
 import com.dachen.mdt.adapter.UpImgGridAdapter.UpImgGridItem;
@@ -82,6 +83,7 @@ public class ChooseCheckResultActivity extends BaseActivity implements OnClickLi
             mResult.imageList =new ArrayList<>();
         mImgAdapter.addPicUrlList(mResult.imageList);
         mImgAdapter.notifyDataSetChanged();
+        mImgGrid.setOnItemClickListener(imgItemClick);
         refreshImg();
         refreshResult(mResult);
         checkEmpty();
@@ -98,6 +100,13 @@ public class ChooseCheckResultActivity extends BaseActivity implements OnClickLi
             goOtherEdit();
         }
     }
+
+    private OnItemClickListener imgItemClick=new OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            ViewImgActivity.OpenUi(mThis,mImgAdapter.getImageInfoList(),position);
+        }
+    };
 
     private ActionSheetListener sheetListener=new ActionSheetListener() {
         @Override

@@ -24,7 +24,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/setting_click_bg"
-        android:padding="6dp">
+        >
 
         <RelativeLayout
             android:id="@+id/avatar_layout"
@@ -88,7 +88,7 @@
         android:layout_height="50dp"
         android:background="@drawable/setting_click_bg"
         android:visibility="gone"
-        android:paddingRight="6dp">
+        >
 
         <!--<ImageView-->
             <!--android:id="@+id/feed_back_iv"-->
@@ -126,11 +126,11 @@
 
 
     <RelativeLayout
-        android:id="@+id/layout_setting"
+        android:id="@+id/layout_my_order"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@drawable/setting_click_bg"
-        android:paddingRight="6dp">
+        >
 
         <!--<View-->
             <!--android:layout_width="match_parent"-->
@@ -138,6 +138,42 @@
             <!--android:layout_marginLeft="15dp"-->
             <!--android:background="@color/divide_line_color"-->
             <!--/>-->
+
+        <ImageView
+            android:id="@+id/iv_my_order"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="21dp"
+            android:src="@drawable/my_order"
+            />
+
+        <TextView
+            android:layout_toRightOf="@id/iv_my_order"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="12dp"
+            android:text="我发起的会诊"
+            android:textSize="16sp"/>
+
+        <ImageButton
+            style="@style/Arrow_Item_right"
+            android:src="@drawable/arrow_right"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/layout_setting"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/setting_click_bg"
+        >
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="15dp"
+            android:background="@color/divide_line_color"
+            />
 
         <ImageView
             android:id="@+id/setting_iv"

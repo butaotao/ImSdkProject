@@ -38,6 +38,7 @@ import com.dachen.mdt.net.RequestHelper;
 import com.dachen.mdt.tools.MdtImMsgHandler;
 import com.dachen.mdt.util.ViewUtils;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -53,6 +54,7 @@ public class OrderChatActivity extends AppBaseChatActivity {
     protected PopupWindow mCoverPop;
     protected View mHeader;
     protected View mHeaderExtra;
+    protected View mRightBtn;
     protected Button btnExBar;
     protected TextView tvExInfo;
     protected ImageView ivExCheck;
@@ -83,10 +85,11 @@ public class OrderChatActivity extends AppBaseChatActivity {
     protected void onHeaderLayoutLoaded(View view) {
         mHeader=view.findViewById(R.id.header_container);
         mHeaderExtra=view.findViewById(R.id.layout_header_extra);
+        mRightBtn=view.findViewById(R.id.right_btn);
         btnExBar= (Button) view.findViewById(R.id.btn_ex);
         tvExInfo= (TextView) view.findViewById(R.id.tv_info);
         ivExCheck= (ImageView) view.findViewById(R.id.iv_check);
-        view.findViewById(R.id.right_btn).setOnClickListener(this);
+        mRightBtn.setOnClickListener(this);
         view.findViewById(R.id.back_btn).setOnClickListener(this);
         btnExBar.setOnClickListener(exBtnClickListener);
         TextView tvTitle= (TextView) view.findViewById(R.id.title);
@@ -134,6 +137,7 @@ public class OrderChatActivity extends AppBaseChatActivity {
             switch (v.getId()){
                 case R.id.ll_order_case:
                     i=new Intent(mThis,ViewOrderCaseActivity.class);
+                    i.putExtra(ViewOrderCaseActivity.KEY_EDITABLE,groupPo.bizStatus==1);
                     break;
                 case R.id.ll_expert:
                     i=new Intent(mThis,OrderExpertActivity.class);
@@ -183,12 +187,13 @@ public class OrderChatActivity extends AppBaseChatActivity {
         mCoverPop.setFocusable(false);
         mCoverPop.setBackgroundDrawable(new BitmapDrawable());
         UIHelper.showPopAsDropdown(mHeader, mCoverPop, 0, 0);
+        mRightBtn.setVisibility(View.GONE);
     }
     private OnClickListener orderConfirmClickListener =new OnClickListener() {
         @Override
         public void onClick(View v) {
             OrderChatParam param=JSON.parseObject(groupPo.param,OrderChatParam.class);
-            showConfirmDialog(v.getId()==R.id.btn_confirm,param.orderId);
+            showConfirmDialog(v.getId()==R.id.btn_confirm,param);
         }
     };
     private void confirmOrder(final boolean accept, String mOrderId){
@@ -201,6 +206,8 @@ public class OrderChatActivity extends AppBaseChatActivity {
                 mCoverPop.dismiss();
                 if(!accept){
                     finish();
+                }else{
+                    mRightBtn.setVisibility(View.VISIBLE);
                 }
             }
         };
@@ -208,11 +215,11 @@ public class OrderChatActivity extends AppBaseChatActivity {
         VolleyUtil.getQueue(mThis).add(req);
     }
 
-    private void showConfirmDialog(final boolean accept,final String orderId){
+    private void showConfirmDialog(final boolean accept,final OrderChatParam param){
         CustomClickEvent event=new CustomClickEvent() {
             @Override
             public void onClick(CustomDialog customDialog) {
-                confirmOrder(accept,orderId);
+                confirmOrder(accept,param.orderId);
                 customDialog.dismiss();
             }
 
@@ -221,7 +228,13 @@ public class OrderChatActivity extends AppBaseChatActivity {
                 customDialog.dismiss();
             }
         };
-        String text="确定"+ (accept?"接受":"拒绝");
+        String text;
+        if(accept){
+            String timeStr= new SimpleDateFormat("MM月dd日 hh:mm").format(new Date(param.endTime));
+            text="加入会诊后您需要及时查看患者病情并填写小结,请尽量在 "+timeStr+"会诊结束前提交";
+        }else{
+            text="确认暂无时间参与本次会诊吗?";
+        }
         CustomDialog dialog=new CustomDialog.Builder(mThis,event)
                 .setMessage(text).setPositive("确定").setNegative("取消").create();
         dialog.show();

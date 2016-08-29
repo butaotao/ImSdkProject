@@ -43,6 +43,7 @@ public class ViewOrderSummaryActivity extends BaseActivity {
     public TextView mRightBtn;
     private boolean isLeader;
     private int myStatus;
+    private SummaryResult myResult;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +70,9 @@ public class ViewOrderSummaryActivity extends BaseActivity {
         i.putExtra(AppConstants.INTENT_DISEASE_TOP_ID,getIntent().getStringExtra(AppConstants.INTENT_DISEASE_TOP_ID));
         boolean isReport= isLeader&&myStatus==2;
         i.putExtra(SubmitSummaryActivity.KEY_IS_REPORT,isReport);
+        if(!isReport&&myResult!=null){
+            i.putExtra(AppConstants.INTENT_START_DATA,myResult.summary);
+        }
         startActivityForResult(i,REQ_CODE_EDIT);
     }
 
@@ -92,6 +96,17 @@ public class ViewOrderSummaryActivity extends BaseActivity {
             @Override
             public void onSuccess(String dataStr) {
                 List<SummaryResult> list= JSON.parseArray(dataStr,SummaryResult.class);
+                if(list==null)return;
+                for(SummaryResult result:list){
+                    if(ImUtils.getLoginUserId().equals(result.userId)){
+                        myResult=result;
+                        break;
+                    }
+                }
+                if(myResult!=null){
+                    list.remove(myResult);
+                    list.add(0,myResult);
+                }
                 mAdapter.update(list);
             }
             @Override

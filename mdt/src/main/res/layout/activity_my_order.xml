@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:background="@color/background"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <RelativeLayout style="@style/Common_Title_style">
+
+        <Button
+            android:id="@+id/back_btn"
+            style="@style/ActionBar_BackBtn"/>
+
+        <TextView
+            android:id="@+id/title"
+            android:text="我的订单"
+            style="@style/ActionBar_Title"
+            />
+
+        <ImageView
+            style="@style/title_divider_line"
+            />
+
+        <Button
+            android:id="@+id/right_btn"
+            android:visibility="gone"
+            style="@style/ActionBar_RightText"
+            android:text="确定"
+            />
+    </RelativeLayout>
+
+    <com.dachen.mdt.view.ImOrderListView
+        android:id="@+id/list_view"
+        android:divider="@null"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+</LinearLayout>

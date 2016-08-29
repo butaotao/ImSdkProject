@@ -134,6 +134,7 @@ public class PatientFragment extends BaseFragment {
             holder.setText(R.id.tv_name,getGroup(groupPosition).tagName);
             int src=isExpanded?R.drawable.triangle_down:R.drawable.triangle_right;
             holder.setImageResource(R.id.iv_arrow,src);
+            holder.setText(R.id.tv_info,String.valueOf(getChildrenCount(groupPosition)) );
             return holder.getConvertView();
         }
 

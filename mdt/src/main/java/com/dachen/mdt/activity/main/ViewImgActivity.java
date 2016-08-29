@@ -88,7 +88,11 @@ public class ViewImgActivity extends BaseActivity {
         tvTitle.setText(str);
         if(index>=picList.size())return;
         ImageInfo info=picList.get(index);
-        String infoStr=String.format(Locale.CHINA,"上传者:%s  上传时间:%s",info.userName, TimeUtils.a_format.format(new Date(info.time)) );
+        String timeStr="";
+        if(info.time>0){
+            timeStr=TimeUtils.a_format.format(new Date(info.time));
+        }
+        String infoStr=String.format(Locale.CHINA,"上传者:%s  上传时间:%s",info.userName, timeStr);
         tvInfo.setText(infoStr);
     }
 

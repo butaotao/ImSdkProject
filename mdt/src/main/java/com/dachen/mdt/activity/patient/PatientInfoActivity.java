@@ -87,11 +87,11 @@ public class PatientInfoActivity extends BaseActivity {
             ViewHolder holder=ViewHolder.get(mContext,convertView,parent,R.layout.patient_order_item,0);
             PatientOrderHistory order=getItem(position);
             holder.setText(R.id.tv_mdt_group,order.mdtGroupName);
-            holder.setText(R.id.tv_purpose,order.target);
-            holder.setText(R.id.tv_first_diagnose,order.firstDiag);
-            holder.setText(R.id.tv_diagnose_opinion,order.diagSuggest);
-            holder.setText(R.id.tv_treat_opinion,order.treatSuggest);
-            holder.setText(R.id.tv_examine_opinion,order.checkSuggest);
+            holder.setText(R.id.tv_purpose,OrderUtils.getMdtOptionResultText(order.target));
+            holder.setText(R.id.tv_first_diagnose,OrderUtils.getMdtOptionResultText(order.firstDiag));
+            holder.setText(R.id.tv_diagnose_opinion,OrderUtils.getMdtOptionResultText(order.diagSuggest));
+            holder.setText(R.id.tv_treat_opinion,OrderUtils.getMdtOptionResultText(order.treatSuggest));
+            holder.setText(R.id.tv_examine_opinion,OrderUtils.getMdtOptionResultText(order.checkSuggest));
             holder.setText(R.id.tv_end_time,order.realEndTime);
             return holder.getConvertView();
         }

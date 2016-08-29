@@ -76,15 +76,17 @@ public class ViewUtils {
             holder.setText(R.id.tv_other,res.text);
         }
         LinearLayout llResult=holder.getView(R.id.ll_result);
-        for(CheckType type:res.typeList){
-            if(type.itemList==null||type.itemList.size()==0)
-                continue;
-            View tView=act.getLayoutInflater().inflate(R.layout.check_result_item,null);
-            ViewHolder tHolder=ViewHolder.get(act,tView);
-            tHolder.setText(R.id.tv_name,type.name);
-            ListView lv=tHolder.getView(R.id.list_view);
-            lv.setAdapter(new OrderViewResultLineAdapter(act,type.itemList));
-            llResult.addView(tView);
+        if(res.typeList!=null){
+            for(CheckType type:res.typeList){
+                if(type.itemList==null||type.itemList.size()==0)
+                    continue;
+                View tView=act.getLayoutInflater().inflate(R.layout.check_result_item,null);
+                ViewHolder tHolder=ViewHolder.get(act,tView);
+                tHolder.setText(R.id.tv_name,type.name);
+                ListView lv=tHolder.getView(R.id.list_view);
+                lv.setAdapter(new OrderViewResultLineAdapter(act,type.itemList));
+                llResult.addView(tView);
+            }
         }
         GridView gvResult=holder.getView(R.id.gv_check_result);
         ViewImgGridAdapter adapter=new ViewImgGridAdapter(act,res.imageList);

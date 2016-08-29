@@ -22,6 +22,7 @@ import com.dachen.mdt.util.AppCommonUtils;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,7 +32,7 @@ import java.util.Map;
  */
 public class UpImgGridAdapter extends CommonAdapterV2<UpImgGridItem> {
     private String smallSuffix;
-    private int maxNum = 8;
+    private int maxNum = Integer.MAX_VALUE;
     private UpImgGridItem mAddItem;
     private boolean showAdd=true;
     protected Map<UpImgGridItem,QiniuUploadTask> mTaskMap=new HashMap<>();
@@ -46,6 +47,10 @@ public class UpImgGridAdapter extends CommonAdapterV2<UpImgGridItem> {
 
     public void setMaxNum(int maxNum) {
         this.maxNum = maxNum;
+    }
+
+    public int getMaxNum() {
+        return maxNum;
     }
 
     public void setSmallSuffix(String smallSuffix) {
@@ -98,6 +103,17 @@ public class UpImgGridAdapter extends CommonAdapterV2<UpImgGridItem> {
         if(position<mData.size())
             return mData.get(position);
         return mAddItem;
+    }
+    public ArrayList<ImageInfo> getImageInfoList(){
+        ArrayList<ImageInfo> list = new ArrayList<>();
+        for(UpImgGridItem item:mData){
+            ImageInfo info=ImageInfo.fromUpImg(item);
+            if(TextUtils.isEmpty(item.url)){
+                info.path=Uri.fromFile(new File(item.localPath)).toString();
+            }
+            list.add(info);
+        }
+        return list;
     }
 
     @Override
@@ -169,7 +185,7 @@ public class UpImgGridAdapter extends CommonAdapterV2<UpImgGridItem> {
                 String url=item.url;
                 if(smallSuffix!=null)
                     url+=smallSuffix;
-                ImageLoader.getInstance().displayImage(item.url, (ImageView) holder.getView(R.id.iv_pic));
+                ImageLoader.getInstance().displayImage(url, (ImageView) holder.getView(R.id.iv_pic));
             }
             holder.setOnClickListener(R.id.btn_delete, new OnClickListener() {
                 @Override

@@ -9,11 +9,11 @@ public class PatientOrderHistory {
     public String patient;
     public String diseaseTypeId;
     public String mdtGroupName;
-    public String target;
-    public String firstDiag;
-    public String diagSuggest;
-    public String checkSuggest;
-    public String treatSuggest;
+    public MdtOptionResult target;
+    public MdtOptionResult firstDiag;
+    public MdtOptionResult diagSuggest;
+    public MdtOptionResult checkSuggest;
+    public MdtOptionResult treatSuggest;
     public String other;
     public String realEndTime;
 //    " userName":"主管医生姓名",

@@ -21,6 +21,7 @@ import java.util.Map;
 
 public class ViewOrderCaseActivity extends BaseActivity {
 
+    public static final String KEY_EDITABLE="editable";
     private View vOrderInfo;
     private String mOrderId;
     private OrderDetailVO mOrder;
@@ -30,6 +31,9 @@ public class ViewOrderCaseActivity extends BaseActivity {
         setContentView(R.layout.activity_view_order_case);
         vOrderInfo=findViewById(R.id.v_order_info);
         mOrderId=getIntent().getStringExtra(AppConstants.INTENT_ORDER_ID);
+        if(!getIntent().getBooleanExtra(KEY_EDITABLE,false)){
+            findViewById(R.id.right_btn).setVisibility(View.GONE);
+        }
         fetchData();
     }
 

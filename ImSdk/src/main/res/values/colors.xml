@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="imsdk_title_text">#fff</color>
 
     <color name="normal_bg">#ffffffff</color>
     <color name="main_tab_text_normal_grey">#ff83888e</color>

@@ -13,11 +13,10 @@
     <!-- 录音录像的权限 -->
     <uses-permission android:name="android.permission.RECORD_VIDEO"/>
     <uses-permission android:name="android.permission.RECORD_AUDIO"/>
-
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.GET_TASKS"/>
     <uses-permission android:name="android.permission.VIBRATE"/>
 
     <uses-feature android:name="android.hardware.camera"/>
@@ -31,8 +30,8 @@
         android:protectionLevel="signature"/>
 
     <uses-permission android:name="com.dachen.mdt.permission.MIPUSH_RECEIVE"/>
-    <!-- 小米推送 END -->
 
+    <!-- 小米推送 END -->
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
@@ -87,7 +86,7 @@
             </intent-filter>
         </receiver>
         <receiver
-            android:name="com.dachen.mdt.push.MIPushMessageReceiver"
+            android:name=".push.MIPushMessageReceiver"
             android:exported="true">
             <intent-filter>
                 <action android:name="com.xiaomi.mipush.RECEIVE_MESSAGE"/>
@@ -170,6 +169,10 @@
         <activity android:name=".activity.order.BaseMdtDragSortActivity">
         </activity>
         <activity android:name=".activity.order.summary.MdtInfoPreviewActivity">
+        </activity>
+        <activity android:name=".activity.me.MyOrderActivity">
+        </activity>
+        <activity android:name=".activity.order.ChooseOrderTimeActivity">
         </activity>
     </application>
 

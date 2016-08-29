@@ -27,6 +27,7 @@ import com.dachen.mdt.UrlConstants;
 import com.dachen.mdt.activity.BaseActivity;
 import com.dachen.mdt.activity.main.ChooseTextActivity;
 import com.dachen.mdt.activity.main.CommonInputActivity;
+import com.dachen.mdt.activity.main.ViewImgActivity;
 import com.dachen.mdt.adapter.UpImgGridAdapter;
 import com.dachen.mdt.adapter.UpImgGridAdapter.UpImgGridItem;
 import com.dachen.mdt.entity.CheckTypeResult;
@@ -505,7 +506,9 @@ public class EditOrderCaseActivity extends BaseActivity {
     private void handleImgItemClick(UpImgGridAdapter adapter,int position,int reqCode){
         UpImgGridItem item=adapter.getItem(position);
         if(item.isAdd){
-            CustomGalleryActivity.openUi(mThis,true,reqCode,8-adapter.getData().size());
+            CustomGalleryActivity.openUi(mThis,true,reqCode);
+        }else{
+            ViewImgActivity.OpenUi(mThis,adapter.getImageInfoList(),position);
         }
     }
 
