@@ -1,6 +1,5 @@
 package com.dachen.mdt.activity.order;
 
-import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
@@ -8,11 +7,9 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.TextView;
-import android.widget.TimePicker;
 
 import com.dachen.common.utils.TimeUtils;
 import com.dachen.common.utils.ToastUtil;
@@ -47,12 +44,9 @@ import com.dachen.mdt.net.RequestHelper;
 import com.dachen.mdt.util.OrderUtils;
 import com.dachen.mdt.util.ViewUtils;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -75,6 +69,7 @@ public class EditOrderCaseActivity extends BaseActivity {
     private static final int REQ_CODE_PATIENT_SEX =10;
     private static final int REQ_CODE_COMPLICATION =11;
     private static final int REQ_CODE_BASE_DISEASE =12;
+    private static final int REQ_CODE_TIME =13;
     private static Map<Integer, String> TYPE_MAP;
 
     public static final String KEY_PATIENT="patient";
@@ -365,33 +360,37 @@ public class EditOrderCaseActivity extends BaseActivity {
     }
 
     @OnClick({R.id.ll_end_time})
-    protected void showTimeDialog(View v){
-        TextView tv = commonClickItem(v);
-        final View dialogView = View.inflate(mThis, R.layout.date_time_picker, null);
-        final Dialog dialog=new Dialog(mThis,R.style.Dialog);
-        final TimePicker timePicker = (TimePicker) dialogView.findViewById(R.id.time_picker);
-        timePicker.setIs24HourView(true);
-        dialogView.findViewById(R.id.date_time_set).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                DatePicker datePicker = (DatePicker) dialogView.findViewById(R.id.date_picker);
-                timePicker.setIs24HourView(true);
-
-                Calendar calendar = new GregorianCalendar(datePicker.getYear(),
-                        datePicker.getMonth(),
-                        datePicker.getDayOfMonth(),
-                        timePicker.getCurrentHour(),
-                        timePicker.getCurrentMinute());
-
-                mEndTime = calendar.getTimeInMillis();
-                SimpleDateFormat format=TimeUtils.a_format;
-                holder.tvEndTime.setText(format.format(calendar.getTime()));
-                dialog.dismiss();
-            }});
-        dialog.setContentView(dialogView);
-        dialog.show();
+    protected void goChooseTime(View v){
+        Intent i=new Intent(mThis,ChooseOrderTimeActivity.class);
+        startActivityForResult(i,REQ_CODE_TIME);
     }
+//    protected void showTimeDialog(View v){
+//        TextView tv = commonClickItem(v);
+//        final View dialogView = View.inflate(mThis, R.layout.date_time_picker, null);
+//        final Dialog dialog=new Dialog(mThis,R.style.Dialog);
+//        final TimePicker timePicker = (TimePicker) dialogView.findViewById(R.id.time_picker);
+//        timePicker.setIs24HourView(true);
+//        dialogView.findViewById(R.id.date_time_set).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//                DatePicker datePicker = (DatePicker) dialogView.findViewById(R.id.date_picker);
+//                timePicker.setIs24HourView(true);
+//
+//                Calendar calendar = new GregorianCalendar(datePicker.getYear(),
+//                        datePicker.getMonth(),
+//                        datePicker.getDayOfMonth(),
+//                        timePicker.getCurrentHour(),
+//                        timePicker.getCurrentMinute());
+//
+//                mEndTime = calendar.getTimeInMillis();
+//                SimpleDateFormat format=TimeUtils.a_format;
+//                holder.tvEndTime.setText(format.format(calendar.getTime()));
+//                dialog.dismiss();
+//            }});
+//        dialog.setContentView(dialogView);
+//        dialog.show();
+//    }
     private TextView commonClickItem(View v){
         TextView tv = (TextView) ((ViewGroup) v).getChildAt(1);
         tv.clearFocus();
@@ -472,6 +471,9 @@ public class EditOrderCaseActivity extends BaseActivity {
         }else if(requestCode==REQ_CODE_BASE_DISEASE){
             mBaseDisease= (MdtOptionResult) data.getSerializableExtra(AppConstants.INTENT_RESULT);
             holder.tvBaseDisease.setText(mBaseDisease.showText);
+        }else if(requestCode==REQ_CODE_TIME){
+            mEndTime=data.getLongExtra(AppConstants.INTENT_RESULT,0);
+            holder.tvEndTime.setText(TimeUtils.a_format.format(mEndTime));
         }
     }
 

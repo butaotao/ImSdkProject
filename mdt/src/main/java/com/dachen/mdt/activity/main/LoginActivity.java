@@ -9,6 +9,8 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request.Method;
+import com.baoyz.actionsheet.ActionSheet;
+import com.baoyz.actionsheet.ActionSheet.ActionSheetListener;
 import com.dachen.common.toolbox.DCommonRequest;
 import com.dachen.common.utils.Logger;
 import com.dachen.common.utils.ToastUtil;
@@ -24,6 +26,7 @@ import com.dachen.mdt.entity.DoctorInfo;
 import com.dachen.mdt.exception.TextEmptyException;
 import com.dachen.mdt.listener.RequestHelperListener;
 import com.dachen.mdt.net.RequestHelper;
+import com.dachen.mdt.util.AppCommonUtils;
 import com.dachen.mdt.util.SpUtils;
 import com.dachen.mdt.util.ViewUtils;
 
@@ -41,6 +44,8 @@ public class LoginActivity extends BaseActivity {
     public EditText etPhone;
     @BindView(R.id.et_pwd)
     public PasswordView etPwd;
+    private int clickTitle;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -124,4 +129,40 @@ public class LoginActivity extends BaseActivity {
 //        };
         VolleyUtil.getQueue(mThis).add(req);
     }
+
+    @OnClick(R.id.tv_login_title)
+    void onLoginTitleClicked() {
+        if(clickTitle>3)
+        {
+            clickTitle = 0;
+            ActionSheet.createBuilder(this,  getSupportFragmentManager())
+                    .setCancelButtonTitle("取消")
+                    .setOtherButtonTitles("65环境(默认)", "37环境")
+                    .setCancelableOnTouchOutside(false).setListener(titleListener).show();
+
+        }
+        else {
+            clickTitle++;
+        }
+    }
+
+    private ActionSheetListener titleListener=new ActionSheetListener() {
+        @Override
+        public void onDismiss(ActionSheet actionSheet, boolean isCancel) {
+
+        }
+
+        @Override
+        public void onOtherButtonClick(ActionSheet actionSheet, int index) {
+            if (index == 0) {
+                //测试环境
+                ToastUtil.showToast(mThis,"已切换到65环境(默认)");
+            } else if (index == 1) {
+                //生产环境
+                ToastUtil.showToast(mThis,"已切换到37环境");
+            }
+            SpUtils.edit().putInt(SpUtils.KEY_URL_ENV,index).apply();
+            AppCommonUtils.changeEvn(index);
+        }
+    };
 }

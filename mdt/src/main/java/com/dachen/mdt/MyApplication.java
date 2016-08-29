@@ -13,6 +13,7 @@ import com.dachen.common.utils.Logger;
 import com.dachen.imsdk.ImSdk;
 import com.dachen.mdt.entity.DoctorInfo;
 import com.dachen.mdt.push.MIPushApplication;
+import com.dachen.mdt.util.AppCommonUtils;
 import com.dachen.mdt.util.AppImUtils;
 import com.dachen.mdt.util.SpUtils;
 import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiscCache;
@@ -54,8 +55,8 @@ public class MyApplication extends Application {
         initImageLoader();
         AppImUtils.initImAct();
         ImSdk.getInstance().initSdk(this,mAppDir,mVoicesDir,mVideosDir,mPicturesDir);
-        UrlConstants.changIp("http://192.168.3.7:8101","192.168.3.7:8102");
-//        UrlConstants.changIp("http://120.25.84.65:8101","120.25.84.65:8102");
+        int env=SpUtils.getSp().getInt(SpUtils.KEY_URL_ENV,0);
+        AppCommonUtils.changeEvn(env);
         String token= SpUtils.getSp().getString(SpUtils.KEY_USER_TOKEN,null);
         String docStr=SpUtils.getSp().getString(SpUtils.KEY_USER_INFO,null);
         if(token!=null){

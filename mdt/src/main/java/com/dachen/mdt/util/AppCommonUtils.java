@@ -7,6 +7,7 @@ import com.dachen.common.AppManager;
 import com.dachen.imsdk.ImSdk;
 import com.dachen.imsdk.utils.PushUtils;
 import com.dachen.mdt.MyApplication;
+import com.dachen.mdt.UrlConstants;
 import com.dachen.mdt.activity.main.LoginActivity;
 import com.dachen.mdt.entity.DoctorInfo;
 
@@ -36,5 +37,14 @@ public class AppCommonUtils {
     public static void deleteLastChar(StringBuilder builder){
         if(builder==null||builder.length()==0)return;
         builder.deleteCharAt(builder.length()-1);
+    }
+
+    public static void changeEvn(int envCode){
+        if(envCode==1){
+            UrlConstants.changIp("http://192.168.3.7:8101","192.168.3.7:8102");
+        }else{
+            UrlConstants.changIp("http://120.25.84.65:8101","120.25.84.65:8102");
+        }
+
     }
 }

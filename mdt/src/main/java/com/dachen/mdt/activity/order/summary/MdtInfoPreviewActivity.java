@@ -14,7 +14,7 @@ public class MdtInfoPreviewActivity extends BaseMdtDragSortActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        tvTitle.setText("添加数据");
+        tvTitle.setText("调整顺序");
     }
 
     @Override

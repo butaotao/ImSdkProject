@@ -3,6 +3,7 @@ package com.dachen.mdt.activity.order;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -28,6 +29,8 @@ public class BaseMdtDragSortActivity extends BaseActivity {
     protected TextView tvTitle;
     protected DragAdapter mAdapter;
     protected MdtOptionResult currentData;
+    private View vFooter;
+    private View vEmpty;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,16 +40,31 @@ public class BaseMdtDragSortActivity extends BaseActivity {
 
         tvTitle = (TextView) findViewById(R.id.title);
         mListView = (DragSortListView) findViewById(R.id.list_view);
+        vEmpty = findViewById(R.id.layout_empty);
+        vFooter=getLayoutInflater().inflate(R.layout.choose_text_footer,null);
+        mListView.addFooterView(vFooter);
         mAdapter=new DragAdapter(mThis);
         mListView.setDropListener(onDrop);
         mListView.setAdapter(mAdapter);
+        findViewById(R.id.btn_add).setOnClickListener(this);
 
         currentData = (MdtOptionResult) getIntent().getSerializableExtra(AppConstants.INTENT_START_DATA);
         initStartDataMap();
-
+        if(vEmpty.getVisibility()==View.VISIBLE){
+            onRightClick(null);
+        }
 
     }
+
     protected void initData(){}
+
+    @Override
+    public void onClick(View v) {
+        super.onClick(v);
+        if(v.getId()==R.id.btn_add){
+            onRightClick(v);
+        }
+    }
 
     private DropListener onDrop=new DropListener() {
         @Override
@@ -65,6 +83,21 @@ public class BaseMdtDragSortActivity extends BaseActivity {
             currentData.array=new ArrayList<>();
         }
         mAdapter.update(currentData.array);
+        refreshEmpty();
+
+    }
+    private void refreshEmpty(){
+        ViewHolder holder=ViewHolder.get(mThis,vFooter);
+        View vMain=holder.getView(R.id.layout_main);
+        vEmpty.setVisibility(View.GONE);
+        if(TextUtils.isEmpty(currentData.text)){
+            vMain.setVisibility(View.GONE);
+            if(currentData.array.size()==0)
+                vEmpty.setVisibility(View.VISIBLE);
+        }else{
+            vMain.setVisibility(View.VISIBLE);
+            holder.setText(R.id.text_view,currentData.text);
+        }
     }
 
     @Override
@@ -74,6 +107,7 @@ public class BaseMdtDragSortActivity extends BaseActivity {
             MdtOptionResult res= (MdtOptionResult) data.getSerializableExtra(AppConstants.INTENT_RESULT);
             currentData=res;
             mAdapter.update(currentData.array);
+            refreshEmpty();
         }
     }
 
