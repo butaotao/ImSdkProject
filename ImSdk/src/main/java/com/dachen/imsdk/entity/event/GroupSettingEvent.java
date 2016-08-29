@@ -8,6 +8,7 @@ public class GroupSettingEvent {
     public static final int TYPE_STATUS=2;
     public static final int TYPE_EXIT=3;
     public static final int TYPE_AVATAR=4;
+    public static final int TYPE_TOP=5;
     public String groupId;
     public String name;
     public int type;
