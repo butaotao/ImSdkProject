@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
+import com.dachen.common.toolbox.SingleMediaScanner;
 import com.dachen.common.utils.Md5Util;
 import com.dachen.common.utils.StringUtils;
 import com.dachen.common.utils.ToastUtil;
@@ -127,7 +128,7 @@ public class ChatImgActivity extends ImBaseActivity implements OnClickListener{
             ToastUtil.showToast(mThis,"存储失败.请确认外部存储状态是否正常");
             return;
         }
-        final String fileName= Md5Util.toMD5(url);
+        final String fileName= Md5Util.toMD5(url)+".png";
         ImageLoader.getInstance().loadImage(url,null,new DisplayImageOptions.Builder().build(), new ImageLoadingListener() {
             @Override
             public void onLoadingStarted(String imageUri, View view) {
@@ -145,6 +146,7 @@ public class ChatImgActivity extends ImBaseActivity implements OnClickListener{
                     out = new FileOutputStream(picFile);
                     loadedImage.compress(Bitmap.CompressFormat.PNG, 100, out); // bmp is your Bitmap instance
                     ToastUtil.showToast(mThis,"图片已保存");
+                    new SingleMediaScanner(mThis,picFile);
                 } catch (Exception e) {
                     e.printStackTrace();
                     ToastUtil.showToast(mThis,"图片保存失败");
