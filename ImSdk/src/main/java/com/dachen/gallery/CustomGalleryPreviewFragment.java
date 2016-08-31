@@ -15,8 +15,8 @@ import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.dachen.imsdk.R;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -148,7 +148,9 @@ public class CustomGalleryPreviewFragment extends Fragment implements OnClickLis
             PhotoView v=new PhotoView(getActivity());
             v.setBackgroundColor(Color.BLACK);
 //            ImageLoader.getInstance().displayImage("file://" +mList.get(position).sdcardPath, v, ImUtils.getNormalImageOptions());
-            Picasso.with(mParent).load("file://" +mList.get(position).sdcardPath).centerInside().resize(1920,1920).placeholder(R.drawable.defaultpic)
+//            Picasso.with(mParent).load("file://" +mList.get(position).sdcardPath).centerInside().resize(1920,1920).placeholder(R.drawable.defaultpic)
+//                    .error(R.drawable.image_download_fail_icon).into(v);
+            Glide.with(mParent).load("file://" +mList.get(position).sdcardPath).centerCrop().placeholder(R.drawable.defaultpic)
                     .error(R.drawable.image_download_fail_icon).into(v);
             container.addView(v);
             return v;

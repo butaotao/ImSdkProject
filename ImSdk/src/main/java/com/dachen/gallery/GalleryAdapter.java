@@ -8,11 +8,11 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.dachen.common.utils.Logger;
 import com.dachen.common.utils.ToastUtil;
 import com.dachen.imsdk.R;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -173,8 +173,10 @@ public class GalleryAdapter extends BaseAdapter {
             CustomGallery item=data.get(index);
             holder.imgQueue.setImageResource(R.drawable.image_download_fail_icon);
 //            ImageLoader.getInstance().displayImage("file://" + item.sdcardPath, holder.imgQueue, ImUtils.getGalleyImageOptions());
-			Picasso.with(mContext).load("file://" + item.sdcardPath).centerCrop().resize(300,300).placeholder(R.drawable.defaultpic)
-					.error(R.drawable.image_download_fail_icon).into(holder.imgQueue);
+//			Picasso.with(mContext).load("file://" + item.sdcardPath).centerCrop().resize(300,300).placeholder(R.drawable.defaultpic)
+//					.error(R.drawable.image_download_fail_icon).into(holder.imgQueue);
+			Glide.with(mContext).load("file://" + item.sdcardPath).centerCrop().placeholder(R.drawable.defaultpic)
+                    .error(R.drawable.image_download_fail_icon).into(holder.imgQueue);
             if (isActionMultiplePick) {
                 holder.imgQueueMultiSelected.setSelected(pathsSet.contains(item.sdcardPath));
 				final View finalConvertView = convertView;
