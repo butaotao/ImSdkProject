@@ -8,10 +8,11 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
+import com.dachen.common.utils.CommonUtils;
 import com.dachen.common.utils.Logger;
 import com.dachen.common.utils.ToastUtil;
 import com.dachen.imsdk.R;
+import com.koushikdutta.ion.Ion;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.ArrayList;
@@ -175,8 +176,10 @@ public class GalleryAdapter extends BaseAdapter {
 //            ImageLoader.getInstance().displayImage("file://" + item.sdcardPath, holder.imgQueue, ImUtils.getGalleyImageOptions());
 //			Picasso.with(mContext).load("file://" + item.sdcardPath).centerCrop().resize(300,300).placeholder(R.drawable.defaultpic)
 //					.error(R.drawable.image_download_fail_icon).into(holder.imgQueue);
-			Glide.with(mContext).load("file://" + item.sdcardPath).centerCrop().placeholder(R.drawable.defaultpic)
-                    .error(R.drawable.image_download_fail_icon).into(holder.imgQueue);
+//            Ion.with(mContext).load(CommonUtils.getFileUriStr(item.sdcardPath)).withBitmap().centerCrop().resize(300,300).placeholder(R.drawable.defaultpic)
+//                    .error(R.drawable.image_download_fail_icon).intoImageView(holder.imgQueue);
+            Ion.with(holder.imgQueue).centerCrop().placeholder(R.drawable.defaultpic)
+                    .error(R.drawable.image_download_fail_icon).load(CommonUtils.getFileUriStr(item.sdcardPath));
             if (isActionMultiplePick) {
                 holder.imgQueueMultiSelected.setSelected(pathsSet.contains(item.sdcardPath));
 				final View finalConvertView = convertView;

@@ -15,8 +15,9 @@ import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
+import com.dachen.common.utils.CommonUtils;
 import com.dachen.imsdk.R;
+import com.koushikdutta.ion.Ion;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -148,10 +149,12 @@ public class CustomGalleryPreviewFragment extends Fragment implements OnClickLis
             PhotoView v=new PhotoView(getActivity());
             v.setBackgroundColor(Color.BLACK);
 //            ImageLoader.getInstance().displayImage("file://" +mList.get(position).sdcardPath, v, ImUtils.getNormalImageOptions());
+//            Picasso.with(mParent).load(CommonUtils.getFileUriStr(mList.get(position).sdcardPath)).placeholder(R.drawable.defaultpic)
+//                    .error(R.drawable.image_download_fail_icon).into(v);
 //            Picasso.with(mParent).load("file://" +mList.get(position).sdcardPath).centerInside().resize(1920,1920).placeholder(R.drawable.defaultpic)
 //                    .error(R.drawable.image_download_fail_icon).into(v);
-            Glide.with(mParent).load("file://" +mList.get(position).sdcardPath).centerCrop().placeholder(R.drawable.defaultpic)
-                    .error(R.drawable.image_download_fail_icon).into(v);
+//            Ion.with(v).placeholder(R.drawable.defaultpic).error(R.drawable.image_download_fail_icon).load("file://" +mList.get(position).sdcardPath);
+            Ion.with(v).placeholder(R.drawable.defaultpic).deepZoom().error(R.drawable.image_download_fail_icon).load(CommonUtils.getFileUriStr(mList.get(position).sdcardPath));
             container.addView(v);
             return v;
         }
