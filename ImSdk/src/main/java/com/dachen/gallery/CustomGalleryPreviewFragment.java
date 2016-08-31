@@ -43,6 +43,8 @@ public class CustomGalleryPreviewFragment extends Fragment implements OnClickLis
         super.onCreate(savedInstanceState);
         mParent= (CustomGalleryActivity) getActivity();
         mList=mParent.currentGalleryList;
+        if(mList==null)
+            mList=new ArrayList<>();
         selectedPathSet=mParent.selectedPathSet;
     }
 
@@ -103,6 +105,8 @@ public class CustomGalleryPreviewFragment extends Fragment implements OnClickLis
             mViewPager.setCurrentItem(index);
     }
     private void refreshForIndex(int index){
+        if(mList.size()==0)
+            return;
         CustomGallery item=mList.get(index);
         mCheckSelected.setChecked(selectedPathSet.contains(item.sdcardPath));
         String titleStr= (index+1)+"/"+mList.size();
@@ -153,7 +157,7 @@ public class CustomGalleryPreviewFragment extends Fragment implements OnClickLis
 //                    .error(R.drawable.image_download_fail_icon).into(v);
 //            Picasso.with(mParent).load("file://" +mList.get(position).sdcardPath).centerInside().resize(1920,1920).placeholder(R.drawable.defaultpic)
 //                    .error(R.drawable.image_download_fail_icon).into(v);
-//            Ion.with(v).placeholder(R.drawable.defaultpic).error(R.drawable.image_download_fail_icon).load("file://" +mList.get(position).sdcardPath);
+//            Ion.with(v).placeholder(R.drawable.defaultpic).error(R.drawable.image_download_fail_icon).load("file://" +mList.get(position).sdcardPath);.deepZoom()
             Ion.with(v).placeholder(R.drawable.defaultpic).deepZoom().error(R.drawable.image_download_fail_icon).load(CommonUtils.getFileUriStr(mList.get(position).sdcardPath));
             container.addView(v);
             return v;

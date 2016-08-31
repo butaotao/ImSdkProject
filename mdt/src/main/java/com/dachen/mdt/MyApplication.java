@@ -9,6 +9,7 @@ import android.os.Environment;
 import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
+import com.dachen.common.DCommonSdk;
 import com.dachen.common.utils.Logger;
 import com.dachen.imsdk.ImSdk;
 import com.dachen.mdt.entity.DoctorInfo;
@@ -53,6 +54,8 @@ public class MyApplication extends Application {
         instance=this;
         initAppDir();
         initImageLoader();
+
+        DCommonSdk.initSdk(this,"eMDT");
         AppImUtils.initImAct();
         ImSdk.getInstance().initSdk(this,mAppDir,mVoicesDir,mVideosDir,mPicturesDir);
         int env=SpUtils.getSp().getInt(SpUtils.KEY_URL_ENV,0);

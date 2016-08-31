@@ -1,4 +1,4 @@
-include ':ImSdk', ':mdt'
+include ':ImSdk', ':mdt', ':ionLibrary'
 include ':dCommonLibrary'
 include ':meidecineLibrary'
 include ':pullToRefreshViewsLibrary'
