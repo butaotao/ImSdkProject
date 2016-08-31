@@ -128,32 +128,37 @@ public class EditOrderCaseActivity extends BaseActivity {
         diseaseType=mOldOrder.firstDiag;
         holder.tvDiseaseType.setText(OrderUtils.getMdtOptionResultText(diseaseType));
         mBaseDisease=mOldOrder.basicDisease ;
-        holder.tvBaseDisease.setText(mBaseDisease.showText);
+        holder.tvBaseDisease.setText(OrderUtils.getMdtOptionResultText(mBaseDisease));
         mComplication=mOldOrder.concomitant;
-        holder.tvComplication.setText(mComplication.showText);
+        holder.tvComplication.setText(OrderUtils.getMdtOptionResultText(mComplication));
         mdtGroupId=mOldOrder.mdtGroupId;
         holder.tvMdtGroup.setText(mOldOrder.mdtGroupName);
         mPurposeResult= mOldOrder.target;
-        holder.tvPurpose.setText(mPurposeResult.showText);
+        holder.tvPurpose.setText(OrderUtils.getMdtOptionResultText(mPurposeResult));
         mEndTime=mOldOrder.expectEndTime;
         holder.tvEndTime.setText(TimeUtils.a_format.format(new Date(mOldOrder.expectEndTime)));
 
-        holder.tvChiefComplaint.setText(mOldOrder.disease.complain.text);
-        holder.tvPresentHistory.setText(mOldOrder.disease.diseaseNow.text);
-        holder.tvPreviousHistory.setText(mOldOrder.disease.diseaseOld.text);
-        holder.tvFamilyHistory.setText(mOldOrder.disease.diseaseFamily.text);
-        holder.tvPersonalHistory.setText(mOldOrder.disease.diseaseSelf.text);
-        holder.tvBodySign.setText(mOldOrder.disease.symptom.text);
-        holder.tvTreatProcess.setText(mOldOrder.disease.checkProcess.text);
+        holder.tvChiefComplaint.setText(OrderUtils.getText(mOldOrder.disease.complain));
+        holder.tvPresentHistory.setText(OrderUtils.getText(mOldOrder.disease.diseaseNow));
+        holder.tvPreviousHistory.setText(OrderUtils.getText(mOldOrder.disease.diseaseOld));
+        holder.tvFamilyHistory.setText(OrderUtils.getText(mOldOrder.disease.diseaseFamily));
+        holder.tvPersonalHistory.setText(OrderUtils.getText(mOldOrder.disease.diseaseSelf));
+        holder.tvBodySign.setText(OrderUtils.getText(mOldOrder.disease.symptom));
+        holder.tvTreatProcess.setText(OrderUtils.getText(mOldOrder.disease.checkProcess));
         mCheckResult=mOldOrder.disease.result;
         holder.tvExamineResult.setText(OrderUtils.getText(mCheckResult));
 
-        holder.etImageExamine.setText(mOldOrder.disease.imaging.text);
-        mImageExamineAdapter.addPicUrlList(mOldOrder.disease.imaging.imageList);
-        mImageExamineAdapter.notifyDataSetChanged();
-        holder.etPathologyExamine.setText(mOldOrder.disease.pathology.text);
-        mPathologyAdapter.addPicUrlList(mOldOrder.disease.pathology.imageList);
-        mPathologyAdapter.notifyDataSetChanged();
+        if(mOldOrder.disease.imaging!=null){
+            holder.etImageExamine.setText(mOldOrder.disease.imaging.text);
+            mImageExamineAdapter.addPicUrlList(mOldOrder.disease.imaging.imageList);
+            mImageExamineAdapter.notifyDataSetChanged();
+        }
+        if(mOldOrder.disease.pathology!=null){
+            holder.etPathologyExamine.setText(mOldOrder.disease.pathology.text);
+            mPathologyAdapter.addPicUrlList(mOldOrder.disease.pathology.imageList);
+            mPathologyAdapter.notifyDataSetChanged();
+        }
+
     }
 
     @OnClick(R.id.right_btn)
@@ -163,7 +168,7 @@ public class EditOrderCaseActivity extends BaseActivity {
         PatientInfo pInfo = mPatient;
         try {
             pInfo.name = ViewUtils.checkTextEmpty(holder.tvPatientName);
-            pInfo.idNum = ViewUtils.checkTextEmpty(holder.tvIdCard);
+            pInfo.idNum = ViewUtils.getText(holder.tvIdCard);
             String sexStr = ViewUtils.checkTextEmpty(holder.tvPatientSex);
             if ("男".equals(sexStr)) {
                 pInfo.sex = 1;

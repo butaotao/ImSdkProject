@@ -4,19 +4,35 @@ android {
     compileSdkVersion 21
     buildToolsVersion "24.0.0"
 
+    //配置keystore签名
+    signingConfigs {
+        release {
+            storeFile file("mdt.jks")
+            storePassword "dachen@123456"
+            keyAlias "大辰_MDT"
+            keyPassword "dachen@123456"
+        }
+    }
     defaultConfig {
         applicationId "com.dachen.mdt"
         minSdkVersion 14
         targetSdkVersion 21
-        versionCode 1
-        versionName "1.0"
+        versionCode 4
+        versionName "1.03"
     }
     buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        debug {
+            signingConfig signingConfigs.release
         }
+        release {
+            signingConfig signingConfigs.release
+        }
+//        release {
+//            minifyEnabled false
+//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+//        }
     }
+
 }
 
 apply plugin: 'com.neenbedankt.android-apt'

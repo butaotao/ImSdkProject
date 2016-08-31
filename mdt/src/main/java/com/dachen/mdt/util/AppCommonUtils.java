@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.dachen.common.AppManager;
+import com.dachen.common.utils.QiNiuUtils;
 import com.dachen.imsdk.ImSdk;
 import com.dachen.imsdk.utils.PushUtils;
 import com.dachen.mdt.MyApplication;
@@ -42,8 +43,10 @@ public class AppCommonUtils {
     public static void changeEvn(int envCode){
         if(envCode==1){
             UrlConstants.changIp("http://192.168.3.7:8101","192.168.3.7:8102");
+            QiNiuUtils.changeEnv(QiNiuUtils.DOMAIN_3_7);
         }else{
             UrlConstants.changIp("http://120.25.84.65:8101","120.25.84.65:8102");
+            QiNiuUtils.changeEnv(QiNiuUtils.DOMAIN_KANGZHE_TEST);
         }
 
     }
