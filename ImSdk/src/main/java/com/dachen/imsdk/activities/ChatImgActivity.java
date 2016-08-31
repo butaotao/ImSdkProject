@@ -1,6 +1,5 @@
 package com.dachen.imsdk.activities;
 
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Environment;
@@ -26,14 +25,10 @@ import com.dachen.imsdk.consts.MessageType;
 import com.dachen.imsdk.db.dao.ChatMessageDao;
 import com.dachen.imsdk.db.po.ChatMessagePo;
 import com.dachen.imsdk.entity.ChatMessageV2;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.assist.FailReason;
-import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
+import com.koushikdutta.async.future.FutureCallback;
+import com.koushikdutta.ion.Ion;
 
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -129,41 +124,50 @@ public class ChatImgActivity extends ImBaseActivity implements OnClickListener{
             return;
         }
         final String fileName= Md5Util.toMD5(url)+".png";
-        ImageLoader.getInstance().loadImage(url,null,new DisplayImageOptions.Builder().build(), new ImageLoadingListener() {
+        final File picFile=new File(dir,fileName);
+        Ion.with(mThis).load(url).write(picFile).setCallback(new FutureCallback<File>() {
             @Override
-            public void onLoadingStarted(String imageUri, View view) {
-            }
-
-            @Override
-            public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
-                ToastUtil.showToast(mThis,"图片加载失败");
-            }
-            @Override
-            public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-                File picFile=new File(dir,fileName);
-                FileOutputStream out = null;
-                try {
-                    out = new FileOutputStream(picFile);
-                    loadedImage.compress(Bitmap.CompressFormat.PNG, 100, out); // bmp is your Bitmap instance
-                    ToastUtil.showToast(mThis,"图片已保存");
-                    new SingleMediaScanner(mThis,picFile);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    ToastUtil.showToast(mThis,"图片保存失败");
-                } finally {
-                    try {
-                        if (out != null) {
-                            out.close();
-                        }
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-            @Override
-            public void onLoadingCancelled(String imageUri, View view) {
+            public void onCompleted(Exception e, File result) {
+                String toastStr=e==null?"图片已保存":"图片保存失败";
+                ToastUtil.showToast(mThis,toastStr);
+                new SingleMediaScanner(mThis,picFile);
             }
         });
+//        ImageLoader.getInstance().loadImage(url,null,new DisplayImageOptions.Builder().build(), new ImageLoadingListener() {
+//            @Override
+//            public void onLoadingStarted(String imageUri, View view) {
+//            }
+//
+//            @Override
+//            public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+//                ToastUtil.showToast(mThis,"图片加载失败");
+//            }
+//            @Override
+//            public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+//                File picFile=new File(dir,fileName);
+//                FileOutputStream out = null;
+//                try {
+//                    out = new FileOutputStream(picFile);
+//                    loadedImage.compress(Bitmap.CompressFormat.PNG, 100, out); // bmp is your Bitmap instance
+//                    ToastUtil.showToast(mThis,"图片已保存");
+//                    new SingleMediaScanner(mThis,picFile);
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                    ToastUtil.showToast(mThis,"图片保存失败");
+//                } finally {
+//                    try {
+//                        if (out != null) {
+//                            out.close();
+//                        }
+//                    } catch (IOException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            }
+//            @Override
+//            public void onLoadingCancelled(String imageUri, View view) {
+//            }
+//        });
 
     }
 
@@ -214,7 +218,8 @@ public class ChatImgActivity extends ImBaseActivity implements OnClickListener{
             });
             ChatMessageV2.ImageMsgParam param= JSON.parseObject(po.param, ChatMessageV2.ImageMsgParam.class);
 //            ImageLoader.getInstance().displayImage(param.uri, v);
-            ImageLoader.getInstance().displayImage(param.uri, v, new DisplayImageOptions.Builder().build());
+//            ImageLoader.getInstance().displayImage(param.uri, v, new DisplayImageOptions.Builder().build());
+            Ion.with(v).deepZoom().load(param.uri);
             return v;
         }
     }

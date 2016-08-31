@@ -1567,7 +1567,7 @@ public class ChatAdapterV2 extends MultiItemCommonAdapter<ChatMessagePo> impleme
             return new FileInfo(url, url + QiNiuUtils.SURFIX_SMALL);
         }else{
             if (param.isPic()) {
-                return new FileInfo(StringUtils.thumbnailUrl2originalUrl(param.uri), param.uri);
+                return new FileInfo(StringUtils.thumbnailUrl2originalUrl(param.uri), param.uri+QiNiuUtils.SURFIX_SMALL);
             } else {
                 return new FileInfo(param.uri, param.uri);
             }
