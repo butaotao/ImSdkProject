@@ -1,7 +1,9 @@
 package com.dachen.imsdk.activities;
 
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -15,7 +17,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
+import com.dachen.common.utils.Md5Util;
 import com.dachen.common.utils.StringUtils;
+import com.dachen.common.utils.ToastUtil;
 import com.dachen.imsdk.R;
 import com.dachen.imsdk.consts.MessageType;
 import com.dachen.imsdk.db.dao.ChatMessageDao;
@@ -23,7 +27,12 @@ import com.dachen.imsdk.db.po.ChatMessagePo;
 import com.dachen.imsdk.entity.ChatMessageV2;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,6 +67,7 @@ public class ChatImgActivity extends ImBaseActivity implements OnClickListener{
         vHeader.setOnClickListener(this);
         tvTitle= (TextView) findViewById(R.id.title);
         findViewById(R.id.back_btn).setOnClickListener(this);
+        findViewById(R.id.right_btn).setOnClickListener(this);
         if(TextUtils.isEmpty(groupId)){
             msgList=new ArrayList<>();
             msgList.add(targetMsg);
@@ -105,7 +115,54 @@ public class ChatImgActivity extends ImBaseActivity implements OnClickListener{
     public void onClick(View v) {
         if(v.getId()==R.id.back_btn){
             finish();
+        }else if(v.getId()==R.id.right_btn){
+            ChatMessagePo msg=msgList.get(mPager.getCurrentItem());
+            ChatMessageV2.ImageMsgParam param= JSON.parseObject(msg.param, ChatMessageV2.ImageMsgParam.class);
+            saveImg(param.uri);
         }
+    }
+    private void saveImg(String url){
+        final File dir= Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+        if(!dir.exists()&&!dir.mkdirs()){
+            ToastUtil.showToast(mThis,"存储失败.请确认外部存储状态是否正常");
+            return;
+        }
+        final String fileName= Md5Util.toMD5(url);
+        ImageLoader.getInstance().loadImage(url,null,new DisplayImageOptions.Builder().build(), new ImageLoadingListener() {
+            @Override
+            public void onLoadingStarted(String imageUri, View view) {
+            }
+
+            @Override
+            public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+                ToastUtil.showToast(mThis,"图片加载失败");
+            }
+            @Override
+            public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                File picFile=new File(dir,fileName);
+                FileOutputStream out = null;
+                try {
+                    out = new FileOutputStream(picFile);
+                    loadedImage.compress(Bitmap.CompressFormat.PNG, 100, out); // bmp is your Bitmap instance
+                    ToastUtil.showToast(mThis,"图片已保存");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    ToastUtil.showToast(mThis,"图片保存失败");
+                } finally {
+                    try {
+                        if (out != null) {
+                            out.close();
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            @Override
+            public void onLoadingCancelled(String imageUri, View view) {
+            }
+        });
+
     }
 
     private class ImgAdapter extends FragmentPagerAdapter {

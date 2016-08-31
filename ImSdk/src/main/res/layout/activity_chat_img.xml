@@ -26,5 +26,15 @@
             android:textColor="@color/white"
             style="@style/ActionBar_Title" />
 
+        <Button
+            android:id="@+id/right_btn"
+            android:background="@null"
+            android:layout_width="54dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:text="保存"
+            android:textColor="@color/white"
+            />
+
     </RelativeLayout>
 </RelativeLayout>
