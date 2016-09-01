@@ -125,6 +125,33 @@ public class ChatImgActivity extends ImBaseActivity implements OnClickListener{
         }
         final String fileName= Md5Util.toMD5(url)+".png";
         final File picFile=new File(dir,fileName);
+//        Ion.with(mThis).load(url).asBitmap().setCallback(new FutureCallback<Bitmap>() {
+//            @Override
+//            public void onCompleted(Exception err, Bitmap result) {
+//                if(err!=null){
+//                    ToastUtil.showToast(mThis,"图片加载失败");
+//                    return;
+//                }
+//                FileOutputStream out = null;
+//                try {
+//                    out = new FileOutputStream(picFile);
+//                    result.compress(Bitmap.CompressFormat.PNG, 100, out); // bmp is your Bitmap instance
+//                    ToastUtil.showToast(mThis,"图片已保存");
+//                    new SingleMediaScanner(mThis,picFile);
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                    ToastUtil.showToast(mThis,"图片保存失败");
+//                } finally {
+//                    try {
+//                        if (out != null) {
+//                            out.close();
+//                        }
+//                    } catch (IOException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            }
+//        });
         Ion.with(mThis).load(url).write(picFile).setCallback(new FutureCallback<File>() {
             @Override
             public void onCompleted(Exception e, File result) {
@@ -219,7 +246,7 @@ public class ChatImgActivity extends ImBaseActivity implements OnClickListener{
             ChatMessageV2.ImageMsgParam param= JSON.parseObject(po.param, ChatMessageV2.ImageMsgParam.class);
 //            ImageLoader.getInstance().displayImage(param.uri, v);
 //            ImageLoader.getInstance().displayImage(param.uri, v, new DisplayImageOptions.Builder().build());
-            Ion.with(v).deepZoom().load(param.uri);
+            Ion.with(v).smartSize(false).load(param.uri);
             return v;
         }
     }
