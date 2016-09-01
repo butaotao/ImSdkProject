@@ -195,7 +195,8 @@ public class CustomGalleryActivity extends ImBaseActivity implements OnClickList
         }
     };
     public void setSingleResult(String path){
-        Intent data = new Intent().putExtra(GalleryAction.INTENT_ALL_PATH, new String[]{path});
+        Intent data = new Intent().putExtra(GalleryAction.INTENT_ALL_PATH, new String[]{path})
+                .putExtra(GalleryAction.INTENT_IS_ORIGIN, mCheckOrigin.isChecked());
         setResult(RESULT_OK, data);
         finish();
     }
