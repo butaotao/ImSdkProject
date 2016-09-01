@@ -178,7 +178,7 @@ public class GalleryAdapter extends BaseAdapter {
 //					.error(R.drawable.image_download_fail_icon).into(holder.imgQueue);
 //            Ion.with(mContext).load(CommonUtils.getFileUriStr(item.sdcardPath)).withBitmap().centerCrop().resize(300,300).placeholder(R.drawable.defaultpic)
 //                    .error(R.drawable.image_download_fail_icon).intoImageView(holder.imgQueue);
-            Ion.with(holder.imgQueue).resize(300,300).placeholder(R.drawable.defaultpic)
+            Ion.with(holder.imgQueue).centerCrop().placeholder(R.drawable.defaultpic)
                     .error(R.drawable.image_download_fail_icon).load(CommonUtils.getFileUriStr(item.sdcardPath));
             if (isActionMultiplePick) {
                 holder.imgQueueMultiSelected.setSelected(pathsSet.contains(item.sdcardPath));
