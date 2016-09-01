@@ -1227,14 +1227,14 @@ public abstract class ChatActivityV2 extends ImBaseActivity implements MessageRe
      * @param isRemoved
      */
     protected void removedFromGroup(boolean isRemoved) {
-
     }
 
     /**
      * 业务数据，子类可以复写改方法获取需要的业务数据
      */
     protected void onBusinessData() {
-
+    }
+    protected void onGroupData() {
     }
 
     /**
@@ -1423,7 +1423,10 @@ public abstract class ChatActivityV2 extends ImBaseActivity implements MessageRe
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case MSG_UPDATE_BUSINESS:
-                    if (groupPo != null && !TextUtils.isEmpty(groupPo.param))
+                    if(groupPo==null)
+                        return;
+                    onGroupData();
+                    if (!TextUtils.isEmpty(groupPo.param))
                         onBusinessData();
                     break;
                 case MSG_REFRESH_LIST:
