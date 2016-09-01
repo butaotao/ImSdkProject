@@ -9,7 +9,8 @@ import com.dachen.common.adapter.CommonAdapterV2;
 import com.dachen.common.adapter.ViewHolder;
 import com.dachen.mdt.R;
 import com.dachen.mdt.entity.ImageInfo;
-import com.nostra13.universalimageloader.core.ImageLoader;
+import com.koushikdutta.ion.Ion;
+import com.koushikdutta.ion.builder.AnimateGifMode;
 
 import java.util.List;
 
@@ -40,7 +41,8 @@ public class ViewImgGridAdapter extends CommonAdapterV2<ImageInfo> {
         String url=getItem(position).path;
         if(smallSuffix!=null)
             url+=smallSuffix;
-        ImageLoader.getInstance().displayImage(url, (ImageView) holder.getView(R.id.iv_pic));
+//        ImageLoader.getInstance().displayImage(url, (ImageView) holder.getView(R.id.iv_pic));
+        Ion.with((ImageView) holder.getView(R.id.iv_pic)).animateGif(AnimateGifMode.NO_ANIMATE).load(url);
         return holder.getConvertView();
     }
 }

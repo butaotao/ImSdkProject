@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import com.dachen.common.adapter.CommonAdapterV2;
 import com.dachen.common.adapter.ViewHolder;
 import com.dachen.common.toolbox.QiniuUploadTask;
+import com.dachen.common.utils.CommonUtils;
 import com.dachen.common.utils.QiNiuUtils;
 import com.dachen.imsdk.net.UploadEngine7Niu;
 import com.dachen.imsdk.net.UploadEngine7Niu.UploadObserver7Niu;
@@ -19,6 +20,7 @@ import com.dachen.mdt.R;
 import com.dachen.mdt.adapter.UpImgGridAdapter.UpImgGridItem;
 import com.dachen.mdt.entity.ImageInfo;
 import com.dachen.mdt.util.AppCommonUtils;
+import com.koushikdutta.ion.Ion;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.io.File;
@@ -180,12 +182,15 @@ public class UpImgGridAdapter extends CommonAdapterV2<UpImgGridItem> {
                 }
             }
             if(!TextUtils.isEmpty(item.localPath)){
-                ImageLoader.getInstance().displayImage( Uri.fromFile(new File(item.localPath)).toString(), (ImageView) holder.getView(R.id.iv_pic));
+                Ion.with((ImageView) holder.getView(R.id.iv_pic)).load(CommonUtils.getFileUriStr(item.localPath) );
+//                ImageLoader.getInstance().displayImage( Uri.fromFile(new File(item.localPath)).toString(), (ImageView) holder.getView(R.id.iv_pic));
             }else{
                 String url=item.url;
                 if(smallSuffix!=null)
                     url+=smallSuffix;
-                ImageLoader.getInstance().displayImage(url, (ImageView) holder.getView(R.id.iv_pic));
+                Ion.with((ImageView) holder.getView(R.id.iv_pic)).load(url);
+//                ImageLoader.getInstance().displayImage(url, (ImageView) holder.getView(R.id.iv_pic));
+
             }
             holder.setOnClickListener(R.id.btn_delete, new OnClickListener() {
                 @Override

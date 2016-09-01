@@ -158,7 +158,7 @@ public class CustomGalleryPreviewFragment extends Fragment implements OnClickLis
 //            Picasso.with(mParent).load("file://" +mList.get(position).sdcardPath).centerInside().resize(1920,1920).placeholder(R.drawable.defaultpic)
 //                    .error(R.drawable.image_download_fail_icon).into(v);
 //            Ion.with(v).placeholder(R.drawable.defaultpic).error(R.drawable.image_download_fail_icon).load("file://" +mList.get(position).sdcardPath);.deepZoom()
-            Ion.with(v).placeholder(R.drawable.defaultpic).smartSize(false)
+            Ion.with(v).placeholder(R.drawable.defaultpic).deepZoom()
                     .error(R.drawable.image_download_fail_icon).load(CommonUtils.getFileUriStr(mList.get(position).sdcardPath));
             container.addView(v);
             return v;

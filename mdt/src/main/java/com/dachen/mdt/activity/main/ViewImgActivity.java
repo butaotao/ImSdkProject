@@ -18,8 +18,7 @@ import com.dachen.common.utils.TimeUtils;
 import com.dachen.mdt.R;
 import com.dachen.mdt.activity.BaseActivity;
 import com.dachen.mdt.entity.ImageInfo;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
+import com.koushikdutta.ion.Ion;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -148,7 +147,8 @@ public class ViewImgActivity extends BaseActivity {
                     mParent.toggleHeader();
                 }
             });
-            ImageLoader.getInstance().displayImage(pic.path, v, new DisplayImageOptions.Builder().build());
+//            ImageLoader.getInstance().displayImage(pic.path, v, new DisplayImageOptions.Builder().build());
+            Ion.with(v).load(pic.path);
             return v;
         }
     }
