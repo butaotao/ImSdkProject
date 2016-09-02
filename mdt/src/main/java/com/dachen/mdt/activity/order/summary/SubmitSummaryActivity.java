@@ -26,7 +26,6 @@ import com.dachen.mdt.net.RequestHelper;
 import com.dachen.mdt.util.OrderUtils;
 import com.dachen.mdt.util.ViewUtils;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -105,11 +104,11 @@ public class SubmitSummaryActivity extends BaseActivity {
             ViewUtils.setError(e.tv,"不能为空!");
             return;
         }
-        if(mDisTag!=null)
-            reqMap.put("tagId", mDisTag.id);
-        MdtOptionItem type=OrderUtils.getMdtSingleOption(mTypeResult);
-        if(type!=null)
-            reqMap.put("diseaseTypeId", type.id);
+//        if(mDisTag!=null)
+//            reqMap.put("tagId", mDisTag.id);
+//        MdtOptionItem type=OrderUtils.getMdtSingleOption(mTypeResult);
+//        if(type!=null)
+//            reqMap.put("diseaseTypeId", type.id);
         reqMap.put("diagSuggest",  mTypeResult);
         if(resultMap.get("checksuggest")!=null)
             reqMap.put("checkSuggest",   resultMap.get("checksuggest") );
@@ -148,6 +147,7 @@ public class SubmitSummaryActivity extends BaseActivity {
                 .putExtra(AppConstants.INTENT_DISEASE_TOP_ID, mDisTopId)
                 .putExtra(ChooseMdtInfoActivity.KEY_TYPE, type)
                 .putExtra(AppConstants.INTENT_START_DATA,resultMap.get(type))
+                .putExtra(AppConstants.INTENT_TITLE,getTitleStr(v))
                 .putExtra(AppConstants.INTENT_VIEW_ID, tv.getId());
         startActivityForResult(i, REQ_CODE_MDT_INFO);
     }
@@ -160,13 +160,10 @@ public class SubmitSummaryActivity extends BaseActivity {
                 .putExtra(AppConstants.INTENT_DISEASE_TOP_ID, mDisTopId);
         startActivityForResult(i, REQ_CODE_DISEASE);
     }
+
     @OnClick(R.id.ll_diagnose_tag)
     protected void chooseDiseaseTag(View v) {
-        ArrayList<String> list=new ArrayList<>();
         MdtOptionItem type= OrderUtils.getMdtSingleOption(mTypeResult);
-        for(DiseaseTag tag: type.tagList){
-            list.add(tag.name);
-        }
         Intent i = new Intent(mThis, ChooseDiseaseTagActivity.class)
                 .putExtra(AppConstants.INTENT_START_DATA, mDisTag)
                 .putExtra(ChooseDiseaseTagActivity.KEY_TYPE, type);
@@ -182,6 +179,10 @@ public class SubmitSummaryActivity extends BaseActivity {
         startActivityForResult(i, REQ_CODE_INPUT);
     }
 
+    private String getTitleStr(View v){
+        TextView tv = (TextView) ((ViewGroup) v).getChildAt(0);
+        return tv.getText().toString();
+    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode != RESULT_OK) return;
@@ -192,7 +193,7 @@ public class SubmitSummaryActivity extends BaseActivity {
         }else if(requestCode==REQ_CODE_DISEASE){
             mTypeResult = (MdtOptionResult) data.getSerializableExtra(AppConstants.INTENT_RESULT);
             tvDiagnoseOpinion.setText(mTypeResult.showText);
-            refreshTagForDisease();
+//            refreshTagForDisease();
         }else if(requestCode==REQ_CODE_DISEASE_TAG){
             mDisTag= (DiseaseTag) data.getSerializableExtra(AppConstants.INTENT_RESULT);
             tvDiagnoseTag.setText(mDisTag.name);

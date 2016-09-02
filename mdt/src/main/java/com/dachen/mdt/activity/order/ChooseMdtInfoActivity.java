@@ -29,6 +29,8 @@ public class ChooseMdtInfoActivity extends BaseMdtOptionActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        String title=getIntent().getStringExtra(AppConstants.INTENT_TITLE);
+        tvTitle.setText(title);
 
     }
 

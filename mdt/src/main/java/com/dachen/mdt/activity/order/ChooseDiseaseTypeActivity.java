@@ -1,6 +1,7 @@
 package com.dachen.mdt.activity.order;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 
 import com.alibaba.fastjson.JSON;
 import com.dachen.common.utils.ToastUtil;
@@ -38,7 +39,19 @@ public class ChooseDiseaseTypeActivity extends BaseMdtOptionActivity {
 
     @Override
     protected void initData() {
-        isMulti=false;
+//        isMulti=false;
+    }
+
+    @Override
+    protected void onClickOption(MdtOptionItem item) {
+        if(currentData.array.size()>0){
+            String oldTopId=currentData.array.get(0).topDiseaseId;
+            if(!TextUtils.equals(item.topDiseaseId,oldTopId)){
+                currentData.array.clear();
+                initStartDataMap();
+            }
+        }
+        super.onClickOption(item);
     }
 
     protected void fetchInfo() {

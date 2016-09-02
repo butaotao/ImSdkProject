@@ -21,6 +21,9 @@ import com.dachen.common.utils.UIHelper;
 import com.dachen.common.utils.VolleyUtil;
 import com.dachen.common.widget.CustomDialog;
 import com.dachen.common.widget.CustomDialog.CustomClickEvent;
+import com.dachen.imsdk.adapter.ChatAdapterV2;
+import com.dachen.imsdk.db.po.ChatMessagePo;
+import com.dachen.imsdk.entity.ImgTextMsgV2;
 import com.dachen.imsdk.entity.MoreItem;
 import com.dachen.imsdk.net.ImCommonRequest;
 import com.dachen.imsdk.out.ImMsgHandler;
@@ -33,6 +36,7 @@ import com.dachen.mdt.activity.order.summary.ViewOrderSummaryActivity;
 import com.dachen.mdt.entity.OrderChatParam;
 import com.dachen.mdt.entity.OrderDetailVO;
 import com.dachen.mdt.entity.OrderStatusResult;
+import com.dachen.mdt.entity.event.SubmitSummaryEvent;
 import com.dachen.mdt.listener.RequestHelperListener;
 import com.dachen.mdt.net.RequestHelper;
 import com.dachen.mdt.tools.MdtImMsgHandler;
@@ -300,7 +304,28 @@ public class OrderChatActivity extends AppBaseChatActivity {
 
     @Override
     protected ImMsgHandler makeMsgHandler() {
-        return new MdtImMsgHandler(this){
+        return new MdtImMsgHandler(this) {
+            @Override
+            public void onClickMpt8(ChatMessagePo chatMessage, ChatAdapterV2 adapter, View v) {
+                ImgTextMsgV2 mpt = getImgTextMsgV2(chatMessage);
+                if (mpt == null) return;
+                String bizType=mpt.bizParam.get("bizType");
+                if("101".equals(bizType)){
+                    Intent i = new Intent(mThis, ViewOrderCaseActivity.class);
+                    i.putExtra(ViewOrderCaseActivity.KEY_EDITABLE, groupPo.bizStatus == 1);
+                    i.putExtra(AppConstants.INTENT_ORDER_ID, mpt.bizParam.get("bizId"));
+                    startActivity(i);
+                }
+            }
         };
+    }
+
+    public void onEventMainThread(SubmitSummaryEvent event) {
+        if(TextUtils.isEmpty(groupPo.param))
+            return;
+        OrderChatParam param=JSON.parseObject(groupPo.param,OrderChatParam.class);
+        if(!TextUtils.isEmpty(param.orderId) || !param.orderId.equals(event.orderId))
+            return;
+        fetchStatus(param.orderId);
     }
 }

@@ -28,6 +28,12 @@ public class MdtOptionResult implements Serializable{
         public String topDiseaseId;
         public String group;
         public ArrayList<DiseaseTag> tagList; //用于会诊报告
+        public ArrayList<DiseaseTag> array; //用于会诊报告 疾病分期
+
+        public String getText(){
+            if(array==null||array.size()==0)return name;
+            return name + "-" + array.get(0).name;
+        }
     }
 
     public String makeShowText(){
@@ -35,7 +41,7 @@ public class MdtOptionResult implements Serializable{
         ArrayList<TempOptionGroup> groupList=new ArrayList<>();
         for (MdtOptionItem item: array) {
             if(TextUtils.isEmpty(item.group)){
-                groupList.add(new TempOptionGroup(item.name));
+                groupList.add(new TempOptionGroup(item.getText()));
             }else{
                 TempOptionGroup group=tempMap.get(item.group);
                 if(group==null){

@@ -25,6 +25,7 @@ public class ImOrderListView extends ListView {
     private List<ChatGroupPo> itemList;
     private ImOrderAdapter mAdapter;
     private boolean filterMine;
+    private boolean adapterHasSet;
 
     public ImOrderListView(Context context) {
         super(context);
@@ -45,7 +46,6 @@ public class ImOrderListView extends ListView {
         this.mContext=context;
         itemList=new ArrayList<>();
         mAdapter=new ImOrderAdapter(context,itemList);
-        setAdapter(mAdapter);
     }
 
     public void setFilterMine(boolean filterMine) {
@@ -53,6 +53,10 @@ public class ImOrderListView extends ListView {
     }
 
     public void updateView() {
+        if(!adapterHasSet){
+            setAdapter(mAdapter);
+            adapterHasSet=true;
+        }
         new GetSessionData().execute();
     }
 

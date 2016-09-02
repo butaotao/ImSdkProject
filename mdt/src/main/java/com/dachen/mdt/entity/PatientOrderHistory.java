@@ -15,7 +15,7 @@ public class PatientOrderHistory {
     public MdtOptionResult checkSuggest;
     public MdtOptionResult treatSuggest;
     public String other;
-    public String realEndTime;
+    public long realEndTime;
 //    " userName":"主管医生姓名",
 //            "patient":{ json，患者信息},
 //            "diseaseTypeId":"诊断(病种Id)",

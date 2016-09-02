@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.alibaba.fastjson.JSON;
 import com.dachen.common.adapter.CommonAdapterV2;
 import com.dachen.common.adapter.ViewHolder;
+import com.dachen.common.utils.TimeUtils;
 import com.dachen.common.utils.ToastUtil;
 import com.dachen.common.utils.VolleyUtil;
 import com.dachen.imsdk.net.ImCommonRequest;
@@ -92,7 +93,7 @@ public class PatientInfoActivity extends BaseActivity {
             holder.setText(R.id.tv_diagnose_opinion,OrderUtils.getMdtOptionResultText(order.diagSuggest));
             holder.setText(R.id.tv_treat_opinion,OrderUtils.getMdtOptionResultText(order.treatSuggest));
             holder.setText(R.id.tv_examine_opinion,OrderUtils.getMdtOptionResultText(order.checkSuggest));
-            holder.setText(R.id.tv_end_time,order.realEndTime);
+            holder.setText(R.id.tv_end_time, TimeUtils.f_long_3_str( order.realEndTime) );
             return holder.getConvertView();
         }
     }

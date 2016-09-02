@@ -146,18 +146,22 @@ public abstract class BaseMdtOptionActivity extends CommonListActivity {
 //                startActivityForResult(i, REQ_CODE_INPUT);
 //                return;
 //            }
-            if(item.children!=null && getChildClass()!=null){
-                Intent i=new Intent(mThis, getChildClass());
-                i.putExtra(AppConstants.INTENT_START_DATA,makeResultData());
-                i.putExtra(KEY_PARENT,item);
-                startActivityForResult(i,REQ_CODE_NEXT);
-            }else{
-                toggleSelected(item);
-                mAdapter.notifyDataSetChanged();
-            }
-
+            onClickOption(item);
         }
     };
+
+    protected void onClickOption(MdtOptionItem item){
+        if(item.children!=null && getChildClass()!=null){
+            Intent i=new Intent(mThis, getChildClass());
+            i.putExtra(AppConstants.INTENT_START_DATA,makeResultData());
+            i.putExtra(KEY_PARENT,item);
+            startActivityForResult(i,REQ_CODE_NEXT);
+        }else{
+            toggleSelected(item);
+            mAdapter.notifyDataSetChanged();
+        }
+
+    }
 
     protected Class getChildClass(){
         return null;
@@ -166,8 +170,7 @@ public abstract class BaseMdtOptionActivity extends CommonListActivity {
     private void toggleSelected(MdtOptionItem item) {
         String id=item.id;
         if (chosenMap.containsKey(id)){
-            currentData.array.remove(chosenMap.get(id));
-            chosenMap.remove(id);
+            removeSelect(item);
         }
         else
             setSelected(item);
@@ -181,6 +184,11 @@ public abstract class BaseMdtOptionActivity extends CommonListActivity {
         }
         chosenMap.put(id,item);
         currentData.array.add(item);
+    }
+    protected void removeSelect(MdtOptionItem item){
+        String id=item.id;
+        currentData.array.remove(chosenMap.get(id));
+        chosenMap.remove(id);
     }
 
 
@@ -249,12 +257,11 @@ public abstract class BaseMdtOptionActivity extends CommonListActivity {
         public View getView(int position, View convertView, ViewGroup parent) {
             ViewHolder holder = ViewHolder.get(mContext, convertView, parent, R.layout.choose_text_item, position);
             MdtOptionItem info = mData.get(position);
-            String text = info.name;
             int arrowVis = View.GONE;
             if (info.children != null)
                 arrowVis = View.VISIBLE;
             holder.setVisibility(R.id.iv_arrow, arrowVis);
-            holder.setText(R.id.text_view, text);
+            holder.setText(R.id.text_view, makeOptionName(info));
             int vis = View.INVISIBLE;
             if (chosenMap.containsKey(info.id)||withChildrenList.contains(info.id)) {
                 vis = View.VISIBLE;
@@ -263,6 +270,10 @@ public abstract class BaseMdtOptionActivity extends CommonListActivity {
             return holder.getConvertView();
         }
 
+    }
+
+    protected String makeOptionName(MdtOptionItem info){
+        return info.name;
     }
 
 }

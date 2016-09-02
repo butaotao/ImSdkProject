@@ -53,6 +53,7 @@ public class BaseMdtDragSortActivity extends BaseActivity {
         if(vEmpty.getVisibility()==View.VISIBLE){
             onRightClick(null);
         }
+        tvTitle.setText("调整顺序");
 
     }
 
@@ -136,7 +137,7 @@ public class BaseMdtDragSortActivity extends BaseActivity {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             ViewHolder holder=ViewHolder.get(mThis,convertView,parent,R.layout.drag_text_item,0);
-            holder.setText(R.id.text_view,getItem(position).name);
+            holder.setText(R.id.text_view,getItem(position).getText());
             return holder.getConvertView();
         }
     }

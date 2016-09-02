@@ -73,4 +73,5 @@ public class MdtImMsgHandler extends ImMsgHandler {
         dialog.setCanceledOnTouchOutside(true);
         dialog.show();
     }
+
 }

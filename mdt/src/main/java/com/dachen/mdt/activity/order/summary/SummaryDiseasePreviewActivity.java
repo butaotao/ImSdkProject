@@ -6,11 +6,9 @@ import android.view.View;
 
 import com.dachen.mdt.AppConstants;
 import com.dachen.mdt.activity.order.BaseMdtDragSortActivity;
-import com.dachen.mdt.activity.order.ChooseMdtInfoActivity;
 
-public class MdtInfoPreviewActivity extends BaseMdtDragSortActivity {
+public class SummaryDiseasePreviewActivity extends BaseMdtDragSortActivity {
     private String mDiseaseTypeId;
-    private String mType;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,23 +17,19 @@ public class MdtInfoPreviewActivity extends BaseMdtDragSortActivity {
     @Override
     protected void initData() {
         mDiseaseTypeId = getIntent().getStringExtra(AppConstants.INTENT_DISEASE_TOP_ID);
-        mType=getIntent().getStringExtra(ChooseMdtInfoActivity.KEY_TYPE);
     }
 
     @Override
     public void onBackPressed() {
-        setResult(RESULT_OK,makeResultIntent().putExtra(ChooseMdtInfoActivity.KEY_TYPE,mType));
+        setResult(RESULT_OK,makeResultIntent());
         finish();
     }
 
     @Override
     public void onRightClick(View v) {
-        Intent i=new Intent(mThis,ChooseMdtInfoActivity.class)
+        Intent i=new Intent(mThis,ChooseSummaryDiseaseActivity.class)
                 .putExtra(AppConstants.INTENT_DISEASE_TOP_ID, mDiseaseTypeId)
-                .putExtra(ChooseMdtInfoActivity.KEY_TYPE, mType)
-                .putExtra(AppConstants.INTENT_START_DATA,currentData)
-                .putExtra(AppConstants.INTENT_TITLE,getIntent().getStringExtra(AppConstants.INTENT_TITLE))
-                .putExtra(AppConstants.INTENT_VIEW_ID, getIntent().getIntExtra(AppConstants.INTENT_VIEW_ID,0));;
+                .putExtra(AppConstants.INTENT_START_DATA,currentData);
         startActivityForResult(i,REQ_CODE_CHOOSE);
     }
 }

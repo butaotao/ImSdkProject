@@ -238,7 +238,7 @@ public class EditOrderCaseActivity extends BaseActivity {
             ToastUtil.showToast(mThis,"初步诊断有误请重新选择");
             return;
         }
-        reqParam.diseaseTypeId=diseaseType.array.get(0).id;
+//        reqParam.diseaseTypeId=diseaseType.array.get(0).id;
         reqParam.firstDiag=diseaseType;
         reqParam.mdtGroupId=mdtGroupId;
         reqParam.patient=pInfo;
@@ -269,7 +269,7 @@ public class EditOrderCaseActivity extends BaseActivity {
     @OnClick(R.id.ll_disease_type)
     protected void chooseDisType(View v) {
         TextView tv = commonClickItem(v);
-        Intent i = new Intent(mThis, ChooseDiseaseTypeActivity.class).putExtra(AppConstants.INTENT_START_DATA, diseaseType);
+        Intent i = new Intent(mThis, DiseasePreviewActivity.class).putExtra(AppConstants.INTENT_START_DATA, diseaseType);
         startActivityForResult(i, REQ_CODE_DIS_TYPE);
     }
 

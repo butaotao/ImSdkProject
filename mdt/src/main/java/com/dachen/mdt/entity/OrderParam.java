@@ -7,8 +7,8 @@ public class OrderParam {
 	/**
 	 * 会诊分类
 	 */
-	public String diseaseTypeId;
-	public String topDiseaseId;
+//	public String diseaseTypeId;
+//	public String topDiseaseId;
 
 	public MdtOptionResult firstDiag;
 	/*mdt小组Id*/
