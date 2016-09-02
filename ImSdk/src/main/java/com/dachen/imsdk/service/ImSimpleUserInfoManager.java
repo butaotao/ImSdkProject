@@ -95,7 +95,7 @@ public class ImSimpleUserInfoManager {
 			ResultTemplate<PublicUserInfo> resObj = JSON.parseObject(str,
 					new TypeReference<ResultTemplate<PublicUserInfo>>() {
 					});
-			if (resObj.resultCode == 1){
+			if (resObj.resultCode == 1&&resObj.data!=null){
 				PublicUserInfo info= resObj.data;
 				SimpleUserInfo result=new SimpleUserInfo(info.pid, info.photourl, info.nickName, info.note, SimpleUserInfo.SimpleUserType.TYPE_PUBLIC);
 				return result;

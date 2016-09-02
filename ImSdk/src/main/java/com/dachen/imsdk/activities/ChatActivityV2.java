@@ -1073,12 +1073,11 @@ public abstract class ChatActivityV2 extends ImBaseActivity implements MessageRe
     public void receivedMessage(ChatMessageV2 receivedMessage) {
 
         if (receivedMessage.msgList != null && receivedMessage.msgList.size() > 0) {
+            long curLastTs=0;
+            if(mChatMessages.size()>0){
+                curLastTs= mChatMessages.get(mChatMessages.size()-1).sendTime;
+            }
             for (ChatMessagePo msg : receivedMessage.msgList) {
-//				boolean needAdd=true;
-//				if(mChatMessages.size()>0&&msg.sendTime< mChatMessages.get(mChatMessages.size()-1).sendTime){
-//					needAdd=false;
-//				}
-//				if(needAdd&&msg.isMySend()&&!TextUtils.isEmpty( msg.clientMsgId) ){
                 int toRemove = -1;
                 if (msg.isMySend() && !TextUtils.isEmpty(msg.clientMsgId)) {
                     for (int i = mChatMessages.size() - 1; i >= 0; i--) {
@@ -1090,10 +1089,22 @@ public abstract class ChatActivityV2 extends ImBaseActivity implements MessageRe
                     }
                 }
                 if (toRemove == -1) {
-                    mChatMessages.add(msg);
+                    if(msg.sendTime>curLastTs){
+                        mChatMessages.add(msg);
+                    }else if(msg.sendTime>curLastTs-100){ //去除自己发的消息可能造成的影响
+                        boolean hasMsg=false;
+                        for (int i = mChatMessages.size() - 1; i >= 0; i--) {
+                            ChatMessagePo temp=mChatMessages.get(i);
+                            if(temp.sendTime<curLastTs-100)break;
+                            if (msg.msgId.equals(temp.msgId)) {
+                                hasMsg=true;
+                                break;
+                            }
+                        }
+                        if(!hasMsg)
+                            mChatMessages.add(msg);
+                    }
 //                    mChatMessages.remove(toRemove);
-                } else {
-
                 }
 //				ChatMessagePo chatMessage = chatMsg2Po(messagePL);
                 // 保存消息到数据库
@@ -1137,8 +1148,6 @@ public abstract class ChatActivityV2 extends ImBaseActivity implements MessageRe
 
     /**
      * 将收到的消息保存到数据库,重复的消息不保存
-     *
-     * @param po
      */
     private void saveMessage(ChatMessagePo po) {
         if (po == null) {
