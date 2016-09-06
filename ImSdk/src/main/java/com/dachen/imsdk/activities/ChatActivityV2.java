@@ -1,5 +1,7 @@
 package com.dachen.imsdk.activities;
 
+import android.Manifest;
+import android.Manifest.permission;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
@@ -11,6 +13,8 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.PermissionChecker;
 import android.text.TextUtils;
 import android.util.SparseArray;
 import android.view.KeyEvent;
@@ -311,8 +315,6 @@ public abstract class ChatActivityV2 extends ImBaseActivity implements MessageRe
 
     /**
      * 聊天类型：单聊 CHAT_TYPE_SINGLE 群聊 CHAT_TYPE_GROUP
-     *
-     * @return
      */
     protected int chatType() {
         return CHAT_TYPE_SINGLE;
@@ -320,8 +322,6 @@ public abstract class ChatActivityV2 extends ImBaseActivity implements MessageRe
 
     /**
      * 返回底部+号面板的页数，由子类实现，默认1页
-     *
-     * @return
      */
     protected int getMorePanelCount() {
         return 1;
@@ -329,9 +329,7 @@ public abstract class ChatActivityV2 extends ImBaseActivity implements MessageRe
 
     /**
      * 返回底部+号面板每一页所需的数据，由子类实现
-     *
      * @param page 第几页
-     * @return
      */
     protected abstract List<MoreItem> getMorePanelData(int page);
 
@@ -446,7 +444,7 @@ public abstract class ChatActivityV2 extends ImBaseActivity implements MessageRe
             return null;
         }
         List<UserInfo> tList = JSON.parseArray(po.groupUsers, UserInfo.class);
-        Map<String, UserInfo> userInfoMap = new HashMap<String, UserInfo>();
+        Map<String, UserInfo> userInfoMap = new HashMap<>();
         for (UserInfo info : tList) {
             userInfoMap.put(info.id, info);
         }
@@ -719,21 +717,19 @@ public abstract class ChatActivityV2 extends ImBaseActivity implements MessageRe
         sendMessage(chatMessage);
     }
 
-    protected void sendVideo(String filePath, long fileSize, long timeLen) {
-
-        if (TextUtils.isEmpty(filePath)) {
-            return;
-        }
-        ChatMessagePo chatMessage = new ChatMessagePo();
-        chatMessage.type = MessageType.video;
-        chatMessage.clientMsgId = makeClientId();
-        VoiceMsgParam p = new VoiceMsgParam();
-        p.name = FileUtils.getFileName(filePath);
-        p.time = timeLen + "";
-        chatMessage.param = JSON.toJSONString(p);
-        sendMessage(chatMessage);
-
-    }
+//    protected void sendVideo(String filePath, long fileSize, long timeLen) {
+//        if (TextUtils.isEmpty(filePath)) {
+//            return;
+//        }
+//        ChatMessagePo chatMessage = new ChatMessagePo();
+//        chatMessage.type = MessageType.video;
+//        chatMessage.clientMsgId = makeClientId();
+//        VoiceMsgParam p = new VoiceMsgParam();
+//        p.name = FileUtils.getFileName(filePath);
+//        p.time = timeLen + "";
+//        chatMessage.param = JSON.toJSONString(p);
+//        sendMessage(chatMessage);
+//    }
 
     protected void sendArchive(ArchiveItem item) {
         if (TextUtils.isEmpty(item.fileId)) {
@@ -752,10 +748,9 @@ public abstract class ChatActivityV2 extends ImBaseActivity implements MessageRe
         sendMessage(chatMessage);
     }
 
-    protected void sendFile(File f) {
-    }
-
-    protected void sendLocate(double latitude, double longitude, String address) {
+//    protected void sendFile(File f) {
+//    }
+//    protected void sendLocate(double latitude, double longitude, String address) {
         // ChatMessage message = new ChatMessage();
         // message.setType(XmppMessage.TYPE_LOCATION);
         // message.setFromUserName(mLoginNickName);
@@ -767,7 +762,7 @@ public abstract class ChatActivityV2 extends ImBaseActivity implements MessageRe
         // mChatMessages.add(message);
         // mChatContentView.notifyDataSetInvalidated(true);
         // sendMessage(message);
-    }
+//    }
 
 
     /**
@@ -837,6 +832,24 @@ public abstract class ChatActivityV2 extends ImBaseActivity implements MessageRe
         if (drawableId == R.drawable.im_tool_photo_button_bg) {
             clickPhoto();
         } else if (drawableId == R.drawable.im_tool_camera_button_bg) {
+            int permissionCheck = PermissionChecker.checkSelfPermission(mThis, permission.CAMERA);
+            if(permissionCheck!= PermissionChecker.PERMISSION_GRANTED){
+//                Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
+//                        Uri.fromParts("package", getPackageName(), null));
+//                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                startActivity(intent);
+                if (ActivityCompat.shouldShowRequestPermissionRationale(mThis,Manifest.permission.CAMERA)) {
+
+                    // Show an expanation to the user *asynchronously* -- don't block
+                    // this thread waiting for the user's response! After the user
+                    // sees the explanation, try again to request the permission.
+
+                } else {
+                    ActivityCompat.requestPermissions(mThis,new String[]{Manifest.permission.CAMERA},0);
+                }
+
+                return;
+            }
             clickCamera();
         } else if (drawableId == R.drawable.im_tool_quickreply_button_bg) {
             clickQiuckReply();
@@ -858,7 +871,7 @@ public abstract class ChatActivityV2 extends ImBaseActivity implements MessageRe
     private static final int REQUEST_CODE_SELECT_LOCATE = 5;
     private static final int REQUEST_CODE_QIUCK_REPLY = 8;
     public static final int REQUEST_CODE_ARCHIVE = 13;
-    private static final int REQUEST_CODE_SELECT_FORWARD = 14;
+//    private static final int REQUEST_CODE_SELECT_FORWARD = 14;
     private static final int REQUEST_CODE_AT_PEOPLE = 15;
 
     protected Uri mNewPhotoUri;
@@ -912,7 +925,7 @@ public abstract class ChatActivityV2 extends ImBaseActivity implements MessageRe
 //            } else {
 //                ToastUtil.showToast(this, R.string.c_photo_album_failed);
 //            }
-        } else if (requestCode == REQUEST_CODE_SELECT_VIDEO && resultCode == RESULT_OK) {// 选择视频的返回
+//        } else if (requestCode == REQUEST_CODE_SELECT_VIDEO && resultCode == RESULT_OK) {// 选择视频的返回
 //            if (data == null) {
 //                return;
 //            }
@@ -929,7 +942,7 @@ public abstract class ChatActivityV2 extends ImBaseActivity implements MessageRe
 //                return;
 //            }
 //            sendVideo(filePath, fileSize, timeLen);
-        } else if (requestCode == REQUEST_CODE_SELECT_FILE && resultCode == RESULT_OK) {// 选择文件的返回
+//        } else if (requestCode == REQUEST_CODE_SELECT_FILE && resultCode == RESULT_OK) {// 选择文件的返回
 //            String filePath = data.getStringExtra(AppConstant.FILE_PAT_NAME);
 //            if (TextUtils.isEmpty(filePath)) {
 //                ToastUtil.showToast(this, R.string.select_failed);
@@ -941,7 +954,7 @@ public abstract class ChatActivityV2 extends ImBaseActivity implements MessageRe
 //                return;
 //            }
 //            sendFile(file);
-        } else if (requestCode == REQUEST_CODE_SELECT_LOCATE && resultCode == RESULT_OK) {
+//        } else if (requestCode == REQUEST_CODE_SELECT_LOCATE && resultCode == RESULT_OK) {
 //            double latitude = data.getDoubleExtra(AppConstant.EXTRA_LATITUDE, 0);
 //            double longitude = data.getDoubleExtra(AppConstant.EXTRA_LONGITUDE, 0);
 //            String address = DApplication.getUniqueInstance().getBdLocationHelper().getAddress();
@@ -999,12 +1012,11 @@ public abstract class ChatActivityV2 extends ImBaseActivity implements MessageRe
         final String reqTag = "getMessageFromWeb";
         RequestQueue mRequestQueue = VolleyUtil.getQueue(this);
         mRequestQueue.cancelAll(reqTag);
-        Map<String, String> params = new HashMap<String, String>();
+        Map<String, String> params = new HashMap<>();
         params.put("access_token", ImSdk.getInstance().accessToken);
         params.put("userId", ImSdk.getInstance().userId);
         params.put("groupId", mGroupId == null ? "" : mGroupId);
         params.put("type", mChatMessages.size() > 0 ? "1" : "0");
-//        params.put("msgId", mChatMessages.size() > 0 ? mChatMessages.get(0).msgId : "");
         params.put("msgId",dao.getFirstMsgId(mGroupId));
         params.put("cnt", PAGE_SIZE + "");
         Logger.d(TAG, "getMessageFromWeb param=" + params);
@@ -1035,7 +1047,6 @@ public abstract class ChatActivityV2 extends ImBaseActivity implements MessageRe
     /**
      * 处理http请求返回结果
      *
-     * @param response
      */
     private void handleOldMsgResponse(String response) {
         ResultTemplate<ChatMessageV2> receivedMessage = JSON.parseObject(response,
@@ -1123,8 +1134,6 @@ public abstract class ChatActivityV2 extends ImBaseActivity implements MessageRe
 
     /**
      * 收到单条消息时调用，给子类继承
-     *
-     * @param chatMessage
      */
     protected void receivedMessage(ChatMessagePo chatMessage) {
 
@@ -1233,7 +1242,6 @@ public abstract class ChatActivityV2 extends ImBaseActivity implements MessageRe
     /**
      * 当成员被移除会话组时调用
      *
-     * @param isRemoved
      */
     protected void removedFromGroup(boolean isRemoved) {
     }
@@ -1249,8 +1257,6 @@ public abstract class ChatActivityV2 extends ImBaseActivity implements MessageRe
     /**
      * 得到对方的UserList
      *
-     * @param userList
-     * @return
      */
     private static GroupInfo2Bean.Data.UserInfo getUserList(GroupInfo2Bean.Data.UserInfo[] userList) {
         if (userList == null) {
@@ -1261,7 +1267,7 @@ public abstract class ChatActivityV2 extends ImBaseActivity implements MessageRe
             return null;
         }
         for (GroupInfo2Bean.Data.UserInfo _u : userList) {
-            if (_u != null && _u.id != null && ownerUserId.equalsIgnoreCase(_u.id) == false) {
+            if (_u != null && _u.id != null && !ownerUserId.equalsIgnoreCase(_u.id)) {
                 return _u;
             }
         }
@@ -1350,11 +1356,11 @@ public abstract class ChatActivityV2 extends ImBaseActivity implements MessageRe
 
                 int heightDiff = activityRootView.getRootView().getHeight() - activityRootView.getHeight();
                 if (heightDiff > 100) {
-                    if (isKeyboardOpened == false) {
+                    if (!isKeyboardOpened) {
                         mChatBottomView.hideChatFaceView();
                     }
                     isKeyboardOpened = true;
-                } else if (isKeyboardOpened == true) {
+                } else if (isKeyboardOpened) {
                     isKeyboardOpened = false;
                 }
             }
@@ -1510,10 +1516,6 @@ public abstract class ChatActivityV2 extends ImBaseActivity implements MessageRe
 
     /**
      * 发送指令
-     *
-     * @param eventType
-     * @param toUserId
-     * @param param
      */
     protected void sendEvent(int eventType, String toUserId, Map<String, String> param) {
         final String reqTag = "sendEvent";

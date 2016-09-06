@@ -96,7 +96,7 @@ public class ImCommonRequest extends StringRequest {
             } catch (PackageManager.NameNotFoundException e) {
             }
             label.append("/");
-            label.append(System.getProperty("http.agent"));
+            label.append( "android_"+System.getProperty("http.agent"));
             headers.put("User-Agent", label.toString());
 
         }
