@@ -8,6 +8,8 @@ import com.dachen.imsdk.ImSdk;
 public class UrlConstants {
     private static String IP;
 
+    public static final String GET_VERSION="/mdt/getLatestVersion";
+
     public static final String LOGIN="/mdt/auth/login";
     public static final String LOGIN_AUTO="/mdt/auth/loginAuto";
     public static final String UPDATE_PWD="/mdt/auth/updatePwd";

@@ -125,7 +125,7 @@
             android:layout_height="wrap_content"
             android:layout_above="@id/service_policy"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="10dp"
+            android:padding="10dp"
             android:text="检查新版本"
             android:textColor="@color/blue"/>
     </RelativeLayout>
