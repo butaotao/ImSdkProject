@@ -49,6 +49,7 @@ public class MessagePollingV2 {
 	private ChatMessageDao dao;
 	private String mLastestMsgId;
 	private String mGroupId;
+	private boolean isObserveMode;
 
 	@SuppressLint("HandlerLeak")
 	private Handler mHandler = new Handler() {
@@ -79,6 +80,10 @@ public class MessagePollingV2 {
 		mRequestQueue = VolleyUtil.getQueue(mContext);
 	}
 
+	public void setObserveMode(boolean observeMode) {
+		isObserveMode = observeMode;
+	}
+
 	/**
 	 */
 	public void setMessageReceiverListener(MessageReceivableV2 messageListener) {
@@ -94,7 +99,7 @@ public class MessagePollingV2 {
 			mRequestQueue.cancelAll(TAG);
 		}
 
-		if (TextUtils.isEmpty(mLastestMsgId)) {
+		if (TextUtils.isEmpty(mLastestMsgId)&&!isObserveMode) {
 			// 从数据库获取最新消息的msgId
 			mLastestMsgId =dao.getLastMsgId(mGroupId);
 		}
@@ -135,7 +140,7 @@ public class MessagePollingV2 {
 	private class MessageRequest extends ImCommonRequest {
 
 		public MessageRequest(Listener<String> listener, ErrorListener errorListener) {
-			super( PollingURLs.getMessageV2(),null, listener, errorListener);
+			super( isObserveMode?PollingURLs.observeMsgList():PollingURLs.getMessageV2(),null, listener, errorListener);
 		}
 
 		@Override
