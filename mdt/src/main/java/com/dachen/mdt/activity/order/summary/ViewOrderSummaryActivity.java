@@ -56,7 +56,9 @@ public class ViewOrderSummaryActivity extends BaseActivity {
         mListView.setAdapter(mAdapter);
         fetchOrderReport();
         isLeader=getIntent().getBooleanExtra(AppConstants.INTENT_IS_LEADER,false);
-        if(isLeader){
+        if(myStatus==-2){//围观
+            mRightBtn.setVisibility(View.GONE);
+        }else if(isLeader){
             mRightBtn.setText(myStatus==2?"填写报告":"填写小结");
         }else{
             mRightBtn.setText("填写小结");

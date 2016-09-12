@@ -118,6 +118,8 @@
         </activity>
         <activity android:name=".activity.order.OrderChatActivity">
         </activity>
+        <activity android:name=".activity.order.ObserveChatActivity">
+        </activity>
         <activity android:name=".activity.order.ChooseMdtActivity">
         </activity>
         <activity android:name=".activity.order.ChooseMdtInfoActivity">

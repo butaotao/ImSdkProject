@@ -125,6 +125,7 @@ public class OrderChatActivity extends AppBaseChatActivity {
         View contentView = getLayoutInflater().inflate(R.layout.order_pop_menu, null);
         contentView.findViewById(R.id.ll_order_case).setOnClickListener(popClickListener);
         contentView.findViewById(R.id.ll_expert).setOnClickListener(popClickListener);
+        contentView.findViewById(R.id.layout_summary).setVisibility(View.GONE);
         mPopWindow = new PopupWindow(contentView, ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
         mPopWindow.setFocusable(true);
         mPopWindow.setBackgroundDrawable(new BitmapDrawable());
@@ -134,6 +135,7 @@ public class OrderChatActivity extends AppBaseChatActivity {
     private OnClickListener popClickListener =new OnClickListener() {
         @Override
         public void onClick(View v) {
+            mPopWindow.dismiss();
             if(TextUtils.isEmpty(groupPo.param)){
                 return;
             }
@@ -152,7 +154,6 @@ public class OrderChatActivity extends AppBaseChatActivity {
                 i.putExtra(AppConstants.INTENT_ORDER_ID,param.orderId);
                 startActivity(i);
             }
-            mPopWindow.dismiss();
         }
     };
 
@@ -180,15 +181,6 @@ public class OrderChatActivity extends AppBaseChatActivity {
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.putExtra(INTENT_EXTRA_GROUP_NAME, groupName);
         intent.putExtra(INTENT_EXTRA_GROUP_ID, groupId);
-        context.startActivity(intent);
-    }
-    public static void openUI(Context context, ChatGroupPo po) {
-        Intent intent = new Intent(context, OrderChatActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.putExtra(INTENT_EXTRA_GROUP_NAME, po.name);
-        intent.putExtra(INTENT_EXTRA_GROUP_ID, po.groupId);
-        intent.putExtra(INTENT_EXTRA_GROUP_PARAM, po);
-        intent.putExtra(INTENT_EXTRA_IS_OBSERVE, true);
         context.startActivity(intent);
     }
 
