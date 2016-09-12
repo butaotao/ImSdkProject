@@ -1,28 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
-    <RelativeLayout
-        style="@style/main_title_bar">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout style="@style/main_title_bar">
+
         <TextView
             style="@style/main_title_text"
-            android:text="患者管理"
-            />
+            android:text="患者管理" />
 
         <ImageView
             style="@style/divider_line"
-            android:layout_alignParentBottom="true"
-            />
+            android:layout_alignParentBottom="true" />
     </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dip"
+        android:background="@color/background" />
 
     <ExpandableListView
         android:id="@+id/list_view"
-        android:groupIndicator="@null"
-        android:background="@color/white"
-        android:divider="@null"
-        android:childDivider="@color/transparent"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:childDivider="@color/transparent"
+        android:divider="@null"
+        android:groupIndicator="@null" />
 
+    <View style="@style/divider_line" />
 </LinearLayout>

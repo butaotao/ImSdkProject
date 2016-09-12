@@ -53,7 +53,6 @@ public class LoginActivity extends BaseActivity {
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
         etPhone.setText(SpUtils.getSp().getString(SpUtils.KEY_LAST_LOGIN_PHONE,null));
-//        etPwd.setText("123456");
     }
 
     @OnClick(R.id.login_btn)

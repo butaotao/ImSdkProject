@@ -75,7 +75,7 @@
                 android:singleLine="true"
                 android:text="11111232312"
                 android:textColor="@color/grey"
-                android:textSize="18sp" />
+                android:textSize="14sp" />
         </LinearLayout>
     </RelativeLayout>
 
@@ -184,7 +184,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="21dp"
-            android:src="@drawable/medicalRecords_draft" />
+            android:src="@drawable/medicalrecords_draft" />
 
         <TextView
             android:layout_width="wrap_content"

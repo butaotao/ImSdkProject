@@ -47,7 +47,7 @@ public class MeFragment extends BaseFragment {
     private void refreshInfo(){
         DoctorInfo info= AppCommonUtils.getLoginUser();
         tvName.setText(info.name);
-        tvTelephone.setText(info.telephone);
+        tvTelephone.setText("电话："+info.telephone);
         ImageLoader.getInstance().displayImage(info.avatar,ivAvatar);
     }
 
