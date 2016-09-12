@@ -1578,6 +1578,7 @@ public class ChatAdapterV2 extends MultiItemCommonAdapter<ChatMessagePo> impleme
     }
 
     private void showMenu(ChatMessagePo data,boolean hasDownload){
+        if(msgHandler.noMenu())return;
         Dialog dialog=new Dialog(mContext,R.style.MsgMenuDialog);
         dialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM,WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
         View v=mInflater.inflate(R.layout.msg_menu,mContext.mRootLayout,false);

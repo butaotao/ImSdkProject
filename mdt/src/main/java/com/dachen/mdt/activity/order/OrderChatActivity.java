@@ -22,6 +22,7 @@ import com.dachen.common.utils.VolleyUtil;
 import com.dachen.common.widget.CustomDialog;
 import com.dachen.common.widget.CustomDialog.CustomClickEvent;
 import com.dachen.imsdk.adapter.ChatAdapterV2;
+import com.dachen.imsdk.db.po.ChatGroupPo;
 import com.dachen.imsdk.db.po.ChatMessagePo;
 import com.dachen.imsdk.entity.ImgTextMsgV2;
 import com.dachen.imsdk.entity.MoreItem;
@@ -124,6 +125,7 @@ public class OrderChatActivity extends AppBaseChatActivity {
         View contentView = getLayoutInflater().inflate(R.layout.order_pop_menu, null);
         contentView.findViewById(R.id.ll_order_case).setOnClickListener(popClickListener);
         contentView.findViewById(R.id.ll_expert).setOnClickListener(popClickListener);
+        contentView.findViewById(R.id.layout_summary).setVisibility(View.GONE);
         mPopWindow = new PopupWindow(contentView, ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
         mPopWindow.setFocusable(true);
         mPopWindow.setBackgroundDrawable(new BitmapDrawable());
@@ -133,6 +135,7 @@ public class OrderChatActivity extends AppBaseChatActivity {
     private OnClickListener popClickListener =new OnClickListener() {
         @Override
         public void onClick(View v) {
+            mPopWindow.dismiss();
             if(TextUtils.isEmpty(groupPo.param)){
                 return;
             }
@@ -151,7 +154,6 @@ public class OrderChatActivity extends AppBaseChatActivity {
                 i.putExtra(AppConstants.INTENT_ORDER_ID,param.orderId);
                 startActivity(i);
             }
-            mPopWindow.dismiss();
         }
     };
 

@@ -130,6 +130,7 @@ public abstract class ChatActivityV2 extends ImBaseActivity implements MessageRe
     public static final String INTENT_EXTRA_GROUP_ID = "intent_extra_group_id";
     public static final String INTENT_EXTRA_GROUP_NAME = "intent_extra_group_name";
     public static final String INTENT_EXTRA_GROUP_PARAM="intent_extra_group_param";
+    public static final String INTENT_EXTRA_IS_OBSERVE="isObserveMode";
     // 该参数仅用于群聊
     public static final String INTENT_EXTRA_GROUP_USER_LIST = "intent_extra_group_user_list";
     public static final String INTENT_EXTRA_USER_ID = "intent_extra_user_id";
@@ -181,6 +182,7 @@ public abstract class ChatActivityV2 extends ImBaseActivity implements MessageRe
     protected ChatGroupPo groupPo;
     private long refreshTs;
     private long startMsgId;
+    public boolean isObserveMode;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -404,12 +406,14 @@ public abstract class ChatActivityV2 extends ImBaseActivity implements MessageRe
 
     private void init() {
         mGroupId = getIntent().getStringExtra(INTENT_EXTRA_GROUP_ID);
-        if (mGroupId != null) {
+        groupPo= (ChatGroupPo) getIntent().getSerializableExtra(INTENT_EXTRA_GROUP_PARAM);
+        isObserveMode=getIntent().getBooleanExtra(INTENT_EXTRA_IS_OBSERVE,false);
+        if (mGroupId != null&&groupPo==null) {
             groupPo = groupDao.queryForId(mGroupId);
-            if (groupPo != null) {
-                mChatBottomView.getChatEdit().setText(groupPo.draft);
-                fetchBizStatus();
-            }
+        }
+        if (groupPo != null) {
+            mChatBottomView.getChatEdit().setText(groupPo.draft);
+            fetchBizStatus();
         }
         mUserList = (List<UserInfo>) getIntent().getSerializableExtra(INTENT_EXTRA_GROUP_USER_LIST);
         if (mUserList == null && groupPo != null) {
@@ -1017,10 +1021,17 @@ public abstract class ChatActivityV2 extends ImBaseActivity implements MessageRe
         params.put("userId", ImSdk.getInstance().userId);
         params.put("groupId", mGroupId == null ? "" : mGroupId);
         params.put("type", mChatMessages.size() > 0 ? "1" : "0");
-        params.put("msgId",dao.getFirstMsgId(mGroupId));
+        String msgId;
+        if(isObserveMode){
+            msgId= mChatMessages.size() > 0 ?mChatMessages.get(0).msgId:"";
+        }else{
+            msgId=dao.getFirstMsgId(mGroupId);
+        }
+        params.put("msgId",msgId);//dao.getFirstMsgId(mGroupId)
         params.put("cnt", PAGE_SIZE + "");
         Logger.d(TAG, "getMessageFromWeb param=" + params);
-        StringRequest request = new ImCommonRequest(PollingURLs.getMessageV2(), params, new Listener<String>() {
+        String url=isObserveMode?PollingURLs.observeMsgList():PollingURLs.getMessageV2();
+        StringRequest request = new ImCommonRequest(url, params, new Listener<String>() {
 
             @Override
             public void onResponse(String response) {
@@ -1063,7 +1074,8 @@ public abstract class ChatActivityV2 extends ImBaseActivity implements MessageRe
             ChatMessagePo msg = list.get(i);
 //			ChatMessagePo chatMessage = chatMsg2Po(msg);
             msg.requestState = ChatMessagePo.REQ_STATES_SEND_OK;
-            saveMessage(msg);
+            if(!isObserveMode)
+                saveMessage(msg);
             mChatMessages.add(0, msg);
         }
         if (!receivedMessage.data.more && mChatMessages.size() > 0) {
@@ -1077,6 +1089,10 @@ public abstract class ChatActivityV2 extends ImBaseActivity implements MessageRe
 
     }
 
+    /**
+     * 收到单条消息时调用，给子类继承
+     */
+    protected void receivedMessage(ChatMessagePo chatMessage) {}
     /**
      * 从这里接收消息
      */
@@ -1120,7 +1136,8 @@ public abstract class ChatActivityV2 extends ImBaseActivity implements MessageRe
 //				ChatMessagePo chatMessage = chatMsg2Po(messagePL);
                 // 保存消息到数据库
                 msg.requestState = ChatMessagePo.REQ_STATES_SEND_OK;
-                saveMessage(msg);
+                if(!isObserveMode)
+                    saveMessage(msg);
 
                 receivedMessage(msg);
             }
@@ -1132,12 +1149,7 @@ public abstract class ChatActivityV2 extends ImBaseActivity implements MessageRe
         }
     }
 
-    /**
-     * 收到单条消息时调用，给子类继承
-     */
-    protected void receivedMessage(ChatMessagePo chatMessage) {
 
-    }
 
     private void loadMessageFromDB(long time) {
         if (mGroupId == null) {
@@ -1384,6 +1396,10 @@ public abstract class ChatActivityV2 extends ImBaseActivity implements MessageRe
             if (mChatMessages.size() == 0) {
                 pollImmediately();
                 mChatContentView.headerRefreshingCompleted();
+                return;
+            }
+            if(isObserveMode){
+                getOldMessageFromWeb();
                 return;
             }
             String firstId = ImSpUtils.getFirstMsgId(mGroupId);

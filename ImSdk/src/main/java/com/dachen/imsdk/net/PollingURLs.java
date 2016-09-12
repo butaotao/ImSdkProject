@@ -140,6 +140,12 @@ public class PollingURLs {
 	public static String topChatGroup(){
 		return IM_BASE_URL + "im/convers/groupTop.action";
 	}
+	public static String observeGroupInfo(){
+		return IM_BASE_URL + "im/convers/groupInfo.action";
+	}
+	public static String observeMsgList(){
+		return IM_BASE_URL + "im/convers/groupMsg.action";
+	}
 	/**
 	 * 改变Ip,内网外网切换
 	 */

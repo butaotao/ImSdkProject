@@ -298,4 +298,8 @@ public class ImMsgHandler {
     public boolean onForwardMessage(String msgId){
         return false;
     }
+
+    public boolean noMenu(){
+        return mContext.isObserveMode;
+    }
 }
