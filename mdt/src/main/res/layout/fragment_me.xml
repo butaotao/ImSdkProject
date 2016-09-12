@@ -1,30 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:background="@color/setting_bg"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
-    <RelativeLayout
-        style="@style/main_title_bar">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/setting_bg"
+    android:orientation="vertical">
+
+    <RelativeLayout style="@style/main_title_bar">
+
         <TextView
             style="@style/main_title_text"
-            android:text="我"
-            />
+            android:text="我" />
 
         <ImageView
             style="@style/divider_line"
-            android:layout_alignParentBottom="true"
-            />
+            android:layout_alignParentBottom="true" />
     </RelativeLayout>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dip"
+        android:background="@color/background" />
+
+    <View style="@style/divider_line" />
 
     <RelativeLayout
-        android:layout_marginTop="10dp"
         android:id="@+id/layout_base_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/setting_click_bg"
-        >
+        android:background="@drawable/setting_click_bg">
 
         <RelativeLayout
             android:id="@+id/avatar_layout"
@@ -38,13 +41,13 @@
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:scaleType="fitCenter"
-                android:src="@drawable/avatar_normal"/>
+                android:src="@drawable/avatar_normal" />
         </RelativeLayout>
 
         <ImageView
             android:id="@+id/img"
             style="@style/Arrow_Item_right"
-            android:src="@drawable/arrow_right"/>
+            android:src="@drawable/arrow_right" />
 
         <LinearLayout
             android:id="@+id/basic_info"
@@ -62,8 +65,7 @@
                 android:singleLine="true"
                 android:text="12323"
                 android:textColor="@color/black"
-                android:textSize="18sp"
-                />
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/tv_telephone"
@@ -73,31 +75,34 @@
                 android:singleLine="true"
                 android:text="11111232312"
                 android:textColor="@color/grey"
-                android:textSize="18sp"
-                />
+                android:textSize="18sp" />
         </LinearLayout>
     </RelativeLayout>
 
+    <View style="@style/divider_line" />
+
     <View
         android:layout_width="match_parent"
-        android:layout_height="10dp"/>
+        android:layout_height="10dip"
+        android:background="@color/background" />
+
+    <View style="@style/divider_line" />
 
     <RelativeLayout
         android:id="@+id/feedback_layout"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@drawable/setting_click_bg"
-        android:visibility="gone"
-        >
+        android:visibility="gone">
 
         <!--<ImageView-->
-            <!--android:id="@+id/feed_back_iv"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_centerVertical="true"-->
-            <!--android:layout_marginLeft="21dp"-->
-            <!--android:src="@drawable/me_feed_back"-->
-            <!--/>-->
+        <!--android:id="@+id/feed_back_iv"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_centerVertical="true"-->
+        <!--android:layout_marginLeft="21dp"-->
+        <!--android:src="@drawable/me_feed_back"-->
+        <!--/>-->
 
         <TextView
             android:id="@+id/feed_back_tv"
@@ -106,7 +111,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="12dp"
             android:text="意见反馈"
-            android:textSize="16sp"/>
+            android:textSize="16sp" />
 
         <ImageView
             android:id="@+id/unread_count"
@@ -121,7 +126,7 @@
 
         <ImageButton
             style="@style/Arrow_Item_right"
-            android:src="@drawable/arrow_right"/>
+            android:src="@drawable/arrow_right" />
     </RelativeLayout>
 
 
@@ -129,15 +134,14 @@
         android:id="@+id/layout_my_order"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@drawable/setting_click_bg"
-        >
+        android:background="@drawable/setting_click_bg">
 
         <!--<View-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="1dp"-->
-            <!--android:layout_marginLeft="15dp"-->
-            <!--android:background="@color/divide_line_color"-->
-            <!--/>-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="1dp"-->
+        <!--android:layout_marginLeft="15dp"-->
+        <!--android:background="@color/divide_line_color"-->
+        <!--/>-->
 
         <ImageView
             android:id="@+id/iv_my_order"
@@ -145,35 +149,72 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="21dp"
-            android:src="@drawable/my_order"
-            />
+            android:src="@drawable/my_order" />
 
         <TextView
-            android:layout_toRightOf="@id/iv_my_order"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="12dp"
+            android:layout_toRightOf="@id/iv_my_order"
             android:text="我发起的会诊"
-            android:textSize="16sp"/>
+            android:textSize="16sp" />
 
         <ImageButton
             style="@style/Arrow_Item_right"
-            android:src="@drawable/arrow_right"/>
+            android:src="@drawable/arrow_right" />
     </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/layout_my_caogao"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/setting_click_bg">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginLeft="15dp"
+            android:background="@color/text_line_color" />
+
+        <ImageView
+            android:id="@+id/iv_my_caogao"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="21dp"
+            android:src="@drawable/medicalRecords_draft" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="12dp"
+            android:layout_toRightOf="@id/iv_my_caogao"
+            android:text="我发起的病例草稿"
+            android:textSize="16sp" />
+
+        <ImageButton
+            style="@style/Arrow_Item_right"
+            android:src="@drawable/arrow_right" />
+    </RelativeLayout>
+
+    <View style="@style/divider_line" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dip"
+        android:background="@color/background" />
+
+    <View style="@style/divider_line" />
+
     <RelativeLayout
         android:id="@+id/layout_setting"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@drawable/setting_click_bg"
-        >
+        android:background="@drawable/setting_click_bg">
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginLeft="15dp"
-            android:background="@color/divide_line_color"
-            />
 
         <ImageView
             android:id="@+id/setting_iv"
@@ -181,21 +222,22 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="21dp"
-            android:src="@drawable/setting"
-            />
+            android:src="@drawable/setting" />
 
         <TextView
-            android:layout_toRightOf="@id/setting_iv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="12dp"
+            android:layout_toRightOf="@id/setting_iv"
             android:text="设置"
-            android:textSize="16sp"/>
+            android:textSize="16sp" />
 
         <ImageButton
             style="@style/Arrow_Item_right"
-            android:src="@drawable/arrow_right"/>
+            android:src="@drawable/arrow_right" />
     </RelativeLayout>
+
+    <View style="@style/divider_line" />
 
 </LinearLayout>

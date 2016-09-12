@@ -23,6 +23,7 @@ public class ChooseTextActivity extends BaseActivity implements OnClickListener{
     private ChooseTextAdapter mAdapter;
     protected ListView mListView;
     private TextView mTitle;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
