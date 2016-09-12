@@ -182,7 +182,7 @@ public abstract class ChatActivityV2 extends ImBaseActivity implements MessageRe
     protected ChatGroupPo groupPo;
     private long refreshTs;
     private long startMsgId;
-    protected boolean isObserveMode;
+    public boolean isObserveMode;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -1021,7 +1021,13 @@ public abstract class ChatActivityV2 extends ImBaseActivity implements MessageRe
         params.put("userId", ImSdk.getInstance().userId);
         params.put("groupId", mGroupId == null ? "" : mGroupId);
         params.put("type", mChatMessages.size() > 0 ? "1" : "0");
-        params.put("msgId",dao.getFirstMsgId(mGroupId));
+        String msgId;
+        if(isObserveMode){
+            msgId= mChatMessages.size() > 0 ?mChatMessages.get(0).msgId:"";
+        }else{
+            msgId=dao.getFirstMsgId(mGroupId);
+        }
+        params.put("msgId",msgId);//dao.getFirstMsgId(mGroupId)
         params.put("cnt", PAGE_SIZE + "");
         Logger.d(TAG, "getMessageFromWeb param=" + params);
         String url=isObserveMode?PollingURLs.observeMsgList():PollingURLs.getMessageV2();
