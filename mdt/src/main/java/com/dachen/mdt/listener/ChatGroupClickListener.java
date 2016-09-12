@@ -22,6 +22,7 @@ public class ChatGroupClickListener implements OnClickListener {
     public void onClick(View v) {
         if (po == null) return;
         Context context = MyApplication.getInstance();
-        OrderChatActivity.openUI(context,po.name,po.groupId);
+//        OrderChatActivity.openUI(context,po.name,po.groupId);
+        OrderChatActivity.openUI(context,po);
     }
 }

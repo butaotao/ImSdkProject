@@ -22,6 +22,7 @@ import com.dachen.common.utils.VolleyUtil;
 import com.dachen.common.widget.CustomDialog;
 import com.dachen.common.widget.CustomDialog.CustomClickEvent;
 import com.dachen.imsdk.adapter.ChatAdapterV2;
+import com.dachen.imsdk.db.po.ChatGroupPo;
 import com.dachen.imsdk.db.po.ChatMessagePo;
 import com.dachen.imsdk.entity.ImgTextMsgV2;
 import com.dachen.imsdk.entity.MoreItem;
@@ -179,6 +180,15 @@ public class OrderChatActivity extends AppBaseChatActivity {
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.putExtra(INTENT_EXTRA_GROUP_NAME, groupName);
         intent.putExtra(INTENT_EXTRA_GROUP_ID, groupId);
+        context.startActivity(intent);
+    }
+    public static void openUI(Context context, ChatGroupPo po) {
+        Intent intent = new Intent(context, OrderChatActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtra(INTENT_EXTRA_GROUP_NAME, po.name);
+        intent.putExtra(INTENT_EXTRA_GROUP_ID, po.groupId);
+        intent.putExtra(INTENT_EXTRA_GROUP_PARAM, po);
+        intent.putExtra(INTENT_EXTRA_IS_OBSERVE, true);
         context.startActivity(intent);
     }
 
