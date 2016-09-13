@@ -13,13 +13,13 @@ public class CanViewOrderResult implements Serializable {
 
     public static class OrderItem implements Serializable{
         public String patientName;
-        public String patientSex;
+        public int patientSex;
         public String creator;
         public String orderId;
         public String mdtGroupName;
         public String groupId;
         public String patientAge;
-        public String endTime;
+        public long endTime;
         public String userName;
         public String hospital;
         public String firstDiag;

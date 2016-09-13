@@ -51,6 +51,7 @@ public class WatchFragment extends BaseFragment {
         EventBus.getDefault().register(this);
         list = new CopyOnWriteArrayList<>();
         watchAdapter = new WatchAdapter(getActivity(), list);
+        mListView.setAdapter(watchAdapter);
         canViewOrderList();
         return v;
     }
