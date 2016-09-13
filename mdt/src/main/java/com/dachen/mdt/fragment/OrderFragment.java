@@ -49,11 +49,6 @@ public class OrderFragment extends BaseFragment {
         return R.layout.fragment_order;
     }
 
-    @OnClick(R.id.create_order)
-    public void createOrder(){
-        startActivity(new Intent(mParent, ChoosePatientActivity.class));
-    }
-
     public void onEventMainThread(NewMsgEvent event) {
         mListView.updateView();
     }

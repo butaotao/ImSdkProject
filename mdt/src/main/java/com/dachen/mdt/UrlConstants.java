@@ -48,6 +48,7 @@ public class UrlConstants {
     public static final String GET_TAG_PATIENTS="/mdt/patient/getTagPatients";
     public static final String GET_PATIENT_ORDER="/mdt/patient/getPatientOrder";
 
+    public static final String CAN_VIEW_ORDER_LIST="/mdt/order/canViewOrderList";
 
 
     public static String getUrl(String url){

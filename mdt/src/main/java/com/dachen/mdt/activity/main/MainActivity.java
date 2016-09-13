@@ -11,6 +11,7 @@ import android.view.View.OnClickListener;
 import com.dachen.imsdk.utils.PushUtils;
 import com.dachen.mdt.R;
 import com.dachen.mdt.activity.BaseActivity;
+import com.dachen.mdt.fragment.HomeFragment;
 import com.dachen.mdt.fragment.MeFragment;
 import com.dachen.mdt.fragment.OrderFragment;
 import com.dachen.mdt.fragment.PatientFragment;
@@ -28,7 +29,7 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mFragments[0]=new OrderFragment();
+        mFragments[0]=new HomeFragment();
         mFragments[1]=new PatientFragment();
         mFragments[2]=new MeFragment();
         mPager= (ViewPager) findViewById(R.id.view_pager);
