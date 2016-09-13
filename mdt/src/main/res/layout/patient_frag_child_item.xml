@@ -38,7 +38,7 @@
             android:textColor="#999"
             android:textSize="12sp" />
 
-        <ImageButton
+        <ImageView
             style="@style/Arrow_Item_right"
             android:src="@drawable/arrow_right" />
 

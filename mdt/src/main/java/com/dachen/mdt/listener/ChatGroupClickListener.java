@@ -6,7 +6,7 @@ import android.view.View.OnClickListener;
 
 import com.dachen.imsdk.db.po.ChatGroupPo;
 import com.dachen.mdt.MyApplication;
-import com.dachen.mdt.activity.order.ObserveChatActivity;
+import com.dachen.mdt.activity.order.OrderChatActivity;
 
 /**
  * Created by Mcp on 2016/7/29.
@@ -22,7 +22,7 @@ public class ChatGroupClickListener implements OnClickListener {
     public void onClick(View v) {
         if (po == null) return;
         Context context = MyApplication.getInstance();
-//        OrderChatActivity.openUI(context,po.name,po.groupId);
-        ObserveChatActivity.openUI(context,po);
+        OrderChatActivity.openUI(context,po.name,po.groupId);
+//        ObserveChatActivity.openUI(context,po);
     }
 }
